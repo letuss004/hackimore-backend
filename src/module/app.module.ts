@@ -12,12 +12,8 @@ import {
 import { AuthModule } from 'src/module/auth';
 import { BaseModule } from 'src/module/base';
 import { StorageModule } from 'src/module/storage';
+import { SystemModule } from 'src/module/system/system.module';
 import { UserModule } from 'src/module/user';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TaskManagerController } from './task-manager/task-manager.controller';
-import { TaskManagerService } from './task-manager/task-manager.service';
-import { TaskScheduleService } from './task-schedule.service';
 
 @Module({
   imports: [
@@ -25,13 +21,12 @@ import { TaskScheduleService } from './task-schedule.service';
     ScheduleModule.forRoot(),
     DiscoveryModule,
     BaseModule,
-    StorageModule,
     AuthModule,
     UserModule,
+    SystemModule,
+    StorageModule,
     // Business logic module
   ],
-  controllers: [AppController, TaskManagerController],
-  providers: [AppService, TaskManagerService, TaskScheduleService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

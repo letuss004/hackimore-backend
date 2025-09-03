@@ -9,7 +9,8 @@ import { PayloadValidationPipe } from '@server/pipe';
 import { CUSTOM_JS } from 'src/common/const/swagger';
 import { HttpExceptionFilter } from 'src/exception/filter';
 import { TimeoutInterceptor } from 'src/interceptor';
-import { AppModule, AppService } from 'src/module/app';
+import { SystemService } from 'src/module/system';
+import { AppModule } from './module/app.module';
 
 /**
  * Note:
@@ -40,7 +41,7 @@ import { AppModule, AppService } from 'src/module/app';
   });
 
   // swagger documentation
-  const appService = app.get(AppService);
+  const appService = app.get(SystemService);
   await appService.injectCustomMetadataToSwaggerEndpoints();
   const config = new DocumentBuilder()
     .setTitle(`${APP_NAME} Apis Documentation`)

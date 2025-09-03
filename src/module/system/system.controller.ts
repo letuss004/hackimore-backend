@@ -27,10 +27,13 @@ import {
 import { DatabaseService } from 'src/module/base/database';
 import { TestNestjsRestfulPayloadBodyDto, TestNestjsRestfulPayloadQueryDto } from './dto';
 
-@Controller({ version: VERSION_NEUTRAL })
-@ApiTags('Application')
+@Controller({
+  path: 'system',
+  version: VERSION_NEUTRAL,
+})
+@ApiTags('System')
 @RoleBaseAccessControl(AccessRole.Public)
-export class AppController {
+export class SystemController {
   constructor(
     private readonly health: HealthCheckService,
     // private readonly http: HttpHealthIndicator,

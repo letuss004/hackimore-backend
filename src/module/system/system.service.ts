@@ -6,7 +6,7 @@ import { UserRole } from '@prisma/client';
 import { RBAC_METADATA_KEY } from 'src/decorator';
 
 @Injectable()
-export class AppService {
+export class SystemService {
   public endpointCount = 0;
 
   constructor(

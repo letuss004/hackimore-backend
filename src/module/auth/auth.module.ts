@@ -14,7 +14,7 @@ import { RefreshTokenStrategy } from './refresh-token.strategy';
       secret: ServerConfig.get().JWT_SECRET,
     }),
   ],
-  providers: [AuthService, RefreshTokenStrategy, AuthStrategy],
   controllers: [AuthController],
+  providers: [AuthService, RefreshTokenStrategy, AuthStrategy],
 })
 export class AuthModule {}

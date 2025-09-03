@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { SchedulerRegistry } from '@nestjs/schedule';
-import { TaskScheduleService } from 'src/module/app/task-schedule.service';
+import { TaskScheduleService } from '../task-schedule.service';
 
 @Injectable()
 export class TaskManagerService {
