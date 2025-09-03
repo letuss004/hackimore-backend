@@ -1,0 +1,53 @@
+services:
+  api:
+    container_name: hackimore-api
+    image: hackimore-image
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./logs:/api/logs
+      - ./database-backups:/api/prisma/backups
+      - ./uploads:/api/uploads
+    networks:
+      - hackimore-network
+
+  database:
+    image: postgres:16
+    container_name: hackimore-database
+    environment:
+      POSTGRES_USER: ${PG_USER:-postgres}
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-postgres}
+      POSTGRES_DB: ${PG_DATABASE:-hackimore}
+    env_file:
+      - .env
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - hackimore-db-volumes:/var/lib/postgresql/data
+    networks:
+      - hackimore-network
+
+  redis:
+    image: redis:7
+    container_name: hackimore-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - hackimore-redis-volumes:/data
+    networks:
+      - hackimore-network
+
+volumes:
+  hackimore-db-volumes:
+    driver: local
+  hackimore-redis-volumes:
+    driver: local
+
+networks:
+  hackimore-network:
+    driver: bridge
