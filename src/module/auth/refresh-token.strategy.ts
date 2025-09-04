@@ -3,7 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ServerConfig } from '@server/config';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { JwtTokenType } from './auth.enum';
-import { JwtPayload, UserJwtPayload } from './auth.interface';
+import { JwtPayload, UserJwtPayload } from './auth.type';
 
 /**
  * The workflow for the refresh token strategy in the provided implementation is as follows:

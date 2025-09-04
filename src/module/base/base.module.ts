@@ -5,6 +5,8 @@ import { Global, Module } from '@nestjs/common';
 import { ServerConfig } from '@server/config';
 import { EmailService } from 'src/module/base/email.service';
 import { HttpService } from 'src/module/base/http.service';
+import { RedisModule, RedisService } from 'src/module/base/redis';
+import { UserUtil } from 'src/module/user/user.util';
 import { DatabaseService } from './database';
 import { PermissionService } from './permission.service';
 
@@ -31,8 +33,17 @@ import { PermissionService } from './permission.service';
       },
       preview: false,
     }),
+    RedisModule,
   ],
-  providers: [PermissionService, DatabaseService, EmailService, HttpService],
-  exports: [DatabaseService, EmailService, HttpService],
+  providers: [
+    PermissionService,
+    DatabaseService,
+    EmailService,
+    HttpService,
+    RedisService,
+    // utils classes
+    UserUtil,
+  ],
+  exports: [DatabaseService, EmailService, HttpService, UserUtil, RedisService],
 })
 export class BaseModule {}

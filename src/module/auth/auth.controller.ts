@@ -4,8 +4,8 @@ import { AccessRole } from 'src/common/enums';
 import { RoleBaseAccessControl, SwaggerApiDocument, User } from 'src/decorator';
 import { AuthGuard } from 'src/guard';
 import { RefreshTokenGuard } from 'src/guard/refresh-token.guard';
-import { UserJwtPayload } from 'src/module/auth/auth.interface';
 import { AuthService } from './auth.service';
+import { UserJwtPayload } from './auth.type';
 import {
   ChangePasswordBodyDto,
   ChangePasswordResponseDto,
