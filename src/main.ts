@@ -6,7 +6,7 @@ import { ServerConfig } from '@server/config';
 import { corsOptions } from '@server/cors';
 import { ServerLogger } from '@server/logger';
 import { PayloadValidationPipe } from '@server/pipe';
-import { CUSTOM_JS } from 'src/common/const/swagger';
+import { SWAGGER_CUSTOM_JS } from 'src/common/const/swagger';
 import { HttpExceptionFilter } from 'src/exception/filter';
 import { TimeoutInterceptor } from 'src/interceptor';
 import { SystemService } from 'src/module/system';
@@ -56,7 +56,7 @@ import { AppModule } from './module/app.module';
     explorer: true,
     customSiteTitle: `${APP_NAME} ${NODE_ENV}`,
     swaggerOptions: { initOAuth: { appName: APP_NAME }, persistAuthorization: true },
-    customJsStr: CUSTOM_JS,
+    customJsStr: SWAGGER_CUSTOM_JS,
   });
 
   // start server
