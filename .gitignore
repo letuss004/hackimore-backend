@@ -1,15 +1,18 @@
 # custom
 .idea
 .vscode
-.env
-.env.*
-!.env.example
 tmp
 data
 documentation
 prisma/backups
 .git
 uploads/
+
+# cred
+.env
+.env.*
+!.env.example
+*.pem
 
 # prisma
 prisma/dbml
