@@ -2,6 +2,7 @@ import { DiscoveryModule } from '@golevelup/nestjs-discovery';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TerminusModule } from '@nestjs/terminus';
+import { IntegrationModule } from 'src/integration/integration.module';
 import {
   CompressionMiddleware,
   CookieParserMiddleware,
@@ -20,6 +21,7 @@ import { UserModule } from 'src/module/user';
     TerminusModule.forRoot(),
     ScheduleModule.forRoot(),
     DiscoveryModule,
+    IntegrationModule,
     BaseModule,
     AuthModule,
     UserModule,
