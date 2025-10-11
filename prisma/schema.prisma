@@ -99,6 +99,15 @@ model History {
   isDeleted Boolean     @default(false)
 }
 
+model DataJson {
+  id        Int      @id @default(autoincrement())
+  type      String   @unique
+  value     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+}
+
 // -------------------------------- Enums -------------------------------
 enum UserRole {
   Admin
