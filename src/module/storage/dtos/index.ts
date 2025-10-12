@@ -7,28 +7,37 @@ export class LocalStorageResponseDto {
   id: number;
 
   @PropertyDto()
-  filename: string;
+  userId?: number;
 
   @PropertyDto()
-  path: string;
+  eTag: string;
 
   @PropertyDto()
-  mimetype: string;
+  location: string;
 
   @PropertyDto()
-  size: number;
+  key: string;
 
   @PropertyDto()
-  originalname: string;
+  bucket: string;
 
   @PropertyDto()
-  encoding: string;
+  filename?: string;
 
   @PropertyDto()
-  destination: string;
+  mimetype?: string;
+
+  @PropertyDto()
+  size?: number;
+
+  @PropertyDto()
+  originalname?: string;
 
   @PropertyDto()
   createdAt: Date;
+
+  @PropertyDto()
+  updatedAt: Date;
 }
 
 export class UploadFileBodyDto {
@@ -59,4 +68,57 @@ export class UploadFileBodyDto {
     validated: true,
   })
   imageHeight: number;
+}
+
+// ****************************** S3 Presigned URL DTOs ******************************
+export class S3PresignedUrlRequestDto {
+  @PropertyDto({
+    type: String,
+    required: true,
+    validated: true,
+    description: 'The filename for the file to be uploaded',
+  })
+  filename: string;
+
+  @PropertyDto({
+    type: String,
+    required: true,
+    validated: true,
+    description: 'The MIME type of the file',
+  })
+  contentType: string;
+
+  @PropertyDto({
+    type: String,
+    required: false,
+    validated: true,
+    description: 'Optional folder path within the S3 bucket',
+  })
+  folder?: string;
+}
+
+export class S3PresignedUrlResponseDto {
+  @PropertyDto({
+    type: String,
+    description: 'The presigned URL for uploading to S3',
+  })
+  presignedUrl: string;
+
+  @PropertyDto({
+    type: String,
+    description: 'The S3 key (path) where the file will be stored',
+  })
+  key: string;
+
+  @PropertyDto({
+    type: String,
+    description: 'The S3 bucket name',
+  })
+  bucket: string;
+
+  @PropertyDto({
+    type: Number,
+    description: 'URL expiration time in seconds',
+  })
+  expiresIn: number;
 }

@@ -16,23 +16,27 @@ import { ServerConfig } from '@server/config';
 import { BodyContentType, MulterFile } from '@server/platform';
 import { Response } from 'express';
 import { diskStorage } from 'multer';
-import { AccessRole } from 'src/common/enums';
 import { PublicApi, RoleBaseAccessControl, SwaggerApiDocument } from 'src/decorator';
 import { AuthGuard } from 'src/guard';
-import { LocalStorageResponseDto, UploadFileBodyDto } from './dtos';
-import { LocalStorageService } from './local-storage.service';
+import {
+  LocalStorageResponseDto,
+  S3PresignedUrlRequestDto,
+  S3PresignedUrlResponseDto,
+  UploadFileBodyDto,
+} from './dtos';
+import { StorageService } from './storage.service';
 
-@Controller('storage/local')
-@ApiTags('Local Storage')
+@Controller('storage')
+@ApiTags('Storage')
 @UseGuards(AuthGuard)
-@RoleBaseAccessControl([AccessRole.Admin])
+@RoleBaseAccessControl(true)
 @ApiBearerAuth()
-export class LocalStorageController {
+export class StorageController {
   private static readonly storage = diskStorage({
     destination: ServerConfig.get().LOCAL_STORAGE_PATH,
   });
 
-  constructor(private readonly localStorageService: LocalStorageService) {}
+  constructor(private readonly localStorageService: StorageService) {}
 
   @Post()
   @SwaggerApiDocument({
@@ -48,7 +52,7 @@ export class LocalStorageController {
   })
   @UseInterceptors(
     FileInterceptor('file', {
-      storage: LocalStorageController.storage,
+      storage: StorageController.storage,
     }),
   )
   async uploadLocalFile(
@@ -82,5 +86,24 @@ export class LocalStorageController {
     res.set('Content-Length', String(fileSize));
     res.set('Cache-Control', 'max-age=3600');
     return new StreamableFile(fileStream);
+  }
+
+  @Post('s3/presigned-url')
+  @SwaggerApiDocument({
+    response: {
+      type: S3PresignedUrlResponseDto,
+    },
+    body: { type: S3PresignedUrlRequestDto, required: true },
+    operation: {
+      operationId: 'generateS3PresignedUrl',
+      summary: 'Api generateS3PresignedUrl',
+      description:
+        'Generate a presigned URL that allows the frontend to upload files directly to S3',
+    },
+  })
+  async generateS3PresignedUrl(
+    @Body() body: S3PresignedUrlRequestDto,
+  ): Promise<S3PresignedUrlResponseDto> {
+    return this.localStorageService.generatePresignedUrl(body);
   }
 }

@@ -28,6 +28,12 @@ const SERVER_CONFIG_DEFAULT = {
   LOCAL_STORAGE_PATH: 'uploads/local',
   BACKUP_PATH: 'prisma/backups',
   PRISMA_LOG_LEVEL: ['error', 'warn', 'info'],
+  // S3 Configuration
+  AWS_REGION: 'us-east-1',
+  AWS_ACCESS_KEY_ID: undefined,
+  AWS_SECRET_ACCESS_KEY: undefined,
+  S3_BUCKET_NAME: undefined,
+  S3_PRESIGNED_URL_EXPIRES: 3600, // 1 hour in seconds
 };
 
 Object.seal(SERVER_CONFIG_DEFAULT);
