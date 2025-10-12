@@ -12,6 +12,7 @@ import {
 } from 'src/middleware';
 import { AuthModule } from 'src/module/auth';
 import { BaseModule } from 'src/module/base';
+import { PhraseModule } from 'src/module/phrase';
 import { StorageModule } from 'src/module/storage';
 import { SystemModule } from 'src/module/system/system.module';
 import { UserModule } from 'src/module/user';
@@ -28,6 +29,7 @@ import { UserModule } from 'src/module/user';
     SystemModule,
     StorageModule,
     // Business logic module
+    PhraseModule,
   ],
 })
 export class AppModule implements NestModule {

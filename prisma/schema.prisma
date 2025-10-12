@@ -57,23 +57,18 @@ model User {
   isDeleted          Boolean      @default(false)
 }
 
-model Storage {
-  id           Int      @id @default(autoincrement())
-  userId       Int?
-  filename     String   @unique
-  path         String
-  mimetype     String?
-  size         Int
-  originalname String
-  encoding     String?
-  destination  String?
-  epicId       Int?
-  storyId      Int?
-  taskId       Int?
-  subTaskId    Int?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  isDeleted    Boolean  @default(false)
+model S3Object {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  eTag      String
+  location  String
+  key       String
+  bucket    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  PharseAudio PhraseAudio[]
 }
 
 model AuditTrail {
@@ -108,41 +103,52 @@ model DataJson {
   isDeleted Boolean  @default(false)
 }
 
+model Phrase {
+  id        Int       @id @default(autoincrement())
+  language  Languages
+  content   String
+  hint      String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  isDeleted Boolean   @default(false)
+
+  PharseMapping PhraseMeaning[]
+  PharseAudio   PhraseAudio[]
+}
+
+model PhraseMeaning {
+  id        Int       @id @default(autoincrement())
+  key       String    @unique
+  content   String    @db.VarChar(500)
+  phraseId  Int
+  language  Languages
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  isDeleted Boolean   @default(false)
+
+  Pharse Phrase @relation(fields: [phraseId], references: [id])
+}
+
+// pharse speak history
+model PhraseAudio {
+  id              Int       @id @default(autoincrement())
+  phraseId        Int
+  s3ObjectId      Int
+  phraseMeaningId Int?
+  language        Languages
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  isDeleted       Boolean   @default(false)
+
+  Pharse   Phrase   @relation(fields: [phraseId], references: [id])
+  S3Object S3Object @relation(fields: [s3ObjectId], references: [id])
+}
+
 // -------------------------------- Enums -------------------------------
 enum UserRole {
   Admin
   Leader
   Staff
-}
-
-enum ProjectRole {
-  PM
-  Developer
-  Tester
-}
-
-enum WorkingStatus {
-  Active
-  OnLeave
-  Inactive
-}
-
-// enum TeamRole {
-//   TeamLead
-//   Frontend
-//   Backend
-// }
-
-enum ProjectPrivacy {
-  Public
-  Private
-}
-
-enum ProjectStatus {
-  Planned
-  Active
-  Completed
-  Archived
 }
 
 enum UserStatus {
@@ -151,46 +157,16 @@ enum UserStatus {
   Closed
 }
 
-enum WorkStatus {
-  Todo
-  Development
-  InProgress
-  DoneTesting
-  Review
-  Done
-}
-
-enum LabelType {
-  Design
-  API
-  Dev
-  Bug
-  Planning
-}
-
-enum Priority {
-  Low
-  Medium
-  High
-}
-
-// enum LinkType {
-//   RelatesTo
-//   IsBlockedBy
-//   Blocks
-//   IsCausedBy
-//   Causes
-//   Duplicates
-//   IsDuplicatedBy
-//   Resolves
-//   IsResolvedBy
-//   Clones
-// }
-
 enum Gender {
   Male
   Female
   Other
+}
+
+enum Languages {
+  English
+  Vietnamese
+  Chinese
 }
 
 enum UserLanguage {
@@ -204,4 +180,9 @@ enum AuditTrailType {
 
 enum HistoryType {
   Update
+}
+
+enum StorageService {
+  Local
+  S3
 }
