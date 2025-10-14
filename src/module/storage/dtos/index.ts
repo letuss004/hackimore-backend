@@ -1,5 +1,6 @@
 import { MulterFile } from '@server/platform';
 import { PropertyDto } from 'src/decorator';
+import { StorageType } from 'src/module/storage/storage.enum';
 
 // ****************************** Base LocalStorage response dto ******************************
 export class LocalStorageResponseDto {
@@ -88,13 +89,14 @@ export class GetUploadPresignedUrlBodyDto {
   })
   contentType: string;
 
-  @PropertyDto({
-    type: String,
-    required: false,
-    validated: true,
-    description: 'Optional folder path within the S3 bucket',
-  })
-  folder?: string;
+  // @PropertyDto({
+  //   type: StorageType,
+  //   required: true,
+  //   validated: true,
+  //   structure: 'enum',
+  //   description: `The storage type, e.g., 'Phrase'`,
+  // })
+  // type: StorageType;
 }
 
 export class GetUploadPresignedUrlResponseDto {

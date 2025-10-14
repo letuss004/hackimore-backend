@@ -30,10 +30,10 @@ export class StorageService {
   async getUploadPresignedUrl(
     body: GetUploadPresignedUrlBodyDto,
   ): Promise<GetUploadPresignedUrlResponseDto> {
-    const { filename, contentType, folder } = body;
+    const { filename, contentType } = body;
     const { S3_BUCKET_NAME, S3_PRESIGNED_URL_EXPIRES } = ServerConfig.get();
-    // Construct the S3 key with optional folder prefix
-    const key = folder ? `${folder}/${filename}` : filename;
+    const folder = 'phrase';
+    let key = folder ? `${folder}/${filename}` : filename;
     const url = await this.s3Service.getPresignedUploadUrl(
       S3_BUCKET_NAME,
       key,
