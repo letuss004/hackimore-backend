@@ -37,6 +37,12 @@ const MAIN_CONFIG = {
   PRISMA_LOG_LEVEL: process.env.PRISMA_LOG_LEVEL?.split(','),
   // integrations
   PEOPLE_DATA_LAB_API_KEY: process.env.PEOPLE_DATA_LAB_API_KEY,
+  // S3 Configuration
+  AWS_REGION: process.env.AWS_REGION,
+  AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+  AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+  S3_BUCKET_NAME: process.env.S3_BUCKET_NAME,
+  S3_PRESIGNED_URL_EXPIRES: +process.env.S3_PRESIGNED_URL_EXPIRES,
 };
 
 Object.seal(MAIN_CONFIG);

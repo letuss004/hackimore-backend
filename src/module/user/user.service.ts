@@ -8,7 +8,6 @@ import { validatePaginationQueryDto } from 'src/common/helpers/request';
 import { generateRandomString } from 'src/common/helpers/string';
 import { getCurrentDate } from 'src/common/helpers/time';
 import { ServerException } from 'src/exception';
-import { S3Service } from 'src/integration/s3';
 import { DatabaseService } from 'src/module/base/database';
 import {
   CreateUserBodyDto,

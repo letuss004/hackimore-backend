@@ -70,8 +70,8 @@ export class UploadFileBodyDto {
   imageHeight: number;
 }
 
-// ****************************** S3 Presigned URL DTOs ******************************
-export class S3PresignedUrlRequestDto {
+// ****************************** getUploadPresignedUrl ******************************
+export class GetUploadPresignedUrlBodyDto {
   @PropertyDto({
     type: String,
     required: true,
@@ -97,28 +97,33 @@ export class S3PresignedUrlRequestDto {
   folder?: string;
 }
 
-export class S3PresignedUrlResponseDto {
+export class GetUploadPresignedUrlResponseDto {
   @PropertyDto({
     type: String,
-    description: 'The presigned URL for uploading to S3',
+    required: true,
+    validated: true,
+    description: 'The presigned URL for S3 operations',
   })
-  presignedUrl: string;
+  url: string;
 
   @PropertyDto({
     type: String,
-    description: 'The S3 key (path) where the file will be stored',
+    required: true,
+    validated: true,
+    description: 'The S3 object key',
   })
   key: string;
+}
 
+// ****************************** getDownloadPresignedUrl ******************************
+export class GetDownloadPresignedUrlBodyDto {
   @PropertyDto({
     type: String,
-    description: 'The S3 bucket name',
+    required: true,
+    validated: true,
+    description: 'The S3 object key for the file to download',
   })
-  bucket: string;
-
-  @PropertyDto({
-    type: Number,
-    description: 'URL expiration time in seconds',
-  })
-  expiresIn: number;
+  key: string;
 }
+
+export class GetDownloadPresignedUrlResponseDto extends GetUploadPresignedUrlResponseDto {}

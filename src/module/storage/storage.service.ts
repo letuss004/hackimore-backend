@@ -1,68 +1,58 @@
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Injectable } from '@nestjs/common';
 import { ServerConfig } from '@server/config';
+import { S3Service } from 'src/integration/aws/s3.service';
 import { DatabaseService } from 'src/module/base/database';
 import {
+  GetDownloadPresignedUrlBodyDto,
+  GetUploadPresignedUrlBodyDto,
+  GetUploadPresignedUrlResponseDto,
   LocalStorageResponseDto,
-  S3PresignedUrlRequestDto,
-  S3PresignedUrlResponseDto,
   UploadFileBodyDto,
 } from './dtos';
 
 @Injectable()
 export class StorageService {
-  private s3Client: S3Client;
-
-  constructor(private readonly databaseService: DatabaseService) {
-    const config = ServerConfig.get();
-    this.s3Client = new S3Client({
-      region: config.AWS_REGION,
-      credentials: {
-        accessKeyId: config.AWS_ACCESS_KEY_ID || '',
-        secretAccessKey: config.AWS_SECRET_ACCESS_KEY || '',
-      },
-    });
-  }
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly s3Service: S3Service,
+  ) {}
 
   async uploadLocalFile(body: UploadFileBodyDto): Promise<LocalStorageResponseDto> {
+    // TODO: Implement local file upload logic
     return undefined;
   }
 
   async getLocalFile(filename: string) {
+    // TODO: Implement local file retrieval logic
     return undefined;
   }
 
-  async generatePresignedUrl(
-    request: S3PresignedUrlRequestDto,
-  ): Promise<S3PresignedUrlResponseDto> {
-    const config = ServerConfig.get();
-    const bucket = config.S3_BUCKET_NAME;
-
-    if (!bucket) {
-      throw new Error('S3_BUCKET_NAME is not configured');
-    }
-
-    // Generate S3 key (path + filename)
-    const key = request.folder
-      ? `${request.folder.replace(/^\/+|\/+$/g, '')}/${request.filename}`
-      : request.filename;
-
-    const command = new PutObjectCommand({
-      Bucket: bucket,
-      Key: key,
-      ContentType: request.contentType,
-    });
-
-    const presignedUrl = await getSignedUrl(this.s3Client, command, {
-      expiresIn: config.S3_PRESIGNED_URL_EXPIRES,
-    });
-
-    return {
-      presignedUrl,
+  async getUploadPresignedUrl(
+    body: GetUploadPresignedUrlBodyDto,
+  ): Promise<GetUploadPresignedUrlResponseDto> {
+    const { filename, contentType, folder } = body;
+    const { S3_BUCKET_NAME, S3_PRESIGNED_URL_EXPIRES } = ServerConfig.get();
+    // Construct the S3 key with optional folder prefix
+    const key = folder ? `${folder}/${filename}` : filename;
+    const url = await this.s3Service.getPresignedUploadUrl(
+      S3_BUCKET_NAME,
       key,
-      bucket,
-      expiresIn: config.S3_PRESIGNED_URL_EXPIRES,
-    };
+      contentType,
+      S3_PRESIGNED_URL_EXPIRES,
+    );
+    return { url, key };
+  }
+
+  async getDownloadPresignedUrl(
+    body: GetDownloadPresignedUrlBodyDto,
+  ): Promise<GetUploadPresignedUrlResponseDto> {
+    const { key } = body;
+    const { S3_BUCKET_NAME, S3_PRESIGNED_URL_EXPIRES } = ServerConfig.get();
+    const url = await this.s3Service.getPresignedDownloadUrl(
+      S3_BUCKET_NAME,
+      key,
+      S3_PRESIGNED_URL_EXPIRES,
+    );
+    return { url, key };
   }
 }

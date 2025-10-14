@@ -19,9 +19,10 @@ import { diskStorage } from 'multer';
 import { PublicApi, RoleBaseAccessControl, SwaggerApiDocument } from 'src/decorator';
 import { AuthGuard } from 'src/guard';
 import {
+  GetDownloadPresignedUrlBodyDto,
+  GetUploadPresignedUrlBodyDto,
+  GetUploadPresignedUrlResponseDto,
   LocalStorageResponseDto,
-  S3PresignedUrlRequestDto,
-  S3PresignedUrlResponseDto,
   UploadFileBodyDto,
 } from './dtos';
 import { StorageService } from './storage.service';
@@ -88,22 +89,40 @@ export class StorageController {
     return new StreamableFile(fileStream);
   }
 
-  @Post('s3/presigned-url')
+  @Post('presigned-upload-url')
   @SwaggerApiDocument({
     response: {
-      type: S3PresignedUrlResponseDto,
+      type: GetUploadPresignedUrlResponseDto,
     },
-    body: { type: S3PresignedUrlRequestDto, required: true },
+    body: { type: GetUploadPresignedUrlBodyDto, required: true },
     operation: {
-      operationId: 'generateS3PresignedUrl',
-      summary: 'Api generateS3PresignedUrl',
-      description:
-        'Generate a presigned URL that allows the frontend to upload files directly to S3',
+      operationId: 'getUploadPresignedUrl',
+      summary: 'Get S3 presigned URL for uploading files',
+      description: 'Generate a presigned URL that allows uploading files directly to S3',
     },
   })
-  async generateS3PresignedUrl(
-    @Body() body: S3PresignedUrlRequestDto,
-  ): Promise<S3PresignedUrlResponseDto> {
-    return this.localStorageService.generatePresignedUrl(body);
+  async getUploadPresignedUrl(
+    @Body() body: GetUploadPresignedUrlBodyDto,
+  ): Promise<GetUploadPresignedUrlResponseDto> {
+    return this.localStorageService.getUploadPresignedUrl(body);
+  }
+
+  @Post('presigned-download-url')
+  @SwaggerApiDocument({
+    response: {
+      type: GetUploadPresignedUrlResponseDto,
+    },
+    body: { type: GetDownloadPresignedUrlBodyDto, required: true },
+    operation: {
+      operationId: 'getDownloadPresignedUrl',
+      summary: 'Get S3 presigned URL for downloading files',
+      description:
+        'Generate a presigned URL that allows downloading files directly from S3',
+    },
+  })
+  async getDownloadPresignedUrl(
+    @Body() body: GetDownloadPresignedUrlBodyDto,
+  ): Promise<GetUploadPresignedUrlResponseDto> {
+    return this.localStorageService.getDownloadPresignedUrl(body);
   }
 }

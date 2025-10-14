@@ -20,6 +20,7 @@ import {
   PutObjectCommandInput,
   S3Client,
 } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Injectable } from '@nestjs/common';
 import { ServerLogger } from '@server/logger';
 
@@ -132,5 +133,119 @@ export class S3Service extends S3Client {
 
   async listBuckets() {
     return this.send(new ListBucketsCommand({}));
+  }
+
+  /**
+   * Generate a presigned URL for downloading an object from S3
+   * @param bucket - The S3 bucket name
+   * @param key - The object key
+   * @param expiresIn - URL expiration time in seconds (default: 3600 = 1 hour)
+   * @returns Promise<string> - The presigned URL
+   */
+  async getPresignedDownloadUrl(
+    bucket: string,
+    key: string,
+    expiresIn: number = 3600,
+  ): Promise<string> {
+    try {
+      const command = new GetObjectCommand({
+        Bucket: bucket,
+        Key: key,
+      });
+
+      const presignedUrl = await getSignedUrl(this, command, { expiresIn });
+
+      ServerLogger.info({
+        context: 'S3Service.getPresignedDownloadUrl',
+        message: `Generated presigned download URL for ${bucket}/${key}`,
+        meta: { bucket, key, expiresIn },
+      });
+
+      return presignedUrl;
+    } catch (error) {
+      ServerLogger.error({
+        error,
+        context: 'S3Service.getPresignedDownloadUrl',
+        message: 'Failed to generate presigned download URL',
+        meta: { bucket, key, expiresIn },
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Generate a presigned URL for uploading an object to S3
+   * @param bucket - The S3 bucket name
+   * @param key - The object key
+   * @param contentType - The content type of the object (optional)
+   * @param expiresIn - URL expiration time in seconds (default: 3600 = 1 hour)
+   * @returns Promise<string> - The presigned URL
+   */
+  async getPresignedUploadUrl(
+    bucket: string,
+    key: string,
+    contentType?: string,
+    expiresIn: number = 3600,
+  ): Promise<string> {
+    try {
+      const putObjectParams: PutObjectCommandInput = {
+        Bucket: bucket,
+        Key: key,
+      };
+
+      if (contentType) {
+        putObjectParams.ContentType = contentType;
+      }
+
+      const command = new PutObjectCommand(putObjectParams);
+      const presignedUrl = await getSignedUrl(this, command, { expiresIn });
+
+      ServerLogger.info({
+        context: 'S3Service.getPresignedUploadUrl',
+        message: `Generated presigned upload URL for ${bucket}/${key}`,
+        meta: { bucket, key, contentType, expiresIn },
+      });
+
+      return presignedUrl;
+    } catch (error) {
+      ServerLogger.error({
+        error,
+        context: 'S3Service.getPresignedUploadUrl',
+        message: 'Failed to generate presigned upload URL',
+        meta: { bucket, key, contentType, expiresIn },
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Generate a presigned URL with custom parameters
+   * @param command - The S3 command to sign
+   * @param expiresIn - URL expiration time in seconds (default: 3600 = 1 hour)
+   * @returns Promise<string> - The presigned URL
+   */
+  async getCustomPresignedUrl(
+    command: GetObjectCommand | PutObjectCommand,
+    expiresIn: number = 3600,
+  ): Promise<string> {
+    try {
+      const presignedUrl = await getSignedUrl(this, command, { expiresIn });
+
+      ServerLogger.info({
+        context: 'S3Service.getCustomPresignedUrl',
+        message: `Generated custom presigned URL`,
+        meta: { commandName: command.constructor.name, expiresIn },
+      });
+
+      return presignedUrl;
+    } catch (error) {
+      ServerLogger.error({
+        error,
+        context: 'S3Service.getCustomPresignedUrl',
+        message: 'Failed to generate custom presigned URL',
+        meta: { commandName: command.constructor.name, expiresIn },
+      });
+      throw error;
+    }
   }
 }
