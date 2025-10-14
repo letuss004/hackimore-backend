@@ -12,7 +12,7 @@
   "scripts": {
     "build": "nest build",
     "postbuild": "bash tool/shell/postbuild.sh",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"tool/**/*.ts\" \"core/**/*.ts\"",
     "start": "yarn build && node dist/src/main",
     "start:dev": "tsnd -r tsconfig-paths/register --respawn src/main.ts",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -23,7 +23,7 @@
     "prepare": "husky",
     "db": "ts-node tool/prompts/prisma-migrate.ts",
     "nestjs": "ts-node tool/prompts/generate-nestjs.ts",
-    "genadmin": "ts-node tool/executor.command.ts run admin",
+    "genadmin": "ts-node tool/admin.command.ts",
     "deploy": "bash tool/shell/deploy.sh"
   },
   "prisma": {

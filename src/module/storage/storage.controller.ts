@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Get,
   Param,
   Post,
   Res,
@@ -39,7 +38,7 @@ export class StorageController {
 
   constructor(private readonly localStorageService: StorageService) {}
 
-  @Post()
+  // @Post()
   @SwaggerApiDocument({
     response: {
       type: LocalStorageResponseDto,
@@ -63,7 +62,7 @@ export class StorageController {
     return this.localStorageService.uploadLocalFile({ ...body, file });
   }
 
-  @Get(':filename')
+  // @Get(':filename')
   @PublicApi()
   @SwaggerApiDocument({
     response: {

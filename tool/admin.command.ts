@@ -1,78 +1,94 @@
-import {Logger, Module} from '@nestjs/common';
-import {UserRole, UserStatus} from '@prisma/client';
-import {isEmail} from 'class-validator';
-import {CommandRunner, Option, SubCommand} from 'nest-commander';
-import {ServerConfig} from '@server/config';
-import {ERROR_RESPONSE} from 'src/common/const';
-import {ValidationError} from '@server/errors';
-import {bcrypt} from '@server/libs/bcrypt';
-import {ServerException} from 'src/exception';
-import {DatabaseModule, DatabaseService} from 'src/module/base/database';
+import { Logger, Module } from '@nestjs/common';
+import { UserRole, UserStatus } from '@prisma/client';
+import { ServerConfig } from '@server/config';
+import { bcrypt } from '@server/libs/bcrypt';
+import { isEmail } from 'class-validator';
+import {
+  Command,
+  CommandFactory,
+  CommandRunner,
+  InquirerService,
+  Question,
+  QuestionSet,
+} from 'nest-commander';
+import { ERROR_RESPONSE } from 'src/common/const';
+import { ServerException } from 'src/exception';
+import { DatabaseModule, DatabaseService } from 'src/module/base/database';
 
 @Module({
   imports: [DatabaseModule],
-  providers: [DatabaseService],
+  providers: [],
 })
-@SubCommand({name: 'admin'})
-export class AdminCommand extends CommandRunner {
-  constructor(private readonly databaseService: DatabaseService) {
+@Command({ name: 'admin', options: { isDefault: true } })
+@QuestionSet({ name: 'createAdmin' })
+export class GenAdminCommand extends CommandRunner {
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly inquirer: InquirerService,
+  ) {
     super();
   }
 
   async run(_param: string[], options?: Record<string, any>): Promise<void> {
-    try {
-      const {email, password} = options;
+    const { email, password } = await this.inquirer.ask('createAdmin', options);
 
-      const isUserExist = await this.databaseService.user.findFirst({
-        where: {email},
-      });
-      if (isUserExist) {
-        throw new ServerException(ERROR_RESPONSE.USER_ALREADY_EXISTED);
-      }
-
-      const hashPassword = await bcrypt.hash(
-        password,
-        ServerConfig.get().BCRYPT_SALT_ROUNDS,
-      );
-      await this.databaseService.user.create({
-        data: {
-          email,
-          firstName: 'System',
-          lastName: 'Admin',
-          fullName: 'System Admin',
-          role: UserRole.Admin,
-          password: hashPassword,
-          status: UserStatus.Active,
-        },
-      });
-      Logger.log(`User created successfully`);
-    } catch (error) {
-      Logger.error(`Error creating user: ${error.message}`);
-      throw error;
+    const isUserExist = await this.databaseService.user.findFirst({
+      where: { email },
+    });
+    if (isUserExist) {
+      throw new ServerException(ERROR_RESPONSE.USER_ALREADY_EXISTED);
     }
+
+    const hashPassword = await bcrypt.hash(
+      password,
+      ServerConfig.get().BCRYPT_SALT_ROUNDS,
+    );
+    await this.databaseService.user.create({
+      data: {
+        email,
+        firstName: 'System',
+        lastName: 'Admin',
+        fullName: 'System Admin',
+        role: UserRole.Admin,
+        password: hashPassword,
+        status: UserStatus.Active,
+      },
+    });
+    Logger.log(`User created successfully`);
   }
 
-  @Option({
-    flags: '-e, --email <email>',
-    description: 'User email',
-    required: true,
+  @Question({
+    type: 'input',
+    message: 'Please enter your email:',
+    name: 'email',
   })
   parseEmail(val: string): string {
     if (!isEmail(val)) {
-      throw new ValidationError(`Incorrect email`);
+      throw new Error('Invalid email format');
     }
     return val;
   }
 
-  @Option({
-    flags: '-p, --password <password>',
-    description: 'User password',
-    required: true,
+  @Question({
+    type: 'password',
+    message: 'Please enter your password:',
+    name: 'password',
+    mask: '*',
   })
   parsePassword(val: string): string {
-    // if (!SYSTEM_REGEXS.USER_PASSWORD_SIMPLE.test(val)) {
-    //   throw new ValidationError(ERROR_RESPONSE.PASSWORD_NOT_SECURE.message);
-    // }
+    if (!val || val.length < 6) {
+      throw new Error('Password must be at least 6 characters');
+    }
     return val;
   }
 }
+
+(async function run() {
+  await CommandFactory.run(GenAdminCommand)
+    .then(() => {
+      Logger.log(`Command executed successfully`);
+    })
+    .catch((error) => {
+      Logger.error(`Error executing command: ${error.message}`, error);
+    });
+})();
