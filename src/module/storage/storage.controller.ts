@@ -89,7 +89,7 @@ export class StorageController {
     return new StreamableFile(fileStream);
   }
 
-  @Post('presigned-upload-url')
+  @Post('presigned-url/upload')
   @SwaggerApiDocument({
     response: {
       type: GetUploadPresignedUrlResponseDto,
@@ -97,7 +97,7 @@ export class StorageController {
     body: { type: GetUploadPresignedUrlBodyDto, required: true },
     operation: {
       operationId: 'getUploadPresignedUrl',
-      summary: 'Get S3 presigned URL for uploading files',
+      summary: 'Api getUploadPresignedUrl',
       description: 'Generate a presigned URL that allows uploading files directly to S3',
     },
   })
@@ -107,7 +107,7 @@ export class StorageController {
     return this.localStorageService.getUploadPresignedUrl(body);
   }
 
-  @Post('presigned-download-url')
+  @Post('presigned-url/download')
   @SwaggerApiDocument({
     response: {
       type: GetUploadPresignedUrlResponseDto,
@@ -115,7 +115,7 @@ export class StorageController {
     body: { type: GetDownloadPresignedUrlBodyDto, required: true },
     operation: {
       operationId: 'getDownloadPresignedUrl',
-      summary: 'Get S3 presigned URL for downloading files',
+      summary: 'Api getDownloadPresignedUrl',
       description:
         'Generate a presigned URL that allows downloading files directly from S3',
     },
