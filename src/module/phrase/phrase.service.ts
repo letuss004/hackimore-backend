@@ -33,7 +33,7 @@ export class PhraseService {
 
     const where: Prisma.PhraseWhereInput = {
       ...(query.id && { id: query.id }),
-      ...(query.language && { language: query.language }),
+      ...(query.language && { language: { in: query.language } }),
       ...(query.content && { content: query.content }),
       ...(query.hint && { hint: query.hint }),
     };

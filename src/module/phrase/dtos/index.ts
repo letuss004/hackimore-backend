@@ -44,9 +44,9 @@ export class GetPhraseListQueryDto extends PaginationQueryDto {
     type: Languages,
     required: false,
     validated: true,
-    structure: 'enum',
+    structure: 'enumArray',
   })
-  language: Languages;
+  language: Languages[];
 
   @PropertyDto({
     type: String,
