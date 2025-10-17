@@ -116,7 +116,7 @@ export class CreatePhraseMeaningBodyDto {
 
   @PropertyDto({
     type: Languages,
-    required: true,
+    required: false,
     validated: true,
     structure: 'enum',
   })

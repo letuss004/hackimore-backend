@@ -21,7 +21,7 @@ import {
   GetDownloadPresignedUrlBodyDto,
   GetUploadPresignedUrlBodyDto,
   GetUploadPresignedUrlResponseDto,
-  LocalStorageResponseDto,
+  StorageResponseDto,
   UploadFileBodyDto,
 } from './dtos';
 import { StorageService } from './storage.service';
@@ -41,7 +41,7 @@ export class StorageController {
   // @Post()
   @SwaggerApiDocument({
     response: {
-      type: LocalStorageResponseDto,
+      type: StorageResponseDto,
     },
     body: { type: UploadFileBodyDto, required: true },
     contentType: [BodyContentType.MultipartFormData],
@@ -58,7 +58,7 @@ export class StorageController {
   async uploadLocalFile(
     @UploadedFile() file: MulterFile,
     @Body() body: UploadFileBodyDto,
-  ): Promise<LocalStorageResponseDto> {
+  ): Promise<StorageResponseDto> {
     return this.localStorageService.uploadLocalFile({ ...body, file });
   }
 

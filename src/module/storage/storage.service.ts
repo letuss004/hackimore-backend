@@ -6,7 +6,7 @@ import {
   GetDownloadPresignedUrlBodyDto,
   GetUploadPresignedUrlBodyDto,
   GetUploadPresignedUrlResponseDto,
-  LocalStorageResponseDto,
+  StorageResponseDto,
   UploadFileBodyDto,
 } from './dtos';
 
@@ -17,7 +17,7 @@ export class StorageService {
     private readonly s3Service: S3Service,
   ) {}
 
-  async uploadLocalFile(body: UploadFileBodyDto): Promise<LocalStorageResponseDto> {
+  async uploadLocalFile(body: UploadFileBodyDto): Promise<StorageResponseDto> {
     // TODO: Implement local file upload logic
     return undefined;
   }

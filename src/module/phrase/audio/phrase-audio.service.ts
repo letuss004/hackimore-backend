@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import { AsyncStorage } from '@server/async-storage';
 import { PaginationResponseDto } from '@server/platform/dtos';
 import { ERROR_RESPONSE } from 'src/common/const';
 import { parseOrderByFromQuery } from 'src/common/helpers/database';
@@ -23,8 +24,15 @@ export class PhraseAudioService {
   async createPhraseAudio(
     body: CreatePhraseAudioBodyDto,
   ): Promise<CreatePhraseAudioResponseDto> {
+    const userId = AsyncStorage.getCurrentUserId();
+    const fileObject = await this.databaseService.s3Object.create({
+      data: { ...body.s3Object, userId },
+    });
     return this.databaseService.phraseAudio.create({
-      data: { ...body },
+      data: {
+        ...body,
+        s3ObjectId: fileObject.id,
+      },
     });
   }
 
@@ -37,7 +45,6 @@ export class PhraseAudioService {
       ...(query.id && { id: query.id }),
       ...(query.phraseId && { phraseId: query.phraseId }),
       ...(query.s3ObjectId && { s3ObjectId: query.s3ObjectId }),
-      ...(query.phraseMeaningId && { phraseMeaningId: query.phraseMeaningId }),
       ...(query.language && { language: query.language }),
     };
     if (query.createdAtRangeStart || query.createdAtRangeEnd) {

@@ -1,14 +1,13 @@
 import { MulterFile } from '@server/platform';
 import { PropertyDto } from 'src/decorator';
-import { StorageType } from 'src/module/storage/storage.enum';
 
-// ****************************** Base LocalStorage response dto ******************************
-export class LocalStorageResponseDto {
+// ****************************** Base S3Object response dto ******************************
+export class BaseS3ObjectResponseDto {
   @PropertyDto()
   id: number;
 
   @PropertyDto()
-  userId?: number;
+  userId: number;
 
   @PropertyDto()
   eTag: string;
@@ -23,23 +22,81 @@ export class LocalStorageResponseDto {
   bucket: string;
 
   @PropertyDto()
-  filename?: string;
+  filename: string;
 
   @PropertyDto()
-  mimetype?: string;
+  mimetype: string;
 
   @PropertyDto()
-  size?: number;
+  size: number;
 
   @PropertyDto()
-  originalname?: string;
+  originalname: string;
 
   @PropertyDto()
   createdAt: Date;
-
-  @PropertyDto()
-  updatedAt: Date;
 }
+
+export class CreateS3ObjectBodyDto {
+  @PropertyDto({
+    type: String,
+    required: true,
+    validated: true,
+  })
+  eTag: string;
+
+  @PropertyDto({
+    type: String,
+    required: true,
+    validated: true,
+  })
+  location: string;
+
+  @PropertyDto({
+    type: String,
+    required: true,
+    validated: true,
+  })
+  key: string;
+
+  @PropertyDto({
+    type: String,
+    required: true,
+    validated: true,
+  })
+  bucket: string;
+
+  @PropertyDto({
+    type: String,
+    required: false,
+    validated: true,
+  })
+  filename: string;
+
+  @PropertyDto({
+    type: String,
+    required: false,
+    validated: true,
+  })
+  mimetype: string;
+
+  @PropertyDto({
+    type: Number,
+    required: false,
+    validated: true,
+  })
+  size: number;
+
+  @PropertyDto({
+    type: String,
+    required: false,
+    validated: true,
+  })
+  originalname: string;
+}
+
+// ****************************** Base LocalStorage response dto ******************************
+export class StorageResponseDto extends BaseS3ObjectResponseDto {}
 
 export class UploadFileBodyDto {
   @PropertyDto({
@@ -55,20 +112,6 @@ export class UploadFileBodyDto {
     validated: true,
   })
   userId: number;
-
-  @PropertyDto({
-    type: Number,
-    required: false,
-    validated: true,
-  })
-  imageWidth: number;
-
-  @PropertyDto({
-    type: Number,
-    required: false,
-    validated: true,
-  })
-  imageHeight: number;
 }
 
 // ****************************** getUploadPresignedUrl ******************************

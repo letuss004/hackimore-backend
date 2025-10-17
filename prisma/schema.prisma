@@ -72,7 +72,7 @@ model S3Object {
   updatedAt    DateTime @updatedAt
   isDeleted    Boolean  @default(false)
 
-  PharseAudio PhraseAudio[]
+  PhraseAudio PhraseAudio[]
 }
 
 model AuditTrail {
@@ -108,41 +108,41 @@ model DataJson {
 }
 
 model Phrase {
-  id        Int       @id @default(autoincrement())
-  language  Languages
-  content   String
-  hint      String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  isDeleted Boolean   @default(false)
+  id          Int        @id @default(autoincrement())
+  language    Languages?
+  content     String
+  description String?    @db.Text
+  hint        String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  isDeleted   Boolean    @default(false)
 
-  PharseMapping PhraseMeaning[]
-  PharseAudio   PhraseAudio[]
+  PhraseMeaning PhraseMeaning[]
+  PhraseAudio   PhraseAudio[]
 }
 
 model PhraseMeaning {
-  id        Int       @id @default(autoincrement())
-  key       String    @unique
-  content   String    @db.VarChar(500)
+  id        Int        @id @default(autoincrement())
+  key       String     @unique
+  content   String     @db.VarChar(500)
   phraseId  Int
-  language  Languages
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  isDeleted Boolean   @default(false)
+  language  Languages?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  isDeleted Boolean    @default(false)
 
   Pharse Phrase @relation(fields: [phraseId], references: [id])
 }
 
 // pharse speak history
 model PhraseAudio {
-  id              Int       @id @default(autoincrement())
-  phraseId        Int
-  s3ObjectId      Int
-  phraseMeaningId Int?
-  language        Languages
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  isDeleted       Boolean   @default(false)
+  id         Int        @id @default(autoincrement())
+  phraseId   Int
+  s3ObjectId Int
+  language   Languages?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  isDeleted  Boolean    @default(false)
 
   Pharse   Phrase   @relation(fields: [phraseId], references: [id])
   S3Object S3Object @relation(fields: [s3ObjectId], references: [id])

@@ -20,6 +20,9 @@ export class BasePhraseResponseDto {
   hint: string;
 
   @PropertyDto()
+  description: string;
+
+  @PropertyDto()
   createdAt: Date;
 }
 
@@ -87,11 +90,10 @@ export class GetPhraseListQueryDto extends PaginationQueryDto {
 }
 
 // ****************************** CREATE Phrase dto ******************************
-// todo: delete this line if you have corrected the dto
 export class CreatePhraseBodyDto {
   @PropertyDto({
     type: Languages,
-    required: true,
+    required: false,
     validated: true,
     structure: 'enum',
   })
@@ -110,12 +112,18 @@ export class CreatePhraseBodyDto {
     validated: true,
   })
   hint: string;
+
+  @PropertyDto({
+    type: String,
+    required: false,
+    validated: true,
+  })
+  description: string;
 }
 
 export class CreatePhraseResponseDto extends BasePhraseResponseDto {}
 
 // ****************************** UPDATE Phrase dto ******************************
-// todo: delete this line if you have corrected the dto
 export class UpdatePhraseBodyDto extends PartialType(CreatePhraseBodyDto) {
   // User OmitType if needed
 }
