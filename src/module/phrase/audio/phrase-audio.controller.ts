@@ -30,7 +30,7 @@ import { PhraseAudioService } from './phrase-audio.service';
 @Controller('phrase-audio')
 @ApiTags('Phrase Audio')
 @UseGuards(AuthGuard)
-@RoleBaseAccessControl([])
+@RoleBaseAccessControl([AccessRole.Admin])
 @ApiBearerAuth()
 export class PhraseAudioController {
   constructor(private readonly phraseAudioService: PhraseAudioService) {}

@@ -22,6 +22,7 @@ import {
   GetPhraseDetailResponseDto,
   GetPhraseListQueryDto,
   GetPhraseListResponseDto,
+  GetRandomPhraseResponseDto,
   UpdatePhraseBodyDto,
   UpdatePhraseResponseDto,
 } from './dtos';
@@ -30,7 +31,7 @@ import { PhraseService } from './phrase.service';
 @Controller('phrase')
 @ApiTags('Phrase')
 @UseGuards(AuthGuard)
-@RoleBaseAccessControl([])
+@RoleBaseAccessControl([AccessRole.Admin])
 @ApiBearerAuth()
 export class PhraseController {
   constructor(private readonly phraseService: PhraseService) {}
@@ -65,6 +66,18 @@ export class PhraseController {
     @Query() query: GetPhraseListQueryDto,
   ): Promise<PaginationResponseDto<GetPhraseListResponseDto>> {
     return this.phraseService.getPhraseList(query);
+  }
+
+  @Get('random')
+  @SwaggerApiDocument({
+    response: { type: GetRandomPhraseResponseDto },
+    operation: {
+      operationId: `getRandomPhrase`,
+      summary: `Api getRandomPhrase`,
+    },
+  })
+  async getRandomPhrase(): Promise<GetRandomPhraseResponseDto> {
+    return this.phraseService.getRandomPhrase();
   }
 
   @Get(':id')

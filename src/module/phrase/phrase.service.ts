@@ -12,6 +12,7 @@ import {
   GetPhraseDetailResponseDto,
   GetPhraseListQueryDto,
   GetPhraseListResponseDto,
+  GetRandomPhraseResponseDto,
   UpdatePhraseBodyDto,
   UpdatePhraseResponseDto,
 } from './dtos';
@@ -87,5 +88,14 @@ export class PhraseService {
       throw new ServerException(ERROR_RESPONSE.RESOURCE_NOT_FOUND);
     }
     return this.databaseService.phrase.delete({ where: { id } });
+  }
+
+  async getRandomPhrase(): Promise<GetRandomPhraseResponseDto> {
+    const result = await this.databaseService.$queryRaw<GetRandomPhraseResponseDto[]>`
+    SELECT * FROM "Phrase" 
+    ORDER BY RANDOM() 
+    LIMIT 1
+  `;
+    return result[0];
   }
 }

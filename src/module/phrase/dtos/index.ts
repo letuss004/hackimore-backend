@@ -27,6 +27,12 @@ export class BasePhraseResponseDto {
 export class GetPhraseDetailResponseDto extends BasePhraseResponseDto {
   // Add more fields if needed such as relations
 }
+// ****************************** GET Phrase random dto ******************************
+
+export class GetRandomPhraseResponseDto extends BasePhraseResponseDto {
+  // Add more fields if needed such as relations
+}
+// ****************************** GET Phrase list dto ******************************
 
 export class GetPhraseListResponseDto extends BasePhraseResponseDto {
   // Add more fields if needed such as relations
