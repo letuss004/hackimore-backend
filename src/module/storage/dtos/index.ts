@@ -40,14 +40,14 @@ export class BaseS3ObjectResponseDto {
 export class CreateS3ObjectBodyDto {
   @PropertyDto({
     type: String,
-    required: true,
+    required: false,
     validated: true,
   })
   eTag: string;
 
   @PropertyDto({
     type: String,
-    required: true,
+    required: false,
     validated: true,
   })
   location: string;
@@ -58,13 +58,6 @@ export class CreateS3ObjectBodyDto {
     validated: true,
   })
   key: string;
-
-  @PropertyDto({
-    type: String,
-    required: true,
-    validated: true,
-  })
-  bucket: string;
 
   @PropertyDto({
     type: String,

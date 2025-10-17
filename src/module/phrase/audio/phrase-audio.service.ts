@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { AsyncStorage } from '@server/async-storage';
+import { ServerConfig } from '@server/config';
 import { PaginationResponseDto } from '@server/platform/dtos';
 import { ERROR_RESPONSE } from 'src/common/const';
 import { parseOrderByFromQuery } from 'src/common/helpers/database';
 import { validatePaginationQueryDto } from 'src/common/helpers/request';
 import { ServerException } from 'src/exception';
+import { S3Service } from 'src/integration/aws';
 import { DatabaseService } from 'src/module/base/database';
 import {
   CreatePhraseAudioBodyDto,
@@ -19,18 +21,38 @@ import {
 
 @Injectable()
 export class PhraseAudioService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly s3Service: S3Service,
+  ) {}
 
   async createPhraseAudio(
     body: CreatePhraseAudioBodyDto,
   ): Promise<CreatePhraseAudioResponseDto> {
     const userId = AsyncStorage.getCurrentUserId();
+    const { s3Object: createS3Object, ...createAudioData } = body;
+    const { S3_BUCKET_NAME } = ServerConfig.get();
+
+    const phase = await this.databaseService.phrase.findFirst({
+      where: { id: createAudioData.phraseId },
+    });
+    if (!phase) {
+      throw new ServerException({
+        ...ERROR_RESPONSE.RESOURCE_NOT_FOUND,
+        message: `Phrase with id ${createAudioData.phraseId} not found`,
+      });
+    }
+    const s3Objet = await this.s3Service.getObject({
+      Bucket: S3_BUCKET_NAME,
+      Key: createS3Object.key,
+    });
+
     const fileObject = await this.databaseService.s3Object.create({
-      data: { ...body.s3Object, userId },
+      data: { ...createS3Object, userId, eTag: s3Objet.ETag, bucket: S3_BUCKET_NAME },
     });
     return this.databaseService.phraseAudio.create({
       data: {
-        ...body,
+        ...createAudioData,
         s3ObjectId: fileObject.id,
       },
     });

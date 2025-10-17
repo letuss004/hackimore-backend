@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "S3Object" ALTER COLUMN "eTag" DROP NOT NULL,
+ALTER COLUMN "location" DROP NOT NULL;

@@ -60,8 +60,8 @@ model User {
 model S3Object {
   id           Int      @id @default(autoincrement())
   userId       Int?
-  eTag         String
-  location     String
+  eTag         String?
+  location     String?
   key          String
   bucket       String
   filename     String?
