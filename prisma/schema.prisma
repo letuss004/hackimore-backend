@@ -55,6 +55,8 @@ model User {
   createdAt          DateTime     @default(now())
   updatedAt          DateTime     @updatedAt
   isDeleted          Boolean      @default(false)
+
+  Redemption Redemption[]
 }
 
 model S3Object {
@@ -148,6 +150,21 @@ model PhraseAudio {
   S3Object S3Object @relation(fields: [s3ObjectId], references: [id])
 }
 
+model Redemption {
+  id          Int              @id @default(autoincrement())
+  userId      Int
+  title       String
+  status      RedemptionStatus @default(Pending)
+  reward      String
+  description String?          @db.Text
+  archivedAt  DateTime?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  isDeleted   Boolean          @default(false)
+
+  User User @relation(fields: [userId], references: [id])
+}
+
 // -------------------------------- Enums -------------------------------
 enum UserRole {
   Admin
@@ -189,4 +206,10 @@ enum HistoryType {
 enum StorageService {
   Local
   S3
+}
+
+enum RedemptionStatus {
+  Pending
+  Archived
+  Rejected
 }
