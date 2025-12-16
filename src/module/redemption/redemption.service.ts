@@ -89,6 +89,13 @@ export class RedemptionService {
     if (!redemption) {
       throw new ServerException(ERROR_RESPONSE.RESOURCE_NOT_FOUND);
     }
+    if (body.status) {
+      await this.patchRedemption(id, {
+        status: body.status,
+        description: body.description,
+      });
+    }
+
     return this.databaseService.redemption.update({
       where: { id },
       data: { ...body },

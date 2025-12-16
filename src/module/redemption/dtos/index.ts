@@ -145,7 +145,13 @@ export class CreateRedemptionResponseDto extends BaseRedemptionResponseDto {}
 
 // ****************************** UPDATE Redemption dto ******************************
 export class UpdateRedemptionBodyDto extends PartialType(CreateRedemptionBodyDto) {
-  // User OmitType if needed
+  @PropertyDto({
+    type: RedemptionStatus,
+    required: false,
+    validated: true,
+    structure: 'enum',
+  })
+  status: RedemptionStatus;
 }
 
 export class UpdateRedemptionResponseDto extends BaseRedemptionResponseDto {}
@@ -165,7 +171,7 @@ export class PatchRedemptionBodyDto {
     required: false,
     validated: true,
   })
-  description: string;
+  description?: string;
 }
 
 export class PatchRedemptionResponseDto extends BaseRedemptionResponseDto {}
