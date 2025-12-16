@@ -66,9 +66,10 @@ export class RedemptionController {
     },
   })
   async getRedemptionList(
+    @User('id') userId: number,
     @Query() query: GetRedemptionListQueryDto,
   ): Promise<PaginationResponseDto<GetRedemptionListResponseDto>> {
-    return this.redemptionService.getRedemptionList(query);
+    return this.redemptionService.getRedemptionList(userId, query);
   }
 
   @Get(':id')

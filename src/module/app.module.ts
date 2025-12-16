@@ -13,6 +13,7 @@ import {
 import { AuthModule } from 'src/module/auth';
 import { BaseModule } from 'src/module/base';
 import { PhraseModule } from 'src/module/phrase';
+import { RedemptionModule } from 'src/module/redemption';
 import { StorageModule } from 'src/module/storage';
 import { SystemModule } from 'src/module/system/system.module';
 import { UserModule } from 'src/module/user';
@@ -30,6 +31,7 @@ import { UserModule } from 'src/module/user';
     StorageModule,
     // Business logic module
     PhraseModule,
+    RedemptionModule,
   ],
 })
 export class AppModule implements NestModule {

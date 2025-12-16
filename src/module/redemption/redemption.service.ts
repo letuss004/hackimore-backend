@@ -33,30 +33,22 @@ export class RedemptionService {
   }
 
   async getRedemptionList(
+    userId: number,
     query: GetRedemptionListQueryDto,
   ): Promise<PaginationResponseDto<GetRedemptionListResponseDto>> {
     const { page, pageSize, take, skip } = validatePaginationQueryDto(query);
 
     const where: Prisma.RedemptionWhereInput = {
-      ...(query.id && { id: query.id }),
-      ...(query.userId && { userId: query.userId }),
-      ...(query.title && { title: query.title }),
       ...(query.status && { status: query.status }),
-      ...(query.reward && { reward: query.reward }),
-      ...(query.description && { description: query.description }),
+      ...(query.search && {
+        OR: [
+          { title: query.search },
+          { description: query.search },
+          { reward: query.search },
+        ],
+      }),
+      userId,
     };
-    if (query.archivedAtRangeStart || query.archivedAtRangeEnd) {
-      where.archivedAt = {
-        gte: query.archivedAtRangeStart,
-        lte: query.archivedAtRangeEnd,
-      };
-    }
-    if (query.createdAtRangeStart || query.createdAtRangeEnd) {
-      where.createdAt = {
-        gte: query.createdAtRangeStart,
-        lte: query.createdAtRangeEnd,
-      };
-    }
 
     const [data, total] = await Promise.all([
       this.databaseService.redemption.findMany({

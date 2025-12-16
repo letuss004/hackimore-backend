@@ -43,25 +43,12 @@ export class GetRedemptionListResponseDto extends BaseRedemptionResponseDto {
 
 export class GetRedemptionListQueryDto extends PaginationQueryDto {
   @PropertyDto({
-    type: Number,
-    required: false,
-    validated: true,
-  })
-  id: number;
-
-  @PropertyDto({
-    type: Number,
-    required: false,
-    validated: true,
-  })
-  userId: number;
-
-  @PropertyDto({
     type: String,
     required: false,
     validated: true,
+    description: `Search by title, reward, or description`,
   })
-  title: string;
+  search: string;
 
   @PropertyDto({
     type: RedemptionStatus,
@@ -70,48 +57,6 @@ export class GetRedemptionListQueryDto extends PaginationQueryDto {
     structure: 'enum',
   })
   status: RedemptionStatus;
-
-  @PropertyDto({
-    type: String,
-    required: false,
-    validated: true,
-  })
-  reward: string;
-
-  @PropertyDto({
-    type: String,
-    required: false,
-    validated: true,
-  })
-  description: string;
-
-  @PropertyDto({
-    type: Date,
-    required: false,
-    validated: true,
-  })
-  archivedAtRangeStart: Date;
-
-  @PropertyDto({
-    type: Date,
-    required: false,
-    validated: true,
-  })
-  archivedAtRangeEnd: Date;
-
-  @PropertyDto({
-    type: Date,
-    required: false,
-    validated: true,
-  })
-  createdAtRangeStart: Date;
-
-  @PropertyDto({
-    type: Date,
-    required: false,
-    validated: true,
-  })
-  createdAtRangeEnd: Date;
 
   @MultipleOrderBy(DatabaseModelFields.Redemption)
   orderBy: string[];

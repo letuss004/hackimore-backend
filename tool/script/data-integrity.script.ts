@@ -7,9 +7,7 @@ import { DatabaseService } from 'src/module/base/database';
   imports: [BaseModule],
 })
 class DataIntegrityScript {
-  constructor(
-    private readonly databaseService: DatabaseService,
-  ) {
+  constructor(private readonly databaseService: DatabaseService) {
     // this.identifyResolutionMapping()
     // this.ensureCompany().then((r) => {
     //   console.log(r);
