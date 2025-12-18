@@ -39,7 +39,7 @@ class PayloadValidationPipe extends ValidationPipe {
       transform: true,
       whitelist: true,
       transformOptions: { enableImplicitConversion: true },
-      forbidNonWhitelisted: true,
+      // forbidNonWhitelisted: true,
       exceptionFactory: classValidatorExceptionFactory,
       ...options,
     });
