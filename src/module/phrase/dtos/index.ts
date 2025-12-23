@@ -1,4 +1,4 @@
-import { PartialType } from '@nestjs/swagger';
+import { OmitType, PartialType } from '@nestjs/swagger';
 import { Languages } from '@prisma/client';
 import { DatabaseModelFields } from '@server/libs/database';
 import { PaginationQueryDto } from '@server/platform/dtos';
@@ -10,14 +10,17 @@ export class BasePhraseResponseDto {
   @PropertyDto()
   id: number;
 
-  @PropertyDto()
+  @PropertyDto({
+    type: Languages,
+    structure: 'enum',
+  })
   language: Languages;
 
   @PropertyDto()
   content: string;
 
   @PropertyDto()
-  hint: string;
+  context: string;
 
   @PropertyDto()
   description: string;
@@ -32,14 +35,12 @@ export class GetPhraseDetailResponseDto extends BasePhraseResponseDto {
 }
 // ****************************** GET Phrase random dto ******************************
 
-export class GetRandomPhraseResponseDto extends BasePhraseResponseDto {
-  // Add more fields if needed such as relations
-}
+export class GetRandomPhraseResponseDto extends BasePhraseResponseDto {}
 // ****************************** GET Phrase list dto ******************************
 
-export class GetPhraseListResponseDto extends BasePhraseResponseDto {
-  // Add more fields if needed such as relations
-}
+export class GetPhraseListResponseDto extends OmitType(BasePhraseResponseDto, [
+  'description',
+]) {}
 
 export class GetPhraseListQueryDto extends PaginationQueryDto {
   @PropertyDto({
@@ -61,15 +62,9 @@ export class GetPhraseListQueryDto extends PaginationQueryDto {
     type: String,
     required: false,
     validated: true,
+    description: `Search by content, context, description`,
   })
-  content: string;
-
-  @PropertyDto({
-    type: String,
-    required: false,
-    validated: true,
-  })
-  hint: string;
+  search: string;
 
   @PropertyDto({
     type: Date,
@@ -111,7 +106,7 @@ export class CreatePhraseBodyDto {
     required: false,
     validated: true,
   })
-  hint: string;
+  context: string;
 
   @PropertyDto({
     type: String,

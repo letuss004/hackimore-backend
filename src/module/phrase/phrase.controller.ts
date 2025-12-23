@@ -14,7 +14,7 @@ import {
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PaginationResponseDto } from '@server/platform/dtos';
 import { AccessRole } from 'src/common/enums';
-import { RoleBaseAccessControl, SwaggerApiDocument } from 'src/decorator';
+import { RoleBaseAccessControl, SwaggerApiDocument, User } from 'src/decorator';
 import { AuthGuard } from 'src/guard';
 import {
   CreatePhraseBodyDto,
@@ -76,8 +76,8 @@ export class PhraseController {
       summary: `Api getRandomPhrase`,
     },
   })
-  async getRandomPhrase(): Promise<GetRandomPhraseResponseDto> {
-    return this.phraseService.getRandomPhrase();
+  async getRandomPhrase(@User('id') userId: number): Promise<GetRandomPhraseResponseDto> {
+    return this.phraseService.getRandomPhrase(userId);
   }
 
   @Get(':id')

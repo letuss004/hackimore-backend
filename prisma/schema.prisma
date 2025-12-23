@@ -55,8 +55,6 @@ model User {
   createdAt          DateTime     @default(now())
   updatedAt          DateTime     @updatedAt
   isDeleted          Boolean      @default(false)
-
-  Redemption Redemption[]
 }
 
 model S3Object {
@@ -111,43 +109,41 @@ model DataJson {
 
 model Phrase {
   id          Int        @id @default(autoincrement())
-  language    Languages?
+  userId      Int?
   content     String
+  context     String?    @db.Text
   description String?    @db.Text
-  hint        String?
+  language    Languages?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   isDeleted   Boolean    @default(false)
 
-  PhraseMeaning PhraseMeaning[]
-  PhraseAudio   PhraseAudio[]
+  PhraseAudio PhraseAudio[]
+  PhraseRetry PhraseRetry[]
 }
 
-model PhraseMeaning {
-  id        Int        @id @default(autoincrement())
-  key       String     @unique
-  content   String     @db.VarChar(500)
-  phraseId  Int
-  language  Languages?
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  isDeleted Boolean    @default(false)
-
-  Pharse Phrase @relation(fields: [phraseId], references: [id])
-}
-
-// pharse speak history
 model PhraseAudio {
-  id         Int        @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
+  userId     Int?
   phraseId   Int
   s3ObjectId Int
-  language   Languages?
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  isDeleted  Boolean    @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isDeleted  Boolean  @default(false)
 
   Pharse   Phrase   @relation(fields: [phraseId], references: [id])
   S3Object S3Object @relation(fields: [s3ObjectId], references: [id])
+}
+
+model PhraseRetry {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  phraseId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  Phrase Phrase @relation(fields: [phraseId], references: [id])
 }
 
 model Redemption {
@@ -161,8 +157,6 @@ model Redemption {
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
   isDeleted   Boolean          @default(false)
-
-  User User @relation(fields: [userId], references: [id])
 }
 
 // -------------------------------- Enums -------------------------------

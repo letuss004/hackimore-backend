@@ -35,8 +35,13 @@ export class PhraseService {
     const where: Prisma.PhraseWhereInput = {
       ...(query.id && { id: query.id }),
       ...(query.language && { language: { in: query.language } }),
-      ...(query.content && { content: query.content }),
-      ...(query.hint && { hint: query.hint }),
+      ...(query.search && {
+        OR: [
+          { content: query.search },
+          { context: query.search },
+          { description: query.search },
+        ],
+      }),
     };
     if (query.createdAtRangeStart || query.createdAtRangeEnd) {
       where.createdAt = {
@@ -52,6 +57,13 @@ export class PhraseService {
         skip,
         orderBy: parseOrderByFromQuery(query.orderBy),
         ...(query.lastItemId && { cursor: { id: query.lastItemId } }),
+        select: {
+          id: true,
+          content: true,
+          context: true,
+          language: true,
+          createdAt: true,
+        },
       }),
       this.databaseService.phrase.count({ where }),
     ]);
@@ -90,7 +102,7 @@ export class PhraseService {
     return this.databaseService.phrase.delete({ where: { id } });
   }
 
-  async getRandomPhrase(): Promise<GetRandomPhraseResponseDto> {
+  async getRandomPhrase(userId: number): Promise<GetRandomPhraseResponseDto> {
     const result = await this.databaseService.$queryRaw<GetRandomPhraseResponseDto[]>`
     SELECT * FROM "Phrase" 
     ORDER BY RANDOM() 

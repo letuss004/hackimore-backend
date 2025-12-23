@@ -18,9 +18,6 @@ export class BasePhraseAudioResponseDto {
   s3ObjectId: number;
 
   @PropertyDto()
-  language: Languages;
-
-  @PropertyDto()
   createdAt: Date;
 }
 
@@ -56,14 +53,6 @@ export class GetPhraseAudioListQueryDto extends PaginationQueryDto {
   s3ObjectId: number;
 
   @PropertyDto({
-    type: Languages,
-    required: false,
-    validated: true,
-    structure: 'enum',
-  })
-  language: Languages;
-
-  @PropertyDto({
     type: Date,
     required: false,
     validated: true,
@@ -97,14 +86,6 @@ export class CreatePhraseAudioBodyDto {
     structure: 'dto',
   })
   s3Object: CreateS3ObjectBodyDto;
-
-  @PropertyDto({
-    type: Languages,
-    required: false,
-    validated: true,
-    structure: 'enum',
-  })
-  language: Languages;
 }
 
 export class CreatePhraseAudioResponseDto extends BasePhraseAudioResponseDto {}

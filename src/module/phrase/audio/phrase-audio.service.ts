@@ -67,7 +67,6 @@ export class PhraseAudioService {
       ...(query.id && { id: query.id }),
       ...(query.phraseId && { phraseId: query.phraseId }),
       ...(query.s3ObjectId && { s3ObjectId: query.s3ObjectId }),
-      ...(query.language && { language: query.language }),
     };
     if (query.createdAtRangeStart || query.createdAtRangeEnd) {
       where.createdAt = {
