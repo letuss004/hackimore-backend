@@ -1,5 +1,5 @@
 {
-  "name": "server-core",
+  "name": "@trampol1nes/nestjs-kit",
   "version": "0.0.1",
   "description": "Core utilities and shared modules for the server",
   "author": "letuss004@gmail.com",
