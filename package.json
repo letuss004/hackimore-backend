@@ -5,12 +5,17 @@
   "author": "letuss004@gmail.com",
   "private": true,
   "license": "UNLICENSED",
+  "workspaces": [
+    "workspace/*"
+  ],
   "engines": {
     "node": ">=22",
     "yarn": ">=1.22.19"
   },
   "scripts": {
     "build": "nest build",
+    "build:workspaces": "yarn workspaces run build",
+    "build:server-core": "yarn workspace server-core build",
     "postbuild": "bash tool/shell/postbuild.sh",
     "format": "prettier --write \"src/**/*.ts\" \"tool/**/*.ts\" \"core/**/*.ts\"",
     "start": "yarn build && node dist/src/main",

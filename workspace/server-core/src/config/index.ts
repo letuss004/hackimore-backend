@@ -1,0 +1,243 @@
+import { Prisma } from '@prisma/client';
+import 'dotenv/config.js';
+import { ValidationError } from '../errors';
+import { UnexpectedError } from '../errors/unexpected';
+import { fs, path } from '../libs/file-system-manipulate';
+import { Joi } from '../libs/joi';
+import { _ } from '../libs/lodash';
+import { NodeEnv } from '../platform';
+
+/**
+ * Configuration options for ServerConfig initialization
+ */
+export interface ServerConfigOptions {
+  /**
+   * Main configuration object from user's project
+   * This contains environment-specific values
+   */
+  mainConfig: Record<string, any>;
+
+  /**
+   * Default configuration object from user's project
+   * This contains fallback/default values
+   */
+  defaultConfig: Record<string, any>;
+
+  /**
+   * Optional: Path to package.json (defaults to 'package.json' in cwd)
+   */
+  packageJsonPath?: string;
+
+  /**
+   * Optional: Custom environment validation schema
+   */
+  envValidationSchema?: Joi.ObjectSchema;
+}
+
+/**
+ * The `ServerConfig` class is a TypeScript class that is used to manage the server configuration in the application.
+ * It is designed as a singleton, meaning it is instantiated only once throughout the application.
+ *
+ * @classdesc Provides a centralized way to manage and access the server configuration in the application.
+ * It ensures that the configuration is validated and correctly initialized before it is used.
+ *
+ * @example
+ * // In user's project entry file (e.g., main.ts)
+ * import { ServerConfig } from 'server-core';
+ * import MAIN_CONFIG from './config/server-config';
+ * import DEFAULT_CONFIG from './config/default-config';
+ *
+ * // Initialize once at app startup
+ * ServerConfig.init({
+ *   mainConfig: MAIN_CONFIG,
+ *   defaultConfig: DEFAULT_CONFIG,
+ * });
+ *
+ * // Then use anywhere
+ * const config = ServerConfig.get();
+ */
+export class ServerConfig {
+  private static config: Record<string, any>;
+  private static packageJson: Record<string, any>;
+  private static initialized = false;
+  private static options: ServerConfigOptions;
+
+  private constructor() {}
+
+  /**
+   * Initialize ServerConfig with user-provided configuration.
+   * Must be called once at application startup before using get().
+   *
+   * @param options - Configuration options including mainConfig and defaultConfig
+   * @throws UnexpectedError if already initialized
+   *
+   * @example
+   * ServerConfig.init({
+   *   mainConfig: MAIN_CONFIG,
+   *   defaultConfig: DEFAULT_CONFIG,
+   * });
+   */
+  public static init(options: ServerConfigOptions): void {
+    if (this.initialized) {
+      throw new UnexpectedError(
+        'ServerConfig is already initialized. Call init() only once at app startup.',
+        'ServerConfig.init',
+      );
+    }
+
+    this.options = options;
+    this.config = this.initialize();
+    this.initialized = true;
+  }
+
+  /**
+   * Check if ServerConfig has been initialized
+   */
+  public static isInitialized(): boolean {
+    return this.initialized;
+  }
+
+  public static get() {
+    if (!this.initialized) {
+      throw new UnexpectedError(
+        'ServerConfig is not initialized. Call ServerConfig.init() first.',
+        'ServerConfig.get',
+      );
+    }
+    return this.config;
+  }
+
+  public static getPackageJson() {
+    return this.packageJson;
+  }
+
+  public static getRedisCredentials() {
+    return {
+      host: ServerConfig.get().REDIS_HOST,
+      port: ServerConfig.get().REDIS_PORT,
+      password: ServerConfig.get().REDIS_PASSWORD,
+    };
+  }
+
+  public static isLocalEnv() {
+    return this.config.NODE_ENV === NodeEnv.Local;
+  }
+
+  public static isProductionEnv() {
+    return this.config.NODE_ENV === NodeEnv.Production;
+  }
+
+  public static getDatabaseCredentials() {
+    const { DATABASE_URL } = this.config;
+    const PRISMA_DATABASE_URL = /mysql:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/([^?]+)/;
+    const matches = DATABASE_URL.match(PRISMA_DATABASE_URL);
+    const user = matches[1];
+    const password = matches[2];
+    const host = matches[3];
+    const port = matches[4];
+    const database = matches[5];
+    return { user, password, host, port, database };
+  }
+
+  public static getPrismaLogLevel(): Prisma.LogLevel[] {
+    const { PRISMA_LOG_LEVEL } = this.config;
+    return Array.isArray(PRISMA_LOG_LEVEL)
+      ? (PRISMA_LOG_LEVEL as any)
+      : [PRISMA_LOG_LEVEL];
+  }
+
+  /**
+   * ============================== Private methods ==============================<br>
+   * Initializes the configuration by validating environment variables,
+   * reading the package.json file, and merging the server and default configurations.
+   **/
+  private static initialize() {
+    const { mainConfig, defaultConfig, packageJsonPath } = this.options;
+
+    this.validateEnvironmentVariables();
+    this.dontAllowArrayContainObject(defaultConfig);
+    this.readPackageJsonFile(packageJsonPath);
+
+    // extra config
+    const extraConfig = {
+      APP_VERSION: this.packageJson?.version,
+      APP_NAME: _.startCase(this.packageJson?.name),
+    };
+    const config = _.cloneDeep({ ...mainConfig, ...extraConfig });
+    this.convertStringToArray(config);
+    return _.assignWith(config, defaultConfig, ServerConfig.assignCustomizer);
+  }
+
+  private static validateEnvironmentVariables() {
+    const configSchema = Joi.object({
+      NODE_ENV: Joi.string()
+        .required()
+        .valid(...Object.values(NodeEnv)),
+      DATABASE_URL: Joi.string().required(),
+    }).unknown();
+    const { error } = configSchema.validate(process.env);
+    if (error) {
+      throw new ValidationError(`Validate environment variable fail`, error.details);
+    }
+  }
+
+  /**
+   * Customizer function for the `_.assignWith` method from lodash.
+   * This function is used to merge the default server configuration with the server configuration.
+   * It ensures that the server configuration does not have any missing keys that are present in the default configuration.
+   * It also ensures that the server configuration does not have any object values where the default configuration has scalar values.
+   *
+   * @example
+   * const defaultConfig = { a: 1, b: 2, c: { d: 3 } };
+   * const serverConfig = { a: 4, b: 5, c: 6 };
+   * const mergedConfig = _.assignWith(serverConfig, defaultConfig, ServerConfig.assignCustomizer);
+   * mergedConfig => { a: 4, b: 5, c: 6 }
+   **/
+  private static assignCustomizer(
+    objValue: any,
+    srcValue: any,
+    key?: string,
+    obj?: {},
+    _source?: {},
+  ) {
+    if (!obj.hasOwnProperty(key)) {
+      throw new UnexpectedError(
+        `Mis-config because DEFAULT_SERVER_CONFIG have key="${key}" but MAIN_CONFIG doesn't`,
+        `ServerConfig.initialize.assignCustomizer`,
+      );
+    }
+    if (_.isPlainObject(objValue)) {
+      return _.assignWith(objValue, srcValue, ServerConfig.assignCustomizer);
+    }
+    if (_.isPlainObject(srcValue)) {
+      throw new UnexpectedError(
+        `The MAIN_CONFIG stop at key="${key}" but DEFAULT_SERVER_CONFIG.${key} is object which is not make sense`,
+        `ServerConfig.initialize.assignCustomizer`,
+      );
+    }
+    return _.isNil(objValue) || _.isNaN(objValue) ? srcValue : objValue;
+  }
+
+  private static readPackageJsonFile(packageJsonPath?: string) {
+    const filepath = packageJsonPath || path.join(process.cwd(), 'package.json');
+    this.packageJson = fs.readJsonSync(filepath);
+  }
+
+  private static dontAllowArrayContainObject(defaultConfig: Record<string, any>) {
+    _.forIn(defaultConfig, (value, key) => {
+      if (Array.isArray(value) && _.some(value, _.isObject)) {
+        throw new UnexpectedError(
+          `Key ${key} in defaultConfig is an array containing an object`,
+        );
+      }
+    });
+  }
+
+  private static convertStringToArray<T>(config: T) {
+    _.forIn(config, (value, key) => {
+      if (_.isString(value) && _.includes(value, ',')) {
+        config[key] = value.split(',');
+      }
+    });
+  }
+}
