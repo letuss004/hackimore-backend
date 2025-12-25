@@ -42,10 +42,18 @@ export class PhraseAudioService {
         message: `Phrase with id ${createAudioData.phraseId} not found`,
       });
     }
-    const s3Objet = await this.s3Service.getObject({
-      Bucket: S3_BUCKET_NAME,
-      Key: createS3Object.key,
-    });
+    const s3Objet = await this.s3Service
+      .getObject({
+        Bucket: S3_BUCKET_NAME,
+        Key: createS3Object.key,
+      })
+      .catch((error) => {
+        throw new ServerException({
+          ...ERROR_RESPONSE.RESOURCE_NOT_FOUND,
+          message: `S3 Object with key ${createS3Object.key} not found`,
+          details: { message: error.message },
+        });
+      });
 
     const fileObject = await this.databaseService.s3Object.create({
       data: { ...createS3Object, userId, eTag: s3Objet.ETag, bucket: S3_BUCKET_NAME },

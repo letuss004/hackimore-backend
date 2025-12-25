@@ -33,9 +33,20 @@ export class BasePhraseResponseDto {
 export class GetPhraseDetailResponseDto extends BasePhraseResponseDto {
   // Add more fields if needed such as relations
 }
+
 // ****************************** GET Phrase random dto ******************************
+export class GetRandomPhraseQueryDto {
+  @PropertyDto({
+    type: Languages,
+    required: false,
+    validated: true,
+    structure: 'enumArray',
+  })
+  language: Languages[];
+}
 
 export class GetRandomPhraseResponseDto extends BasePhraseResponseDto {}
+
 // ****************************** GET Phrase list dto ******************************
 
 export class GetPhraseListResponseDto extends OmitType(BasePhraseResponseDto, [
