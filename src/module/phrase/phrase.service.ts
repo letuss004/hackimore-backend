@@ -12,6 +12,7 @@ import {
   GetPhraseDetailResponseDto,
   GetPhraseListQueryDto,
   GetPhraseListResponseDto,
+  GetRandomPhraseQueryDto,
   GetRandomPhraseResponseDto,
   UpdatePhraseBodyDto,
   UpdatePhraseResponseDto,
@@ -102,12 +103,16 @@ export class PhraseService {
     return this.databaseService.phrase.delete({ where: { id } });
   }
 
-  async getRandomPhrase(userId: number): Promise<GetRandomPhraseResponseDto> {
+  async getRandomPhrase(
+    userId: number,
+    query: GetRandomPhraseQueryDto,
+  ): Promise<GetRandomPhraseResponseDto> {
     const result = await this.databaseService.$queryRaw<GetRandomPhraseResponseDto[]>`
-    SELECT * FROM "Phrase" 
-    ORDER BY RANDOM() 
-    LIMIT 1
-  `;
+      SELECT *
+      FROM "Phrase"
+      ORDER BY RANDOM()
+      LIMIT 1
+    `;
     return result[0];
   }
 }
