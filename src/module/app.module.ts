@@ -50,7 +50,10 @@ export class AppModule implements NestModule {
       .forRoutes('*');
 
     // logger
-    consumer.apply(HttpLoggerMiddleware).exclude('(v[0-9]+)/auth/(.*)').forRoutes('*');
+    consumer
+      .apply(HttpLoggerMiddleware)
+      .exclude('(v[0-9]+)/auth/(.*)', '(v[0-9]+)/storage/(.*)')
+      .forRoutes('*');
 
     // error-able middleware
     // consumer.apply(RateLimitMiddleware).forRoutes('*');

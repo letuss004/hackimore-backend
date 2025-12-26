@@ -22,6 +22,7 @@ import {
   GetPhraseDetailResponseDto,
   GetPhraseListQueryDto,
   GetPhraseListResponseDto,
+  GetRandomPhraseQueryDto,
   GetRandomPhraseResponseDto,
   UpdatePhraseBodyDto,
   UpdatePhraseResponseDto,
@@ -76,8 +77,11 @@ export class PhraseController {
       summary: `Api getRandomPhrase`,
     },
   })
-  async getRandomPhrase(@User('id') userId: number): Promise<GetRandomPhraseResponseDto> {
-    return this.phraseService.getRandomPhrase(userId);
+  async getRandomPhrase(
+    @User('id') userId: number,
+    @Query() query: GetRandomPhraseQueryDto,
+  ): Promise<GetRandomPhraseResponseDto> {
+    return this.phraseService.getRandomPhrase(userId, query);
   }
 
   @Get(':id')
