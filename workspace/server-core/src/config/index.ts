@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client';
+import { ServerConfigOptions } from '@server-core/config/config.type';
 import 'dotenv/config.js';
 import { ValidationError } from '../errors';
 import { UnexpectedError } from '../errors/unexpected';
@@ -6,33 +7,6 @@ import { fs, path } from '../libs/file-system-manipulate';
 import { Joi } from '../libs/joi';
 import { _ } from '../libs/lodash';
 import { NodeEnv } from '../platform';
-
-/**
- * Configuration options for ServerConfig initialization
- */
-export interface ServerConfigOptions {
-  /**
-   * Main configuration object from user's project
-   * This contains environment-specific values
-   */
-  mainConfig: Record<string, any>;
-
-  /**
-   * Default configuration object from user's project
-   * This contains fallback/default values
-   */
-  defaultConfig: Record<string, any>;
-
-  /**
-   * Optional: Path to package.json (defaults to 'package.json' in cwd)
-   */
-  packageJsonPath?: string;
-
-  /**
-   * Optional: Custom environment validation schema
-   */
-  envValidationSchema?: Joi.ObjectSchema;
-}
 
 /**
  * The `ServerConfig` class is a TypeScript class that is used to manage the server configuration in the application.
@@ -56,7 +30,7 @@ export interface ServerConfigOptions {
  * // Then use anywhere
  * const config = ServerConfig.get();
  */
-export class ServerConfig {
+export class ServerConfig<TConfig = Record<string, any>> {
   private static config: Record<string, any>;
   private static packageJson: Record<string, any>;
   private static initialized = false;

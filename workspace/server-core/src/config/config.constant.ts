@@ -1,0 +1,2 @@
+export const SERVER_CONFIG_OPTIONS = Symbol('SERVER_CONFIG_OPTIONS');
+export const SERVER_CONFIG = Symbol('SERVER_CONFIG');
