@@ -1,7 +1,9 @@
 import { DiscoveryModule } from '@golevelup/nestjs-discovery';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { TerminusModule } from '@nestjs/terminus';
+import path from 'path';
 import { IntegrationModule } from 'src/integration/integration.module';
 import {
   CompressionMiddleware,
@@ -24,6 +26,9 @@ import { UserModule } from 'src/module/user';
     ScheduleModule.forRoot(),
     DiscoveryModule,
     IntegrationModule,
+    ServeStaticModule.forRoot({
+      rootPath: path.join(__dirname, '../..', 'public'),
+    }),
     BaseModule,
     AuthModule,
     UserModule,
