@@ -565,6 +565,53 @@
         if (e.key === 'ArrowLeft') prevSlide();
     });
 
+    // Scroll/wheel navigation
+    let isScrolling = false;
+    document.addEventListener('wheel', (e) => {
+        if (isScrolling) return;
+
+        if (e.deltaY > 0) {
+            // Scroll down -> next slide
+            nextSlide();
+        } else if (e.deltaY < 0) {
+            // Scroll up -> previous slide
+            prevSlide();
+        }
+
+        isScrolling = true;
+        setTimeout(() => {
+            isScrolling = false;
+        }, 700); // Debounce to match transition duration
+    });
+
+    // Touch swipe navigation for mobile
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    document.addEventListener('touchstart', (e) => {
+        touchStartY = e.changedTouches[0].screenY;
+    });
+
+    document.addEventListener('touchend', (e) => {
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartY - touchEndY;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Swipe up -> next slide
+                nextSlide();
+            } else {
+                // Swipe down -> previous slide
+                prevSlide();
+            }
+        }
+    }
+
     // Demo Request Form Submission
     const demoRequestForm = document.getElementById('demoRequestForm');
     const submitDemoBtn = document.getElementById('submitDemoBtn');
