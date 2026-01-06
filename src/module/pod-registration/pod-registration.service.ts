@@ -62,7 +62,7 @@ export class PodRegistrationService {
       // Send confirmation email to user
       this.emailService.send({
         to: body.email,
-        subject: 'Xác nhận đăng ký Demo - Hackimore',
+        subject: '[POD] Xác nhận đăng ký Demo',
         template: 'pod-registration-user',
         variables: {
           fullName: body.fullName,
