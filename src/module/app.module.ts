@@ -29,6 +29,7 @@ import { UserModule } from 'src/module/user';
     IntegrationModule,
     ServeStaticModule.forRoot({
       rootPath: path.join(__dirname, '../..', 'public'),
+      serveRoot: '/',
     }),
     BaseModule,
     AuthModule,
