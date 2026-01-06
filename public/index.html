@@ -493,36 +493,44 @@
           </div>
         </div>
         <div class="glass-panel p-8 rounded-2xl">
-          <form class="space-y-4">
+          <form id="demoRequestForm" class="space-y-4">
             <div>
               <label class="block text-xs font-medium text-slate-500 uppercase mb-1">
-                Họ tên
+                Họ tên <span class="text-red-500">*</span>
               </label>
               <input type="text"
+                     id="fullName"
+                     required
                      class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
                      placeholder="Nhập họ tên...">
             </div>
             <div>
               <label class="block text-xs font-medium text-slate-500 uppercase mb-1">
-                Email
+                Email <span class="text-red-500">*</span>
               </label>
               <input type="email"
+                     id="email"
+                     required
                      class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
                      placeholder="Nhập email...">
             </div>
             <div>
               <label class="block text-xs font-medium text-slate-500 uppercase mb-1">
-                Số điện thoại
+                Số điện thoại <span class="text-red-500">*</span>
               </label>
               <input type="tel"
+                     id="phone"
+                     required
                      class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
                      placeholder="Nhập số điện thoại...">
             </div>
             <div>
               <label class="block text-xs font-medium text-slate-500 uppercase mb-1">
-                Ý tưởng dự án
+                Ý tưởng dự án <span class="text-red-500">*</span>
               </label>
               <input type="text"
+                     id="idea"
+                     required
                      class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
                      placeholder="Mô tả ngắn...">
             </div>
@@ -531,15 +539,18 @@
                 Mô tả chi tiết
               </label>
               <textarea rows="3"
+                        id="details"
                         class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
                         placeholder="Mô tả chi tiết..."
               ></textarea>
             </div>
-            <button type="button"
+            <button type="submit"
+                    id="submitDemoBtn"
                     class="w-full py-4 bg-brand-accent text-brand-light font-bold rounded-lg hover:bg-sky-400 transition-colors mt-2">
               Gửi Yêu Cầu Demo
             </button>
           </form>
+          <div id="formMessage" class="mt-4 text-center hidden"></div>
         </div>
       </div>
     </section>
@@ -594,6 +605,58 @@
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowRight') nextSlide();
         if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    // Demo Request Form Submission
+    const demoRequestForm = document.getElementById('demoRequestForm');
+    const submitDemoBtn = document.getElementById('submitDemoBtn');
+    const formMessage = document.getElementById('formMessage');
+
+    demoRequestForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Disable button and show loading state
+        submitDemoBtn.disabled = true;
+        submitDemoBtn.textContent = 'Đang gửi...';
+        formMessage.classList.add('hidden');
+
+        const formData = {
+            fullName: document.getElementById('fullName').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            phone: document.getElementById('phone').value.trim(),
+            idea: document.getElementById('idea').value.trim(),
+            details: document.getElementById('details').value.trim(),
+        };
+
+        try {
+            const response = await fetch('/api/v1/pod-registration', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                await response.json();
+                formMessage.textContent = 'Gửi yêu cầu thành công! Chúng tôi sẽ liên hệ bạn trong 24h.';
+                formMessage.className = 'mt-4 text-center text-green-400';
+                formMessage.classList.remove('hidden');
+                demoRequestForm.reset();
+            } else {
+                const error = await response.json();
+                formMessage.textContent = error.message || 'Có lỗi xảy ra, vui lòng thử lại.';
+                formMessage.className = 'mt-4 text-center text-red-400';
+                formMessage.classList.remove('hidden');
+            }
+        } catch (error) {
+            formMessage.textContent = 'Không thể kết nối đến server, vui lòng thử lại.';
+            formMessage.className = 'mt-4 text-center text-red-400';
+            formMessage.classList.remove('hidden');
+        } finally {
+            submitDemoBtn.disabled = false;
+            submitDemoBtn.textContent = 'Gửi Yêu Cầu Demo';
+        }
     });
 </script>
 
