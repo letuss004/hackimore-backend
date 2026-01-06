@@ -159,6 +159,18 @@ model Redemption {
   isDeleted   Boolean          @default(false)
 }
 
+model PodRegistration {
+  id        Int      @id @default(autoincrement())
+  fullName  String
+  email     String
+  phone     String?
+  idea      String
+  details   String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+}
+
 // -------------------------------- Enums -------------------------------
 enum UserRole {
   Admin

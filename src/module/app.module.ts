@@ -1,7 +1,9 @@
 import { DiscoveryModule } from '@golevelup/nestjs-discovery';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { TerminusModule } from '@nestjs/terminus';
+import path from 'path';
 import { IntegrationModule } from 'src/integration/integration.module';
 import {
   CompressionMiddleware,
@@ -13,6 +15,7 @@ import {
 import { AuthModule } from 'src/module/auth';
 import { BaseModule } from 'src/module/base';
 import { PhraseModule } from 'src/module/phrase';
+import { PodRegistrationModule } from 'src/module/pod-registration';
 import { RedemptionModule } from 'src/module/redemption';
 import { StorageModule } from 'src/module/storage';
 import { SystemModule } from 'src/module/system/system.module';
@@ -24,6 +27,10 @@ import { UserModule } from 'src/module/user';
     ScheduleModule.forRoot(),
     DiscoveryModule,
     IntegrationModule,
+    ServeStaticModule.forRoot({
+      rootPath: path.join(__dirname, '../..', 'public'),
+      serveRoot: '/',
+    }),
     BaseModule,
     AuthModule,
     UserModule,
@@ -32,6 +39,7 @@ import { UserModule } from 'src/module/user';
     // Business logic module
     PhraseModule,
     RedemptionModule,
+    PodRegistrationModule,
   ],
 })
 export class AppModule implements NestModule {

@@ -6,6 +6,7 @@ import { ServerConfig } from '@server/config';
 import { corsOptions } from '@server/cors';
 import { ServerLogger } from '@server/logger';
 import { PayloadValidationPipe } from '@server/pipe';
+import basicAuth from 'express-basic-auth';
 import { SWAGGER_CUSTOM_JS } from 'src/common/const/swagger';
 import { HttpExceptionFilter } from 'src/exception/filter';
 import { TimeoutInterceptor } from 'src/interceptor';
@@ -19,8 +20,16 @@ import { AppModule } from './module/app.module';
 (async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const httpAdapter = app.get(HttpAdapterHost);
-  const { APP_VERSION, APP_NAME, SERVER_PORT, SWAGGER_ENDPOINT, API_PREFIX, NODE_ENV } =
-    ServerConfig.get();
+  const {
+    APP_VERSION,
+    APP_NAME,
+    SERVER_PORT,
+    SWAGGER_ENDPOINT,
+    API_PREFIX,
+    NODE_ENV,
+    SWAGGER_USERNAME,
+    SWAGGER_PASSWORD,
+  } = ServerConfig.get();
 
   //
   app.set('query parser', 'extended'); // configure Express to use the extended parser (the default in Express v4)
@@ -39,6 +48,17 @@ import { AppModule } from './module/app.module';
     type: VersioningType.URI,
     defaultVersion: '1',
   });
+
+  // global middlewares
+  if (!ServerConfig.isLocalEnv()) {
+    app.use(
+      ['/docs', '/docs-json'],
+      basicAuth({
+        challenge: true,
+        users: { [SWAGGER_USERNAME]: SWAGGER_PASSWORD },
+      }),
+    );
+  }
 
   // swagger documentation
   const appService = app.get(SystemService);
