@@ -104,7 +104,7 @@
         Mô hình
       </button>
       <button onclick="goToSlide(2)" class="hover:text-white transition-colors">
-        Tại sao chọn
+        Tại sao
       </button>
       <button onclick="goToSlide(5)" class="hover:text-white transition-colors">
         Dịch vụ
@@ -639,7 +639,7 @@
 
             if (response.ok) {
                 await response.json();
-                formMessage.textContent = 'Gửi yêu cầu thành công! Chúng tôi sẽ liên hệ bạn trong 24h.';
+                formMessage.textContent = 'Gửi yêu cầu thành công! Chúng tôi sẽ liên hệ bạn ngay.';
                 formMessage.className = 'mt-4 text-center text-green-400';
                 formMessage.classList.remove('hidden');
                 demoRequestForm.reset();

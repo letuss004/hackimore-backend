@@ -45,6 +45,7 @@ export class PodRegistrationController {
       summary: `Api createPodRegistration`,
     },
   })
+  // todo important: rate limit this endpoint
   async createPodRegistration(
     @Body() body: CreatePodRegistrationBodyDto,
   ): Promise<CreatePodRegistrationResponseDto> {
