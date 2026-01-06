@@ -15,6 +15,7 @@ import {
 import { AuthModule } from 'src/module/auth';
 import { BaseModule } from 'src/module/base';
 import { PhraseModule } from 'src/module/phrase';
+import { PodRegistrationModule } from 'src/module/pod-registration';
 import { RedemptionModule } from 'src/module/redemption';
 import { StorageModule } from 'src/module/storage';
 import { SystemModule } from 'src/module/system/system.module';
@@ -37,6 +38,7 @@ import { UserModule } from 'src/module/user';
     // Business logic module
     PhraseModule,
     RedemptionModule,
+    PodRegistrationModule,
   ],
 })
 export class AppModule implements NestModule {
