@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import { ServerConfig } from '@server/config';
+import { ServerLogger } from '@server/logger';
 import { PaginationResponseDto } from '@server/platform/dtos';
 import { ERROR_RESPONSE } from 'src/common/const';
 import { parseOrderByFromQuery } from 'src/common/helpers/database';
 import { validatePaginationQueryDto } from 'src/common/helpers/request';
 import { ServerException } from 'src/exception';
 import { DatabaseService } from 'src/module/base/database';
+import { EmailService } from 'src/module/base/email/email.service';
 import {
   CreatePodRegistrationBodyDto,
   CreatePodRegistrationResponseDto,
@@ -18,14 +21,67 @@ import {
 
 @Injectable()
 export class PodRegistrationService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly emailService: EmailService,
+  ) {}
 
   async createPodRegistration(
     body: CreatePodRegistrationBodyDto,
   ): Promise<CreatePodRegistrationResponseDto> {
-    return this.databaseService.podRegistration.create({
+    const podRegistration = await this.databaseService.podRegistration.create({
       data: { ...body },
     });
+
+    const currentYear = new Date().getFullYear();
+    const createdAtFormatted = new Date(podRegistration.createdAt).toLocaleString(
+      'vi-VN',
+      {
+        timeZone: 'Asia/Ho_Chi_Minh',
+        dateStyle: 'full',
+        timeStyle: 'short',
+      },
+    );
+
+    Promise.all([
+      // Send email to admin
+      await this.emailService.send({
+        to: ServerConfig.get().SMTP_GMAIL_USER,
+        subject: `[POD] Đăng ký mới từ ${body.fullName}`,
+        template: 'pod-registration-admin',
+        variables: {
+          fullName: body.fullName,
+          email: body.email,
+          phone: body.phone,
+          idea: body.idea,
+          details: body.details,
+          createdAt: createdAtFormatted,
+          year: currentYear,
+        },
+      }),
+      // Send confirmation email to user
+      this.emailService.send({
+        to: body.email,
+        subject: '[POD] Xác nhận đăng ký Demo',
+        template: 'pod-registration-user',
+        variables: {
+          fullName: body.fullName,
+          email: body.email,
+          phone: body.phone,
+          idea: body.idea,
+          details: body.details,
+          year: currentYear,
+        },
+      }),
+    ]).catch((error) => {
+      ServerLogger.error({
+        error,
+        message: 'Failed to send pod registration email',
+        context: `PodRegistrationService.createPodRegistration`,
+      });
+    });
+
+    return podRegistration;
   }
 
   async getPodRegistrationList(
