@@ -36,5 +36,6 @@ COPY --from=builder /api/dist ./dist
 COPY entry.sh ./
 # Run server
 EXPOSE 3000
+EXPOSE 587
 
 CMD ["bash", "./entry.sh"]
