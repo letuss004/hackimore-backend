@@ -1,6 +1,6 @@
 # Define the base image from node
 FROM node:22-alpine AS base
-RUN apk add --no-cache openssl bash
+RUN apk add --no-cache openssl bash postgresql-client
 RUN yarn global add ts-node
 WORKDIR /api
 

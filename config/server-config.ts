@@ -46,6 +46,9 @@ const MAIN_CONFIG = {
   // swagger
   SWAGGER_USERNAME: process.env.SWAGGER_USERNAME,
   SWAGGER_PASSWORD: process.env.SWAGGER_PASSWORD,
+  // bull board
+  BULL_BOARD_USERNAME: process.env.BULL_BOARD_USERNAME,
+  BULL_BOARD_PASSWORD: process.env.BULL_BOARD_PASSWORD,
 };
 
 Object.seal(MAIN_CONFIG);
