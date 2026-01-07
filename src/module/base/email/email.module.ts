@@ -11,10 +11,24 @@ import { EmailService } from './email.service';
       transport: {
         service: 'gmail',
         host: 'smtp.gmail.com',
+        port: 465,
         secure: true,
         auth: {
           user: ServerConfig.get().SMTP_GMAIL_USER,
           pass: ServerConfig.get().SMTP_GMAIL_PASS,
+        },
+        // Timeout settings for Docker environment
+        connectionTimeout: 60000, // 60 seconds to establish connection
+        greetingTimeout: 30000, // 30 seconds to receive server greeting
+        socketTimeout: 60000, // 60 seconds for socket inactivity
+        // Connection pool for better performance
+        pool: true,
+        maxConnections: 5,
+        maxMessages: 10,
+        // Retry logic
+        requireTLS: true,
+        tls: {
+          rejectUnauthorized: false, // For Docker network compatibility
         },
       },
       defaults: {

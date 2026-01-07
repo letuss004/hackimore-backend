@@ -11,6 +11,10 @@ services:
       - ./logs:/api/logs
       - ./database-backups:/api/prisma/backups
       - ./uploads:/api/uploads
+    # Add DNS servers for external SMTP access
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     networks:
       - hackimore-network
 
