@@ -45,7 +45,7 @@ export class PodRegistrationService {
 
     Promise.all([
       // Send email to admin
-      await this.emailService.send({
+      this.emailService.send({
         to: ServerConfig.get().SMTP_GMAIL_USER,
         subject: `[POD] Đăng ký mới từ ${body.fullName}`,
         template: 'pod-registration-admin',
