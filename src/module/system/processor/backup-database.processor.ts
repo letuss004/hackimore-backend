@@ -26,11 +26,7 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
   }
 
   async process(job: Job<null>, token?: string): Promise<any> {
-    switch (job.name) {
-      case SystemJobName.BackupDatabaseDaily:
-        return this.backupDatabaseDaily(job);
-      default:
-    }
+    await Promise.all([this.backupDatabaseDaily(job), this.cleanupOldBackups()]);
   }
 
   private async backupDatabaseDaily(job: Job<null>) {
@@ -42,11 +38,6 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
 
     // Check if backup already exists
     if (await this.s3Service.checkExists(backupFilePath)) {
-      ServerLogger.info({
-        context: 'BackupDatabaseProcessor.backupDatabaseDaily',
-        message: `Backup already exists for ${time}`,
-        meta: { backupFilePath },
-      });
       return {
         message: `Backup already exists at ${backupFilePath}`,
       };
@@ -174,6 +165,117 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
         message: 'Failed to backup database',
       });
       throw error;
+    }
+  }
+
+  /**
+   * Clean up old backups, keeping only the 7 most recent backup folders
+   */
+  private async cleanupOldBackups() {
+    try {
+      const bucketName = ServerConfig.get().S3_BUCKET_NAME;
+      const backupPrefix = 'database-backups/';
+
+      ServerLogger.info({
+        context: 'BackupDatabaseProcessor.cleanupOldBackups',
+        message: 'Starting cleanup of old backups',
+      });
+
+      // List all objects in the database-backups folder
+      const result = await this.s3Service.listObjects({
+        Bucket: bucketName,
+        Prefix: backupPrefix,
+      });
+
+      if (!result.Contents || result.Contents.length === 0) {
+        ServerLogger.info({
+          context: 'BackupDatabaseProcessor.cleanupOldBackups',
+          message: 'No backup files found',
+        });
+        return;
+      }
+
+      // Group files by backup folder (date)
+      const backupFolders = new Map<string, Array<{ key: string; lastModified: Date }>>();
+
+      for (const obj of result.Contents) {
+        if (!obj.Key || !obj.LastModified) continue;
+
+        // Extract folder name from key (e.g., "database-backups/07-01-2026/" -> "07-01-2026")
+        const match = obj.Key.match(/^database-backups\/([^/]+)\//);
+        if (match && match[1]) {
+          const folderName = match[1];
+          if (!backupFolders.has(folderName)) {
+            backupFolders.set(folderName, []);
+          }
+          backupFolders.get(folderName)!.push({
+            key: obj.Key,
+            lastModified: obj.LastModified,
+          });
+        }
+      }
+
+      // Sort folders by the most recent file's LastModified date
+      const sortedFolders = Array.from(backupFolders.entries())
+        .map(([folderName, files]) => ({
+          folderName,
+          files,
+          mostRecentDate: new Date(
+            Math.max(...files.map((f) => f.lastModified.getTime())),
+          ),
+        }))
+        .sort((a, b) => b.mostRecentDate.getTime() - a.mostRecentDate.getTime());
+
+      ServerLogger.info({
+        context: 'BackupDatabaseProcessor.cleanupOldBackups',
+        message: `Found ${sortedFolders.length} backup folders`,
+        meta: { totalFolders: sortedFolders.length },
+      });
+
+      // Keep only the 7 most recent folders, delete the rest
+      const foldersToDelete = sortedFolders.slice(7);
+
+      if (foldersToDelete.length === 0) {
+        ServerLogger.info({
+          context: 'BackupDatabaseProcessor.cleanupOldBackups',
+          message: 'No old backups to delete (less than 8 backup folders)',
+          meta: { currentBackupCount: sortedFolders.length },
+        });
+        return;
+      }
+
+      let deletedCount = 0;
+      for (const folder of foldersToDelete) {
+        for (const file of folder.files) {
+          await this.s3Service.deleteObject({
+            Bucket: bucketName,
+            Key: file.key,
+          });
+          deletedCount++;
+          ServerLogger.info({
+            context: 'BackupDatabaseProcessor.cleanupOldBackups',
+            message: `Deleted old backup file`,
+            meta: { key: file.key, folder: folder.folderName },
+          });
+        }
+      }
+
+      ServerLogger.info({
+        context: 'BackupDatabaseProcessor.cleanupOldBackups',
+        message: 'Cleanup completed successfully',
+        meta: {
+          foldersDeleted: foldersToDelete.length,
+          filesDeleted: deletedCount,
+          foldersKept: 7,
+        },
+      });
+    } catch (error) {
+      ServerLogger.error({
+        error,
+        context: 'BackupDatabaseProcessor.cleanupOldBackups',
+        message: 'Failed to cleanup old backups',
+      });
+      // Don't throw error - cleanup failure shouldn't fail the backup process
     }
   }
 
