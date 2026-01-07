@@ -12,19 +12,10 @@ import { EmailService } from './email.service';
         service: 'gmail',
         host: 'smtp.gmail.com',
         secure: true,
-        port: 465,
         auth: {
           user: ServerConfig.get().SMTP_GMAIL_USER,
           pass: ServerConfig.get().SMTP_GMAIL_PASS,
         },
-        // Add timeout settings for Docker environments
-        connectionTimeout: 60000, // 60 seconds
-        greetingTimeout: 30000, // 30 seconds
-        socketTimeout: 60000, // 60 seconds
-        // Connection pool settings
-        pool: true,
-        maxConnections: 5,
-        maxMessages: 10,
       },
       defaults: {
         replyTo: '"nest-modules" <modules@nestjs.com>',
