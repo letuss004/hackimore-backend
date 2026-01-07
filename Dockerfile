@@ -2,10 +2,6 @@
 FROM node:22-alpine AS base
 RUN apk add --no-cache openssl bash postgresql-client curl bind-tools netcat-openbsd
 RUN yarn global add ts-node
-# Configure DNS for better external connectivity
-RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && \
-    echo "nameserver 8.8.4.4" >> /etc/resolv.conf && \
-    echo "options timeout:2 attempts:3 rotate single-request-reopen" >> /etc/resolv.conf
 WORKDIR /api
 
 # Build nestjs app
