@@ -9,27 +9,31 @@ import { EmailService } from './email.service';
   imports: [
     MailerModule.forRoot({
       transport: {
-        service: 'gmail',
         host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
+        port: 587, // Use port 587 with STARTTLS instead of 465 (better Docker compatibility)
+        secure: false, // false for port 587, true for 465
         auth: {
           user: ServerConfig.get().SMTP_GMAIL_USER,
           pass: ServerConfig.get().SMTP_GMAIL_PASS,
         },
-        // Timeout settings for Docker environment
-        connectionTimeout: 60000, // 60 seconds to establish connection
-        greetingTimeout: 30000, // 30 seconds to receive server greeting
-        socketTimeout: 60000, // 60 seconds for socket inactivity
+        // More lenient timeout settings for Docker environment
+        connectionTimeout: 120000, // 120 seconds to establish connection
+        greetingTimeout: 60000, // 60 seconds to receive server greeting
+        socketTimeout: 120000, // 120 seconds for socket inactivity
         // Connection pool for better performance
         pool: true,
-        maxConnections: 5,
-        maxMessages: 10,
-        // Retry logic
+        maxConnections: 3,
+        maxMessages: 100,
+        // TLS settings
         requireTLS: true,
         tls: {
           rejectUnauthorized: false, // For Docker network compatibility
+          minVersion: 'TLSv1.2',
+          ciphers: 'HIGH:MEDIUM:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!SRP:!CAMELLIA',
         },
+        // Additional options for Docker
+        logger: false,
+        debug: false,
       },
       defaults: {
         replyTo: '"nest-modules" <modules@nestjs.com>',
