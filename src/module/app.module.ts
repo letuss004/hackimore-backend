@@ -1,9 +1,15 @@
+import { ExpressAdapter } from '@bull-board/express';
+import { BullBoardModule } from '@bull-board/nestjs';
 import { DiscoveryModule } from '@golevelup/nestjs-discovery';
+import { BullModule } from '@nestjs/bullmq';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TerminusModule } from '@nestjs/terminus';
+import { ServerConfig } from '@server/config';
+import basicAuth from 'express-basic-auth';
 import path from 'path';
+import { JOB_DEFAULT_OPTIONS } from 'src/common/const/queue';
 import { IntegrationModule } from 'src/integration/integration.module';
 import {
   CompressionMiddleware,
@@ -31,6 +37,24 @@ import { UserModule } from 'src/module/user';
       rootPath: path.join(__dirname, '../..', 'public'),
       serveRoot: '/',
     }),
+    BullModule.forRoot({
+      connection: { ...ServerConfig.getRedisCredentials() },
+      defaultJobOptions: JOB_DEFAULT_OPTIONS,
+    }),
+    BullBoardModule.forRoot({
+      route: '/queues',
+      adapter: ExpressAdapter,
+      ...(!ServerConfig.isLocalEnv() && {
+        middleware: basicAuth({
+          challenge: true,
+          users: {
+            [ServerConfig.get().BULL_BOARD_USERNAME]:
+              ServerConfig.get().BULL_BOARD_PASSWORD,
+          },
+        }),
+      }),
+    }),
+    // Common modules
     BaseModule,
     AuthModule,
     UserModule,

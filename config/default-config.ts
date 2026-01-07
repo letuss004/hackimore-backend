@@ -31,6 +31,12 @@ const SERVER_CONFIG_DEFAULT = {
   // S3 Configuration
   AWS_REGION: 'ap-southeast-1',
   S3_PRESIGNED_URL_EXPIRES: 3600,
+  // swagger
+  SWAGGER_USERNAME: 'admin',
+  SWAGGER_PASSWORD: 'Admin@001',
+  // bull board
+  BULL_BOARD_USERNAME: 'admin',
+  BULL_BOARD_PASSWORD: 'Admin@001',
 };
 
 Object.seal(SERVER_CONFIG_DEFAULT);

@@ -22,7 +22,9 @@ import {
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Injectable } from '@nestjs/common';
+import { ServerConfig } from '@server/config';
 import { ServerLogger } from '@server/logger';
+import { StreamingBlobPayloadInputTypes } from '@smithy/types/dist-types/streaming-payload/streaming-blob-payload-input-types';
 
 @Injectable()
 export class S3Service extends S3Client {
@@ -250,6 +252,58 @@ export class S3Service extends S3Client {
         context: 'S3Service.getCustomPresignedUrl',
         message: 'Failed to generate custom presigned URL',
         meta: { commandName: command.constructor.name, expiresIn },
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Check if an object exists in S3 by its key
+   * Applies to: folders as well
+   * @param key - The object key to check
+   * @returns Promise<boolean> - True if the object exists, false otherwise
+   **/
+  async checkExists(key: string): Promise<boolean> {
+    const { S3_BUCKET_NAME } = ServerConfig.get();
+
+    const result = await this.listObjects({
+      Bucket: S3_BUCKET_NAME,
+      Prefix: key,
+      MaxKeys: 1,
+    });
+    return result.Contents && result.Contents.length > 0;
+  }
+
+  /**
+   * Upload a file to S3 with simplified interface
+   * @param params - Upload parameters
+   * @returns Promise<void>
+   */
+  async uploadFile(params: {
+    bucketName: string;
+    key: string;
+    body: StreamingBlobPayloadInputTypes;
+    contentType?: string;
+  }): Promise<void> {
+    try {
+      await this.uploadObject({
+        Bucket: params.bucketName,
+        Key: params.key,
+        Body: params.body,
+        ContentType: params.contentType,
+      });
+
+      ServerLogger.info({
+        context: 'S3Service.uploadFile',
+        message: `Successfully uploaded file to S3`,
+        meta: { bucket: params.bucketName, key: params.key },
+      });
+    } catch (error) {
+      ServerLogger.error({
+        error,
+        context: 'S3Service.uploadFile',
+        message: 'Failed to upload file to S3',
+        meta: { bucket: params.bucketName, key: params.key },
       });
       throw error;
     }
