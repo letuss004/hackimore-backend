@@ -1,8 +1,9 @@
-import { Processor, WorkerHost } from '@nestjs/bullmq';
+import { InjectQueue, Processor, WorkerHost } from '@nestjs/bullmq';
+import { OnModuleInit } from '@nestjs/common';
 import { ServerConfig } from '@server/config';
 import { Time } from '@server/libs/time';
 import { ServerLogger } from '@server/logger';
-import { Job } from 'bullmq';
+import { Job, Queue } from 'bullmq';
 import { spawn } from 'child_process';
 import { S3Service } from 'src/integration/aws';
 import { SystemJobName, SystemQueueName } from 'src/module/system/system.enum';
@@ -10,9 +11,18 @@ import { PassThrough } from 'stream';
 import { createGzip } from 'zlib';
 
 @Processor(SystemQueueName.BackupDatabase)
-export class BackupDatabaseProcessor extends WorkerHost {
-  constructor(private readonly s3Service: S3Service) {
+export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit {
+  constructor(
+    private readonly s3Service: S3Service,
+    @InjectQueue(SystemQueueName.BackupDatabase)
+    private readonly backupDatabaseQueue: Queue,
+  ) {
     super();
+  }
+
+  async onModuleInit() {
+    // Schedule daily backup job at midnight (00:00)
+    await this.ensureQueueActiveAsCron();
   }
 
   async process(job: Job<null>, token?: string): Promise<any> {
@@ -164,6 +174,44 @@ export class BackupDatabaseProcessor extends WorkerHost {
         message: 'Failed to backup database',
       });
       throw error;
+    }
+  }
+
+  private async ensureQueueActiveAsCron() {
+    try {
+      // Remove any existing repeatable jobs for this job name
+      const repeatableJobs = await this.backupDatabaseQueue.getJobSchedulers();
+      for (const job of repeatableJobs) {
+        if (job.name === SystemJobName.BackupDatabaseDaily) {
+          await this.backupDatabaseQueue.removeJobScheduler(job.id);
+          ServerLogger.info({
+            context: 'TaskScheduleService.scheduleBackupDatabaseDaily',
+            message: 'Removed existing repeatable backup job',
+            meta: { jobKey: job.key, jobId: job.id },
+          });
+        }
+      }
+
+      // Add repeatable job - runs daily at midnight
+      await this.backupDatabaseQueue.add(SystemJobName.BackupDatabaseDaily, null, {
+        repeat: {
+          pattern: '0 0 * * *', // Every day at 00:00 (midnight)
+        },
+        removeOnComplete: true,
+        removeOnFail: false,
+      });
+
+      ServerLogger.info({
+        context: 'TaskScheduleService.scheduleBackupDatabaseDaily',
+        message: 'Scheduled daily database backup job',
+        meta: { pattern: '0 0 * * *' },
+      });
+    } catch (error) {
+      ServerLogger.error({
+        error,
+        context: 'TaskScheduleService.scheduleBackupDatabaseDaily',
+        message: 'Failed to schedule daily database backup job',
+      });
     }
   }
 }
