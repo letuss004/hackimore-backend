@@ -28,7 +28,7 @@ RUN npx prisma generate
 FROM base AS server
 COPY --from=preprod /api/node_modules ./node_modules
 COPY prisma ./
-COPY public ./public
+COPY public ./dist/public
 COPY package.json yarn.lock ./
 COPY /tool ./tools
 COPY --from=builder /api/dist ./dist
