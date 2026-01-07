@@ -26,6 +26,6 @@ export class TaskManagerController {
     },
   })
   async triggerBackupDatabase(): Promise<TriggerBackupDatabaseResponseDto> {
-    return this.taskManagerService.triggerBackupDatabase();
+    return {} as any;
   }
 }

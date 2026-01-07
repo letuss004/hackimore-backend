@@ -285,12 +285,12 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
       const repeatableJobs = await this.backupDatabaseQueue.getJobSchedulers();
       for (const job of repeatableJobs) {
         if (job.name === SystemJobName.BackupDatabaseDaily) {
-          await this.backupDatabaseQueue.removeJobScheduler(job.id);
           ServerLogger.info({
             context: 'TaskScheduleService.scheduleBackupDatabaseDaily',
-            message: 'Removed existing repeatable backup job',
-            meta: { jobKey: job.key, jobId: job.id },
+            message: 'Daily database backup job already scheduled',
+            meta: { pattern: '0 0 * * *' },
           });
+          return;
         }
       }
 
