@@ -68,6 +68,30 @@
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.05);
     }
+
+    .nav-item {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #38bdf8;
+      transition: width 0.3s ease;
+    }
+
+    .nav-item.active {
+      color: #38bdf8;
+    }
+
+    .nav-item.active::after {
+      width: 100%;
+    }
   </style>
 </head>
 <body
@@ -100,20 +124,20 @@
     </a>
 
     <!-- Desktop Nav -->
-    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
-      <button onclick="goToSlide(1)" class="hover:text-white transition-colors">
+    <nav id="desktopNav" class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+      <button onclick="goToSlide(1)" data-slide="1" class="nav-item hover:text-white transition-colors">
         Mô hình
       </button>
-      <button onclick="goToSlide(2)" class="hover:text-white transition-colors">
+      <button onclick="goToSlide(2)" data-slide="2" class="nav-item hover:text-white transition-colors">
         Tại sao
       </button>
-      <button onclick="goToSlide(3)" class="hover:text-white transition-colors">
+      <button onclick="goToSlide(3)" data-slide="3" class="nav-item hover:text-white transition-colors">
         Về chúng tôi
       </button>
-      <button onclick="goToSlide(4)" class="hover:text-white transition-colors">
+      <button onclick="goToSlide(4)" data-slide="4" class="nav-item hover:text-white transition-colors">
         Dịch vụ
       </button>
-      <button onclick="goToSlide(5)" class="hover:text-white transition-colors">
+      <button onclick="goToSlide(5)" data-slide="5" class="nav-item hover:text-white transition-colors">
         FAQ
       </button>
     </nav>
@@ -560,10 +584,24 @@
     function updateSlider() {
         slider.style.transform = `translateX(-${currentSlide * 100}%)`;
         updateNavButtons();
+        updateActiveNav();
+    }
+
+    function updateActiveNav() {
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            const slideIndex = parseInt(item.getAttribute('data-slide'));
+            if (slideIndex === currentSlide) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
     }
 
     // Initialize nav buttons visibility
     updateNavButtons();
+    updateActiveNav();
 
     function nextSlide() {
         if (currentSlide < totalSlides - 1) {
