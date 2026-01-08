@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Graph Debug - POD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .meta-tag {
+            background: white;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .property {
+            color: #e83e8c;
+            font-weight: bold;
+        }
+
+        .content {
+            color: #28a745;
+        }
+
+        .image-preview {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .tools {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #fff3cd;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .tools h2 {
+            color: #856404;
+            margin-bottom: 1rem;
+        }
+
+        .tool-link {
+            display: inline-block;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .tool-link:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .checklist li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .checklist li:before {
+            content: '✓ ';
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Open Graph Debug Tool</h1>
+        <p style="color: #666; margin-bottom: 2rem;">
+            Kiểm tra các Open Graph tags của POD website
+        </p>
+
+        <div class="section">
+            <h2>Current Open Graph Tags <span class="status success">Active</span></h2>
+
+            <div class="meta-tag">
+                <span class="property">og:type:</span>
+                <span class="content">"website"</span>
+            </div>
+
+            <div class="meta-tag">
+                <span class="property">og:url:</span>
+                <span class="content">"https://webpod.org/"</span>
+            </div>
+
+            <div class="meta-tag">
+                <span class="property">og:title:</span>
+                <span class="content">"POD - Pay On Delight | Phát triển Website & Web App Miễn Phí"</span>
+            </div>
+
+            <div class="meta-tag">
+                <span class="property">og:description:</span>
+                <span class="content">"Demo miễn phí trong 1 tuần, chỉ trả phí khi thực sự hài lòng. Giải pháp doanh nghiệp với Next.js & Nest.js."</span>
+            </div>
+
+            <div class="meta-tag">
+                <span class="property">og:image:</span>
+                <span class="content">"https://webpod.org/og-image.jpg"</span>
+            </div>
+
+            <div class="meta-tag">
+                <span class="property">og:image:secure_url:</span>
+                <span class="content">"https://webpod.org/og-image.jpg"</span>
+            </div>
+
+            <div class="meta-tag">
+                <span class="property">og:image:type:</span>
+                <span class="content">"image/jpeg"</span>
+            </div>
+
+            <div class="meta-tag">
+                <span class="property">og:image:width:</span>
+                <span class="content">"1200"</span>
+            </div>
+
+            <div class="meta-tag">
+                <span class="property">og:image:height:</span>
+                <span class="content">"630"</span>
+            </div>
+
+            <div class="meta-tag">
+                <span class="property">og:image:alt:</span>
+                <span class="content">"POD - Pay On Delight | Phát triển Website & Web App Miễn Phí"</span>
+            </div>
+
+            <div class="meta-tag">
+                <span class="property">og:locale:</span>
+                <span class="content">"vi_VN"</span>
+            </div>
+
+            <div class="meta-tag">
+                <span class="property">og:site_name:</span>
+                <span class="content">"POD - Pay On Delight"</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Preview Image</h2>
+            <div class="image-preview">
+                <img src="/og-image.jpg" alt="OG Image Preview" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'1200\' height=\'630\'%3E%3Crect fill=\'%23667eea\' width=\'1200\' height=\'630\'/%3E%3Ctext fill=\'white\' font-size=\'48\' x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\'%3EImage Not Found%3C/text%3E%3C/svg%3E'">
+                <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                    Recommended: 1200x630 pixels (1.91:1 ratio)
+                </p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Checklist <span class="status success">All Good</span></h2>
+            <ul class="checklist">
+                <li>Open Graph tags are present in HTML</li>
+                <li>Image URL is absolute (https://)</li>
+                <li>Image dimensions are specified (1200x630)</li>
+                <li>Image type is specified (image/jpeg)</li>
+                <li>Secure URL is provided</li>
+                <li>Image alt text is included</li>
+                <li>CORS headers are configured</li>
+                <li>Title and description are present</li>
+            </ul>
+        </div>
+
+        <div class="tools">
+            <h2>🛠 Testing Tools</h2>
+            <p style="margin-bottom: 1rem; color: #856404;">
+                Sử dụng các công cụ sau để test và debug Open Graph tags:
+            </p>
+
+            <a href="https://developers.facebook.com/tools/debug/?q=https://webpod.org/"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="tool-link">
+                🔵 Facebook Debugger
+            </a>
+
+            <a href="https://cards-dev.twitter.com/validator"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="tool-link">
+                🐦 Twitter Card Validator
+            </a>
+
+            <a href="https://www.linkedin.com/post-inspector/"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="tool-link">
+                💼 LinkedIn Post Inspector
+            </a>
+
+            <a href="https://search.google.com/test/rich-results?url=https://webpod.org/"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="tool-link">
+                🔍 Google Rich Results Test
+            </a>
+
+            <div style="margin-top: 1.5rem; padding: 1rem; background: white; border-radius: 6px;">
+                <h3 style="color: #856404; margin-bottom: 0.5rem; font-size: 1rem;">
+                    📝 Hướng dẫn sử dụng Facebook Debugger:
+                </h3>
+                <ol style="margin-left: 1.5rem; color: #666; line-height: 1.8;">
+                    <li>Click vào nút "Facebook Debugger" ở trên</li>
+                    <li>Nhập URL: <code style="background: #f8f9fa; padding: 0.2rem 0.5rem; border-radius: 3px;">https://webpod.org/</code></li>
+                    <li>Click "Debug" để kiểm tra</li>
+                    <li>Nếu cache cũ, click "Scrape Again" để làm mới</li>
+                    <li>Kiểm tra "Scraped URL" section để xem preview</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="section" style="background: #d1ecf1; border-left-color: #0c5460;">
+            <h2 style="color: #0c5460;">ℹ️ Important Notes</h2>
+            <ul style="list-style: disc; margin-left: 1.5rem; color: #0c5460; line-height: 1.8;">
+                <li><strong>Facebook cache:</strong> Facebook lưu cache Open Graph data. Sử dụng Debugger để xóa cache.</li>
+                <li><strong>HTTPS required:</strong> Facebook yêu cầu HTTPS cho images.</li>
+                <li><strong>Image size:</strong> Tối thiểu 200x200px, khuyến nghị 1200x630px.</li>
+                <li><strong>Image format:</strong> Hỗ trợ JPG, PNG. Tránh SVG.</li>
+                <li><strong>File size:</strong> Nên < 8MB để tải nhanh.</li>
+                <li><strong>Absolute URLs:</strong> Luôn dùng full URL (https://webpod.org/...) thay vì relative path.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+
