@@ -682,13 +682,148 @@
     const submitDemoBtn = document.getElementById('submitDemoBtn');
     const formMessage = document.getElementById('formMessage');
 
+    // Validation utility functions
+    const validators = {
+        fullName: (value) => {
+            if (!value || value.trim().length < 2) {
+                return 'Họ tên phải có ít nhất 2 ký tự';
+            }
+            if (value.length > 100) {
+                return 'Họ tên không được vượt quá 100 ký tự';
+            }
+            return null;
+        },
+        email: (value) => {
+            if (!value || value.trim().length === 0) {
+                return 'Email không được để trống';
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                return 'Email không hợp lệ';
+            }
+            return null;
+        },
+        phone: (value) => {
+            if (!value || value.trim().length === 0) {
+                return 'Số điện thoại không được để trống';
+            }
+            // Vietnamese phone number validation
+            const phoneRegex = /^(\+84|84|0)[3-9]\d{8}$/;
+            const cleanPhone = value.replace(/\s+/g, '');
+            if (!phoneRegex.test(cleanPhone)) {
+                return 'Số điện thoại không hợp lệ (vd: 0912345678 hoặc +84912345678)';
+            }
+            return null;
+        },
+        idea: (value) => {
+            if (!value || value.trim().length < 10) {
+                return 'Ý tưởng dự án phải có ít nhất 10 ký tự';
+            }
+            if (value.length > 255) {
+                return 'Ý tưởng dự án không được vượt quá 255 ký tự';
+            }
+            return null;
+        },
+        details: (value) => {
+            if (value && value.length > 5000) {
+                return 'Mô tả chi tiết không được vượt quá 5000 ký tự';
+            }
+            return null;
+        }
+    };
+
+    // Show validation error for a field
+    const showFieldError = (fieldId, errorMessage) => {
+        const field = document.getElementById(fieldId);
+        const existingError = field.parentElement.querySelector('.field-error');
+
+        if (existingError) {
+            existingError.remove();
+        }
+
+        if (errorMessage) {
+            field.classList.add('border-red-500');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'field-error text-red-400 text-sm mt-1';
+            errorDiv.textContent = errorMessage;
+            field.parentElement.appendChild(errorDiv);
+            return false;
+        } else {
+            field.classList.remove('border-red-500');
+            return true;
+        }
+    };
+
+    // Clear all field errors
+    const clearAllErrors = () => {
+        document.querySelectorAll('.field-error').forEach(el => el.remove());
+        document.querySelectorAll('input, textarea').forEach(el => {
+            el.classList.remove('border-red-500');
+        });
+    };
+
+    // Validate single field
+    const validateField = (fieldId) => {
+        const field = document.getElementById(fieldId);
+        const error = validators[fieldId]?.(field.value);
+        return showFieldError(fieldId, error);
+    };
+
+    // Validate entire form
+    const validateForm = () => {
+        clearAllErrors();
+        let isValid = true;
+
+        ['fullName', 'email', 'phone', 'idea', 'details'].forEach(fieldId => {
+            if (!validateField(fieldId)) {
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    };
+
+    // Add real-time validation on blur
+    ['fullName', 'email', 'phone', 'idea', 'details'].forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.addEventListener('blur', () => validateField(fieldId));
+            // Clear error on input
+            field.addEventListener('input', () => {
+                const existingError = field.parentElement.querySelector('.field-error');
+                if (existingError) {
+                    field.classList.remove('border-red-500');
+                    existingError.remove();
+                }
+            });
+        }
+    });
+
+    // Show form message
+    const showFormMessage = (message, isSuccess = false) => {
+        formMessage.textContent = message;
+        formMessage.className = `mt-4 text-center ${isSuccess ? 'text-green-400' : 'text-red-400'}`;
+        formMessage.classList.remove('hidden');
+    };
+
+    // Hide form message
+    const hideFormMessage = () => {
+        formMessage.classList.add('hidden');
+    };
+
     demoRequestForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        // Validate form before submission
+        if (!validateForm()) {
+            showFormMessage('Vui lòng kiểm tra lại thông tin', false);
+            return;
+        }
 
         // Disable button and show loading state
         submitDemoBtn.disabled = true;
         submitDemoBtn.textContent = 'Đang gửi...';
-        formMessage.classList.add('hidden');
+        hideFormMessage();
 
         const formData = {
             fullName: document.getElementById('fullName').value.trim(),
@@ -709,20 +844,23 @@
 
             if (response.ok) {
                 await response.json();
-                formMessage.textContent = 'Gửi yêu cầu thành công! Chúng tôi sẽ liên hệ bạn ngay.';
-                formMessage.className = 'mt-4 text-center text-green-400';
-                formMessage.classList.remove('hidden');
+                showFormMessage('Gửi yêu cầu thành công! Chúng tôi sẽ liên hệ bạn ngay.', true);
                 demoRequestForm.reset();
+                clearAllErrors();
             } else {
                 const error = await response.json();
-                formMessage.textContent = error.message || 'Có lỗi xảy ra, vui lòng thử lại.';
-                formMessage.className = 'mt-4 text-center text-red-400';
-                formMessage.classList.remove('hidden');
+                const errorMessage = error.message || 'Có lỗi xảy ra, vui lòng thử lại.';
+                showFormMessage(errorMessage, false);
+
+                // Show field-specific errors if available
+                if (error.details) {
+                    Object.keys(error.details).forEach(fieldName => {
+                        showFieldError(fieldName, error.details[fieldName]);
+                    });
+                }
             }
         } catch (error) {
-            formMessage.textContent = 'Không thể kết nối đến server, vui lòng thử lại.';
-            formMessage.className = 'mt-4 text-center text-red-400';
-            formMessage.classList.remove('hidden');
+            showFormMessage('Không thể kết nối đến server, vui lòng thử lại.', false);
         } finally {
             submitDemoBtn.disabled = false;
             submitDemoBtn.textContent = 'Gửi Yêu Cầu Demo';

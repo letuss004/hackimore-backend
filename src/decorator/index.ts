@@ -6,3 +6,4 @@ export * from './api-document.decorator';
 export * from './property-dto.decorator';
 export * from './env-limit.decorator';
 export * from './multiple-order-by.decorator';
+export * from './is-phone-number.decorator';
