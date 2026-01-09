@@ -37,9 +37,9 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
     const backupFilePath = `${backupFolder}${backupFileName}`;
 
     // Check if backup already exists
-    if (await this.s3Service.checkExists(backupFilePath)) {
+    if (await this.s3Service.checkExists(backupFolder)) {
       return {
-        message: `Backup already exists at ${backupFilePath}`,
+        message: `Backup already exists at ${backupFolder}`,
       };
     }
 
@@ -56,6 +56,7 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
 
       // Create pg_dump process with data-only flag
       const pgDumpArgs = [
+        '--column-inserts', // Insert data with column names
         '--data-only', // Only dump data, not schema
         '--no-owner', // Skip commands to set ownership
         '--no-acl', // Skip commands to set ACL
