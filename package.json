@@ -23,7 +23,7 @@
     "prepare": "husky",
     "db": "ts-node tool/prompts/prisma-migrate.ts",
     "nestjs": "ts-node tool/prompts/generate-nestjs.ts",
-    "gen:admin": "ts-node tool/admin.command.ts",
+    "gen:admin": "ts-node src/command/admin.command.ts",
     "deploy": "bash tool/shell/deploy.sh"
   },
   "prisma": {
