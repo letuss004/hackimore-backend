@@ -33,7 +33,7 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
     // const {} = job.data;
     const time = Time().format('DD-MM-YYYY');
     const backupFolder = `database-backups/${time}/`;
-    const backupFileName = `backup-${time}.sql.gz`;
+    const backupFileName = `backup-${Time().toISOString()}.sql.gz`;
     const backupFilePath = `${backupFolder}${backupFileName}`;
 
     // Check if backup already exists
