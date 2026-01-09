@@ -2,6 +2,7 @@ export enum NodeEnv {
   Local = 'local',
   Test = 'test',
   Development = 'development',
+  Staging = 'staging',
   Sandbox = 'sandbox',
   Preproduction = 'preproduction',
   Production = 'production',
