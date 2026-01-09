@@ -64,7 +64,6 @@ import { UserModule } from 'src/module/user';
         },
       ],
     }),
-
     // Common modules
     BaseModule,
     AuthModule,
@@ -78,12 +77,9 @@ import { UserModule } from 'src/module/user';
   ],
   providers: [
     // no need to rate-limit in local env
-    ...(!ServerConfig.isLocalEnv() && [
-      {
-        provide: APP_GUARD,
-        useClass: ThrottlerGuard,
-      },
-    ]),
+    ...(ServerConfig.isLocalEnv()
+      ? []
+      : [{ provide: APP_GUARD, useClass: ThrottlerGuard }]),
   ],
 })
 export class AppModule implements NestModule {

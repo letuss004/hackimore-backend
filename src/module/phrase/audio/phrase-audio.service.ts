@@ -63,6 +63,7 @@ export class PhraseAudioService {
         ...createAudioData,
         s3ObjectId: fileObject.id,
       },
+      include: { S3Object: true },
     });
   }
 
@@ -88,6 +89,7 @@ export class PhraseAudioService {
         where,
         take,
         skip,
+        include: { S3Object: true },
         orderBy: parseOrderByFromQuery(query.orderBy),
         ...(query.lastItemId && { cursor: { id: query.lastItemId } }),
       }),
@@ -101,6 +103,7 @@ export class PhraseAudioService {
   async getPhraseAudioDetail(id: number): Promise<GetPhraseAudioDetailResponseDto> {
     const phraseAudio = await this.databaseService.phraseAudio.findFirst({
       where: { id },
+      include: { S3Object: true },
     });
     if (!phraseAudio) {
       throw new ServerException(ERROR_RESPONSE.RESOURCE_NOT_FOUND);
