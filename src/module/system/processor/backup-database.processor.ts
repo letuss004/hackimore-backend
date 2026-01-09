@@ -9,6 +9,7 @@ import { S3Service } from 'src/integration/aws';
 import { SystemJobName, SystemQueueName } from 'src/module/system/system.enum';
 import { PassThrough } from 'stream';
 import { createGzip } from 'zlib';
+import { BackupDatabaseDailyJobData } from '../system.type';
 
 @Processor(SystemQueueName.BackupDatabase)
 export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit {
@@ -25,19 +26,20 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
     await this.ensureQueueActiveAsCron();
   }
 
-  async process(job: Job<null>, token?: string): Promise<any> {
+  async process(job: Job<BackupDatabaseDailyJobData>, token?: string): Promise<any> {
     await Promise.all([this.backupDatabaseDaily(job), this.cleanupOldBackups()]);
   }
 
-  private async backupDatabaseDaily(job: Job<null>) {
-    // const {} = job.data;
+  private async backupDatabaseDaily(job: Job<BackupDatabaseDailyJobData>) {
+    const { forceBackup } = job.data;
     const time = Time().format('DD-MM-YYYY');
     const backupFolder = `database-backups/${time}/`;
     const backupFileName = `backup-${Time().toISOString()}.sql.gz`;
     const backupFilePath = `${backupFolder}${backupFileName}`;
 
     // Check if backup already exists
-    if (await this.s3Service.checkExists(backupFolder)) {
+    const backupExist = await this.s3Service.checkExists(backupFolder);
+    if (!forceBackup && backupExist) {
       return {
         message: `Backup already exists at ${backupFolder}`,
       };
