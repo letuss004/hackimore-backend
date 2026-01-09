@@ -37,6 +37,12 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
     const backupFileName = `backup-${Time().toISOString()}.sql.gz`;
     const backupFilePath = `${backupFolder}${backupFileName}`;
 
+    if (ServerConfig.isLocalEnv()) {
+      return {
+        message: 'Database backup skipped in local environment',
+      };
+    }
+
     // Check if backup already exists
     const backupExist = await this.s3Service.checkExists(backupFolder);
     if (!forceBackup && backupExist) {
