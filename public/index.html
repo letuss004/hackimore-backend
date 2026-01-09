@@ -1,999 +1,1141 @@
 <html lang="vi" class="scroll-smooth h-full overflow-hidden">
-<head>
-  <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({
-          'gtm.start':
-              new Date().getTime(), event: 'gtm.js'
-      });
-      var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-      j.async = true;
-      j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-      f.parentNode.insertBefore(j, f);
-  })(window, document, 'script', 'dataLayer', 'GTM-PSB5LN23');</script>
-  <!-- End Google Tag Manager -->
+  <head>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          'gtm.start': new Date().getTime(),
+          event: 'gtm.js',
+        });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-PSB5LN23');
+    </script>
+    <!-- End Google Tag Manager -->
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TS4BKGY1H4"></script>
-  <script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TS4BKGY1H4"></script>
+    <script>
       window.dataLayer = window.dataLayer || [];
-
       function gtag() {
-          dataLayer.push(arguments);
+        dataLayer.push(arguments);
       }
-
       gtag('js', new Date());
-
       gtag('config', 'G-TS4BKGY1H4');
-  </script>
-  <!-- End Google Analytics -->
+    </script>
+    <!-- End Google Analytics -->
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Primary Meta Tags -->
-  <title>POD - Pay On Delight | Tạo Website & Web App Miễn Phí - Trả Phí Khi Hài Lòng</title>
-  <meta name="title" content="POD - Pay On Delight | Tạo Website & Web App Miễn Phí - Trả Phí Khi Hài Lòng">
-  <meta name="description"
-        content="POD - Pay On Delight cung cấp dịch vụ phát triển website, web app và giải pháp doanh nghiệp hoàn toàn miễn phí. Demo trong 1 tuần, chỉ trả phí khi thực sự hài lòng. Công nghệ Next.js, Nest.js hiện đại.">
-  <meta name="keywords"
-        content="tạo web, tạo website, tạo web miễn phí, tạo website miễn phí, tạo web free, tạo website free, web free, website free, phát triển web, làm website, web app, POD, Pay On Delight, outsourcing IT, Next.js, Nest.js, giải pháp doanh nghiệp, website miễn phí, IT outsourcing Việt Nam">
-  <meta name="author" content="POD - Pay On Delight">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://webpod.org/">
+    <!-- Primary Meta Tags -->
+    <title>
+      POD - Pay On Delight | Tạo Website & Web App Miễn Phí - Trả Phí Khi Hài Lòng
+    </title>
+    <meta
+      name="title"
+      content="POD - Pay On Delight | Tạo Website & Web App Miễn Phí - Trả Phí Khi Hài Lòng"
+    />
+    <meta
+      name="description"
+      content="POD - Pay On Delight cung cấp dịch vụ phát triển website, web app và giải pháp doanh nghiệp hoàn toàn miễn phí. Demo trong 1 tuần, chỉ trả phí khi thực sự hài lòng. Công nghệ Next.js, Nest.js hiện đại."
+    />
+    <meta
+      name="keywords"
+      content="tạo web, tạo website, tạo web miễn phí, tạo website miễn phí, tạo web free, tạo website free, web free, website free, phát triển web, làm website, web app, POD, Pay On Delight, outsourcing IT, Next.js, Nest.js, giải pháp doanh nghiệp, website miễn phí, IT outsourcing Việt Nam"
+    />
+    <meta name="author" content="POD - Pay On Delight" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://webpod.org/" />
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://webpod.org/">
-  <meta property="og:title" content="POD - Pay On Delight | Phát triển Website & Web App Miễn Phí">
-  <meta property="og:description"
-        content="Demo miễn phí trong 1 tuần, chỉ trả phí khi thực sự hài lòng. Giải pháp doanh nghiệp với Next.js & Nest.js.">
-  <meta property="og:image" content="https://webpod.org/og-image.jpg">
-  <meta property="og:locale" content="vi_VN">
-  <meta property="og:site_name" content="POD - Pay On Delight">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://webpod.org/" />
+    <meta
+      property="og:title"
+      content="POD - Pay On Delight | Phát triển Website & Web App Miễn Phí"
+    />
+    <meta
+      property="og:description"
+      content="Demo miễn phí trong 1 tuần, chỉ trả phí khi thực sự hài lòng. Giải pháp doanh nghiệp với Next.js & Nest.js."
+    />
+    <meta property="og:image" content="https://webpod.org/og-image.jpg" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:site_name" content="POD - Pay On Delight" />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://webpod.org/">
-  <meta property="twitter:title" content="POD - Pay On Delight | Phát triển Website & Web App Miễn Phí">
-  <meta property="twitter:description"
-        content="Demo miễn phí trong 1 tuần, chỉ trả phí khi thực sự hài lòng. Giải pháp doanh nghiệp với Next.js & Nest.js.">
-  <meta property="twitter:image" content="https://webpod.org/og-image.jpg">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://webpod.org/" />
+    <meta
+      property="twitter:title"
+      content="POD - Pay On Delight | Phát triển Website & Web App Miễn Phí"
+    />
+    <meta
+      property="twitter:description"
+      content="Demo miễn phí trong 1 tuần, chỉ trả phí khi thực sự hài lòng. Giải pháp doanh nghiệp với Next.js & Nest.js."
+    />
+    <meta property="twitter:image" content="https://webpod.org/og-image.jpg" />
 
-  <!-- Additional SEO Meta Tags -->
-  <meta name="theme-color" content="#19272B">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="POD">
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#19272B" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="POD" />
 
-  <!-- Geo Tags -->
-  <meta name="geo.region" content="VN">
-  <meta name="geo.placename" content="Vietnam">
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="VN" />
+    <meta name="geo.placename" content="Vietnam" />
 
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.json">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
 
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
-  <script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script>
       tailwind.config = {
-          theme: {
-              extend: {
-                  colors: {
-                      brand: {
-                          DEFAULT: '#19272B',
-                          light: '#23343A',
-                          lighter: '#2E4249',
-                          accent: '#38bdf8', // Light Cyan/Blue for pop
-                          accentGlow: 'rgba(56, 189, 248, 0.15)'
-                      }
-                  },
-                  fontFamily: {
-                      sans: ['Inter', 'sans-serif'],
-                  },
-                  animation: {
-                      'float': 'float 6s ease-in-out infinite',
-                  },
-                  keyframes: {
-                      float: {
-                          '0%, 100%': {transform: 'translateY(0)'},
-                          '50%': {transform: 'translateY(-20px)'},
-                      }
-                  }
-              }
-          }
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                DEFAULT: '#19272B',
+                light: '#23343A',
+                lighter: '#2E4249',
+                accent: '#38bdf8', // Light Cyan/Blue for pop
+                accentGlow: 'rgba(56, 189, 248, 0.15)',
+              },
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            animation: {
+              float: 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom scrollbar to match the dark theme */
+      ::-webkit-scrollbar {
+        width: 8px;
       }
-  </script>
-  <style>
-    /* Custom scrollbar to match the dark theme */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
 
-    ::-webkit-scrollbar-track {
-      background: #19272B;
-    }
+      ::-webkit-scrollbar-track {
+        background: #19272b;
+      }
 
-    ::-webkit-scrollbar-thumb {
-      background: #2E4249;
-      border-radius: 4px;
-    }
+      ::-webkit-scrollbar-thumb {
+        background: #2e4249;
+        border-radius: 4px;
+      }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: #38bdf8;
-    }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #38bdf8;
+      }
 
-    /* Subtle grid background pattern */
-    .bg-grid {
-      background-size: 40px 40px;
-      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    }
+      /* Subtle grid background pattern */
+      .bg-grid {
+        background-size: 40px 40px;
+        background-image:
+          linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      }
 
-    .glass-panel {
-      background: rgba(35, 52, 58, 0.4);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
+      .glass-panel {
+        background: rgba(35, 52, 58, 0.4);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
 
-    .nav-item {
-      position: relative;
-      padding-bottom: 4px;
-    }
+      .nav-item {
+        position: relative;
+        padding-bottom: 4px;
+      }
 
-    .nav-item::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background-color: #38bdf8;
-      transition: width 0.3s ease;
-    }
+      .nav-item::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #38bdf8;
+        transition: width 0.3s ease;
+      }
 
-    .nav-item.active {
-      color: #38bdf8;
-    }
+      .nav-item.active {
+        color: #38bdf8;
+      }
 
-    .nav-item.active::after {
-      width: 100%;
-    }
-  </style>
+      .nav-item.active::after {
+        width: 100%;
+      }
+    </style>
 
-  <!-- Structured Data (JSON-LD) -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "POD - Pay On Delight",
-      "url": "https://webpod.org",
-      "logo": "https://webpod.org/favicon.svg",
-      "description": "Dịch vụ phát triển website và web app miễn phí, chỉ trả phí khi hài lòng",
-      "email": "tulathecoder@gmail.com",
-      "telephone": "+84-33-640-7556",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "VN",
-        "addressLocality": "Vietnam"
-      },
-      "sameAs": [],
-      "offers": {
-        "@type": "Offer",
-        "description": "Demo miễn phí website và web app trong 1 tuần"
-      },
-      "serviceType": [
-        "Web Development",
-        "Web Application Development",
-        "IT Outsourcing",
-        "Enterprise Solutions"
-      ]
-    }
-  </script>
-
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "serviceType": "Web Development",
-      "provider": {
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
         "@type": "Organization",
         "name": "POD - Pay On Delight",
-        "url": "https://webpod.org"
-      },
-      "areaServed": "VN",
-      "description": "Phát triển website, web app, private system, tools với demo miễn phí trong 1 tuần",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "VND",
-        "description": "Demo miễn phí, chỉ trả phí khi hài lòng"
+        "url": "https://webpod.org",
+        "logo": "https://webpod.org/favicon.svg",
+        "description": "Dịch vụ phát triển website và web app miễn phí, chỉ trả phí khi hài lòng",
+        "email": "tulathecoder@gmail.com",
+        "telephone": "+84-33-640-7556",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "VN",
+          "addressLocality": "Vietnam"
+        },
+        "sameAs": [],
+        "offers": {
+          "@type": "Offer",
+          "description": "Demo miễn phí website và web app trong 1 tuần"
+        },
+        "serviceType": [
+          "Web Development",
+          "Web Application Development",
+          "IT Outsourcing",
+          "Enterprise Solutions"
+        ]
       }
-    }
-  </script>
+    </script>
 
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "POD hoạt động như thế nào?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Chúng tôi phát triển demo miễn phí dựa trên ý tưởng bạn. Bạn test 1 tuần; nếu delight (hài lòng với giá trị), trả phí để hoàn thiện. Nếu không, dừng mà không tốn kém."
-          }
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Web Development",
+        "provider": {
+          "@type": "Organization",
+          "name": "POD - Pay On Delight",
+          "url": "https://webpod.org"
         },
-        {
-          "@type": "Question",
-          "name": "Thời gian thực tế là bao lâu?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Dưới 1 tuần cho demo cơ bản – Nhanh hơn 50% so với outsourcing truyền thống."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Chi phí nếu tiếp tục?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Linh hoạt, dựa trên scope – Thấp hơn thị trường nhờ công nghệ hiện đại."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Dữ liệu của tôi có an toàn?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Tuyệt đối, với mã hóa và tuân thủ chuẩn quốc tế."
-          }
+        "areaServed": "VN",
+        "description": "Phát triển website, web app, private system, tools với demo miễn phí trong 1 tuần",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "VND",
+          "description": "Demo miễn phí, chỉ trả phí khi hài lòng"
         }
-      ]
-    }
-  </script>
-</head>
-<body
-  class="bg-brand text-slate-300 font-sans antialiased selection:bg-brand-accent selection:text-brand-light h-full w-full overflow-hidden relative">
-<!-- Google Tag Manager (noscript) -->
-<noscript>
-  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PSB5LN23"
-          height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-<!-- End Google Tag Manager (noscript) -->
+      }
+    </script>
 
-<!-- Background Elements -->
-<div class="fixed inset-0 z-0 pointer-events-none">
-  <div class="absolute top-0 left-0 w-full h-full bg-grid"></div>
-  <div class="absolute top-[-20%] left-[20%] w-[500px] h-[500px] bg-brand-accent/10 rounded-full blur-[120px]"></div>
-  <div class="absolute bottom-[-10%] right-[10%] w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-[100px]"></div>
-</div>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "POD hoạt động như thế nào?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Chúng tôi phát triển demo miễn phí dựa trên ý tưởng bạn. Bạn test 1 tuần; nếu delight (hài lòng với giá trị), trả phí để hoàn thiện. Nếu không, dừng mà không tốn kém."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Thời gian thực tế là bao lâu?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Dưới 1 tuần cho demo cơ bản – Nhanh hơn 50% so với outsourcing truyền thống."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Chi phí nếu tiếp tục?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Linh hoạt, dựa trên scope – Thấp hơn thị trường nhờ công nghệ hiện đại."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Dữ liệu của tôi có an toàn?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Tuyệt đối, với mã hóa và tuân thủ chuẩn quốc tế."
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body
+    class="bg-brand text-slate-300 font-sans antialiased selection:bg-brand-accent selection:text-brand-light h-full w-full overflow-hidden relative"
+  >
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PSB5LN23"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-<!-- Header / Navbar -->
-<header
-  class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-white/5 bg-brand/80 backdrop-blur-md">
-  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-    <!-- Logo -->
-    <a href="#" class="flex items-center gap-2 group" onclick="goToSlide(0); return false;">
+    <!-- Background Elements -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+      <div class="absolute top-0 left-0 w-full h-full bg-grid"></div>
       <div
-        class="relative w-8 h-8 flex items-center justify-center bg-brand-lighter rounded-lg border border-white/10 group-hover:border-brand-accent/50 transition-colors">
-        <iconify-icon icon="lucide:layers" width="20" class="text-brand-accent"></iconify-icon>
-      </div>
-      <div class="flex flex-col">
+        class="absolute top-[-20%] left-[20%] w-[500px] h-[500px] bg-brand-accent/10 rounded-full blur-[120px]"
+      ></div>
+      <div
+        class="absolute bottom-[-10%] right-[10%] w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-[100px]"
+      ></div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header
+      class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-white/5 bg-brand/80 backdrop-blur-md"
+    >
+      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <!-- Logo -->
+        <a
+          href="#"
+          class="flex items-center gap-2 group"
+          onclick="goToSlide(0); return false;"
+        >
+          <div
+            class="relative w-8 h-8 flex items-center justify-center bg-brand-lighter rounded-lg border border-white/10 group-hover:border-brand-accent/50 transition-colors"
+          >
+            <iconify-icon
+              icon="lucide:layers"
+              width="20"
+              class="text-brand-accent"
+            ></iconify-icon>
+          </div>
+          <div class="flex flex-col">
             <span class="text-white font-semibold tracking-tighter text-lg leading-none">
               POD
             </span>
-        <span class="text-[0.6rem] text-slate-500 uppercase tracking-widest leading-none mt-0.5">
+            <span
+              class="text-[0.6rem] text-slate-500 uppercase tracking-widest leading-none mt-0.5"
+            >
               Pay On Delight
             </span>
-      </div>
-    </a>
+          </div>
+        </a>
 
-    <!-- Desktop Nav -->
-    <nav id="desktopNav" class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
-      <button onclick="goToSlide(1)" data-slide="1" class="nav-item hover:text-white transition-colors">
-        Mô hình
-      </button>
-      <button onclick="goToSlide(2)" data-slide="2" class="nav-item hover:text-white transition-colors">
-        Tại sao
-      </button>
-      <button onclick="goToSlide(3)" data-slide="3" class="nav-item hover:text-white transition-colors">
-        Về chúng tôi
-      </button>
-      <button onclick="goToSlide(4)" data-slide="4" class="nav-item hover:text-white transition-colors">
-        Dịch vụ
-      </button>
-      <button onclick="goToSlide(5)" data-slide="5" class="nav-item hover:text-white transition-colors">
-        FAQ
-      </button>
-    </nav>
-
-    <!-- CTA -->
-    <a href="#"
-       class="hidden md:flex items-center gap-2 px-4 py-2 bg-white text-brand font-medium text-xs rounded-full hover:bg-slate-200 transition-colors"
-       onclick="goToSlide(6); return false;">
-      <span>Book Demo</span>
-      <iconify-icon icon="lucide:arrow-right" width="14"></iconify-icon>
-    </a>
-
-    <!-- Mobile Menu Toggle -->
-    <button class="md:hidden text-white" aria-label="Mở menu điều hướng">
-      <iconify-icon icon="lucide:menu" width="24"></iconify-icon>
-    </button>
-  </div>
-</header>
-
-<main class="w-full h-full relative">
-  <!-- Slider Container -->
-  <div id="slider" class="flex w-full h-full transition-transform duration-700 ease-out">
-    <!-- 1. Hero Section -->
-    <section
-      class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto"
-      aria-label="Hero Section">
-      <div class="max-w-5xl mx-auto text-center space-y-8">
-        <h1 class="text-4xl md:text-6xl font-bold text-white tracking-tight leading-tight">
-          Chúng tôi tạo Web App doanh nghiệp cho bạn
-          <span class="text-brand-accent block mt-4">HOÀN TOÀN MIỄN PHÍ</span>
-        </h1>
-        <h2 class="text-2xl md:text-4xl font-semibold text-slate-400">
-          Trả phí khi thực sự hài lòng!
-        </h2>
-        <p class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto font-light">
-          Với công nghệ tiên tiến, chúng tôi xây dựng ý tưởng của bạn thành demo
-          đầy đủ chỉ trong dưới 1 tuần. Không rủi ro – Không chi phí ban
-          đầu. Hàng trăm doanh nghiệp đã tăng tốc độ phát triển nhờ POD.
-        </p>
-        <div class="flex flex-col items-center gap-4 pt-4">
-          <p class="text-brand-accent font-medium">
-            Bắt đầu ngay hôm nay để trải nghiệm sự khác biệt.
-          </p>
-          <button onclick="goToSlide(6)"
-                  class="px-8 py-4 bg-brand-accent text-brand-light text-base font-bold rounded-lg hover:shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-all hover:scale-105"
-                  aria-label="Yêu Cầu Demo Miễn Phí">
-            Yêu Cầu Demo Miễn Phí Ngay!
+        <!-- Desktop Nav -->
+        <nav
+          id="desktopNav"
+          class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400"
+        >
+          <button
+            onclick="goToSlide(1)"
+            data-slide="1"
+            class="nav-item hover:text-white transition-colors"
+          >
+            Mô hình
           </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. Model (Process) -->
-    <section
-      class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto"
-      aria-label="Pay On Delight Model">
-      <article class="max-w-6xl mx-auto w-full">
-        <header class="text-center mb-12">
-          <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">
-            Pay On Delight
-          </h2>
-          <p class="text-xl text-brand-accent">
-            Thử miễn phí, chỉ trả khi delight (hài lòng tuyệt đối)
-          </p>
-          <p class="mt-4 text-slate-400 max-w-2xl mx-auto">
-            Nếu thấy giá trị
-            thực sự (tăng năng suất, tiết kiệm chi phí), chúng ta hợp tác.
-            Nếu không – bạn không mất gì!
-          </p>
-        </header>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="glass-panel p-8 rounded-2xl">
-            <iconify-icon icon="lucide:zap" width="40" class="text-brand-accent mb-4"></iconify-icon>
-            <h3 class="text-xl font-bold text-white mb-2">
-              Thời gian siêu tốc
-            </h3>
-            <p class="text-slate-400">
-              Chỉ dưới 1 tuần để bạn trải nghiệm demo hoàn chỉnh, test thực
-              tế.
-            </p>
-          </div>
-          <div class="glass-panel p-8 rounded-2xl">
-            <iconify-icon icon="lucide:cpu" width="40" class="text-purple-400 mb-4"></iconify-icon>
-            <h3 class="text-xl font-bold text-white mb-2">
-              Công nghệ dẫn đầu
-            </h3>
-            <p class="text-slate-400">
-              Sử dụng Next.js + Nest.js – hiệu suất cao, dễ mở rộng, bảo mật
-              mạnh.
-            </p>
-          </div>
-          <div class="glass-panel p-8 rounded-2xl">
-            <iconify-icon icon="lucide:lightbulb" width="40" class="text-teal-400 mb-4"></iconify-icon>
-            <h3 class="text-xl font-bold text-white mb-2">
-              Chỉ cần ý tưởng
-            </h3>
-            <p class="text-slate-400">
-              Bạn mô tả, chúng tôi xử lý từ thiết kế đến test. Không cần
-              code hay đầu tư trước!
-            </p>
-          </div>
-        </div>
-        <div class="text-center mt-12">
-          <button onclick="goToSlide(6)"
-                  class="inline-flex items-center gap-2 text-brand-accent hover:text-white transition-colors font-medium"
-                  aria-label="Yêu cầu demo miễn phí">
-            Sẵn sàng delight? Yêu cầu demo miễn phí hôm nay!
-            <iconify-icon icon="lucide:arrow-right"></iconify-icon>
+          <button
+            onclick="goToSlide(2)"
+            data-slide="2"
+            class="nav-item hover:text-white transition-colors"
+          >
+            Tại sao
           </button>
-        </div>
-      </article>
-    </section>
-
-    <!-- 3. Why Choose Us -->
-    <section
-      class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto">
-      <div class="max-w-6xl mx-auto w-full">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">
-            Dịch vụ nhanh nhất, chi phí hợp lý nhất
-          </h2>
-          <p class="text-lg text-slate-400">
-            Chất lượng dẫn đầu thị trường – Tăng trưởng không rủi ro.
-          </p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="flex gap-4 items-start">
-            <div class="p-3 bg-brand-light rounded-lg text-brand-accent">
-              <iconify-icon icon="lucide:shield-check" width="24"></iconify-icon>
-            </div>
-            <div>
-              <h4 class="text-white font-bold text-lg">
-                Bảo mật tuyệt đối
-              </h4>
-              <p class="text-slate-400 text-sm mt-1">
-                Tuân thủ GDPR/HIPAA. Giảm rủi ro phạt lên đến 100%.
-              </p>
-            </div>
-          </div>
-          <div class="flex gap-4 items-start">
-            <div class="p-3 bg-brand-light rounded-lg text-brand-accent">
-              <iconify-icon icon="lucide:users" width="24"></iconify-icon>
-            </div>
-            <div>
-              <h4 class="text-white font-bold text-lg">
-                Đội ngũ dày dạn kinh nghiệm
-              </h4>
-              <p class="text-slate-400 text-sm mt-1">
-                Hơn 10 năm outsourcing IT. Tăng tốc độ thị trường lên 50%.
-              </p>
-            </div>
-          </div>
-          <div class="flex gap-4 items-start">
-            <div class="p-3 bg-brand-light rounded-lg text-brand-accent">
-              <iconify-icon icon="lucide:life-buoy" width="24"></iconify-icon>
-            </div>
-            <div>
-              <h4 class="text-white font-bold text-lg">
-                Công nghệ vượt trội
-              </h4>
-              <p class="text-slate-400 text-sm mt-1">
-                Sử dụng AI, LLM như Claude để tối ưu quy trình.
-              </p>
-            </div>
-          </div>
-          <div class="flex gap-4 items-start">
-            <div class="p-3 bg-brand-light rounded-lg text-brand-accent">
-              <iconify-icon icon="lucide:code-2" width="24"></iconify-icon>
-            </div>
-            <div>
-              <h4 class="text-white font-bold text-lg">
-                Codebase sạch sẽ, chuyên nghiệp
-              </h4>
-              <p class="text-slate-400 text-sm mt-1">
-                Thư viện custom mạnh mẽ, không "nợ kỹ thuật". Tiết kiệm chi phí.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. About Us -->
-    <section
-      class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl md:text-5xl font-bold text-white mb-8">
-          Về POD – Pay On Delight
-        </h2>
-        <p class="text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
-          Chúng tôi là đội ngũ IT outsourcing đam mê, với hơn 10 năm kinh
-          nghiệm giúp doanh nghiệp Việt Nam và quốc tế phát triển web app
-          nhanh chóng.
-        </p>
-        <div class="w-24 h-1 bg-brand-accent mx-auto my-8"></div>
-        <p class="text-lg text-slate-400 leading-relaxed">
-          Sứ mệnh:
-          <span class="text-white font-medium">
-                Loại bỏ rủi ro cho khách hàng
-          </span>
-          bằng mô hình "thử trước, trả sau khi delight" <br>
-          Tập trung: vào tốc độ, chất lượng và giá trị thực sự.
-        </p>
-      </div>
-    </section>
-
-    <!-- 5. Services -->
-    <section
-      class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto">
-      <div class="max-w-5xl mx-auto w-full">
-        <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">
-          Dịch vụ chính của POD
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="glass-panel p-6 rounded-xl border-l-4 border-brand-accent">
-            <h3 class="text-xl font-bold text-white mb-2">
-              Phát triển giải pháp
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Website, web app, private system, tools – Demo miễn phí
-            </p>
-          </div>
-          <div class="glass-panel p-6 rounded-xl border-l-4 border-purple-500">
-            <h3 class="text-xl font-bold text-white mb-2">
-              Tích hợp hệ thống
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Apis, AI, LLM, payment gateway – Kết nối dễ dàng.
-            </p>
-          </div>
-          <div class="glass-panel p-6 rounded-xl border-l-4 border-teal-500">
-            <h3 class="text-xl font-bold text-white mb-2">
-              Tối ưu hiệu suất &amp; Scalability
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Cloud-ready, xử lý hàng nghìn user mà không lag.
-            </p>
-          </div>
-          <div class="glass-panel p-6 rounded-xl border-l-4 border-orange-500">
-            <h3 class="text-xl font-bold text-white mb-2">
-              Bảo trì &amp; Nâng cấp lâu dài
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Hỗ trợ 24/7, update theo nhu cầu kinh doanh.
-            </p>
-          </div>
-        </div>
-        <div class="text-center mt-12">
-          <button onclick="goToSlide(6)"
-                  class="px-6 py-3 border border-white/20 text-white rounded-lg hover:bg-white hover:text-brand transition-all">
-            Yêu cầu demo tùy chỉnh ngay
+          <button
+            onclick="goToSlide(3)"
+            data-slide="3"
+            class="nav-item hover:text-white transition-colors"
+          >
+            Về chúng tôi
           </button>
-        </div>
-      </div>
-    </section>
+          <button
+            onclick="goToSlide(4)"
+            data-slide="4"
+            class="nav-item hover:text-white transition-colors"
+          >
+            Dịch vụ
+          </button>
+          <button
+            onclick="goToSlide(5)"
+            data-slide="5"
+            class="nav-item hover:text-white transition-colors"
+          >
+            FAQ
+          </button>
+        </nav>
 
-    <!-- 6. FAQ -->
-    <section
-      class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto">
-      <div class="max-w-3xl mx-auto w-full">
-        <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">
-          Câu hỏi thường gặp
-        </h2>
-        <div class="space-y-4">
-          <details class="glass-panel rounded-lg group open:bg-brand-lighter/50 transition-colors">
-            <summary class="p-6 cursor-pointer font-medium text-white flex justify-between items-center">
-              POD hoạt động như thế nào?
-              <iconify-icon icon="lucide:chevron-down"
-                            class="group-open:rotate-180 transition-transform"></iconify-icon>
-            </summary>
-            <div class="px-6 pb-6 text-slate-400 text-sm leading-relaxed">
-              Chúng tôi phát triển demo miễn phí dựa trên ý tưởng bạn. Bạn
-              test 1 tuần; nếu delight (hài lòng với giá trị), trả phí để
-              hoàn thiện. Nếu không, dừng mà không tốn kém.
-            </div>
-          </details>
-          <details class="glass-panel rounded-lg group open:bg-brand-lighter/50 transition-colors">
-            <summary class="p-6 cursor-pointer font-medium text-white flex justify-between items-center">
-              Thời gian thực tế là bao lâu?
-              <iconify-icon icon="lucide:chevron-down"
-                            class="group-open:rotate-180 transition-transform"></iconify-icon>
-            </summary>
-            <div class="px-6 pb-6 text-slate-400 text-sm leading-relaxed">
-              Dưới 1 tuần cho demo cơ bản – Nhanh hơn 50% so với outsourcing
-              truyền thống.
-            </div>
-          </details>
-          <details class="glass-panel rounded-lg group open:bg-brand-lighter/50 transition-colors">
-            <summary class="p-6 cursor-pointer font-medium text-white flex justify-between items-center">
-              Chi phí nếu tiếp tục?
-              <iconify-icon icon="lucide:chevron-down"
-                            class="group-open:rotate-180 transition-transform"></iconify-icon>
-            </summary>
-            <div class="px-6 pb-6 text-slate-400 text-sm leading-relaxed">
-              Linh hoạt, dựa trên scope – Thấp hơn thị trường nhờ công nghệ
-              hiện đại.
-            </div>
-          </details>
-          <details class="glass-panel rounded-lg group open:bg-brand-lighter/50 transition-colors">
-            <summary class="p-6 cursor-pointer font-medium text-white flex justify-between items-center">
-              Dữ liệu của tôi có an toàn?
-              <iconify-icon icon="lucide:chevron-down"
-                            class="group-open:rotate-180 transition-transform"></iconify-icon>
-            </summary>
-            <div class="px-6 pb-6 text-slate-400 text-sm leading-relaxed">
-              Tuyệt đối, với mã hóa và tuân thủ chuẩn quốc tế.
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
+        <!-- CTA -->
+        <a
+          href="#"
+          class="hidden md:flex items-center gap-2 px-4 py-2 bg-white text-brand font-medium text-xs rounded-full hover:bg-slate-200 transition-colors"
+          onclick="goToSlide(6); return false;"
+        >
+          <span>Book Demo</span>
+          <iconify-icon icon="lucide:arrow-right" width="14"></iconify-icon>
+        </a>
 
-    <!-- 7. Contact -->
-    <section
-      class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto">
-      <div class="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">
-            Liên hệ ngay để nhận Demo Miễn Phí
-          </h2>
-          <p class="text-slate-400 mb-8">
-            Chúng tôi phản hồi trong 24h – Bắt đầu hành trình delight ngay
-            hôm nay!
-          </p>
-          <div class="space-y-4 text-sm text-slate-300">
-            <div class="flex items-center gap-3">
-              <iconify-icon icon="lucide:mail" class="text-brand-accent"></iconify-icon>
-              tulathecoder@gmail.com
-            </div>
-            <div class="flex items-center gap-3">
-              <iconify-icon icon="lucide:phone" class="text-brand-accent"></iconify-icon>
-              033 640 7556
+        <!-- Mobile Menu Toggle -->
+        <button class="md:hidden text-white" aria-label="Mở menu điều hướng">
+          <iconify-icon icon="lucide:menu" width="24"></iconify-icon>
+        </button>
+      </div>
+    </header>
+
+    <main class="w-full h-full relative">
+      <!-- Slider Container -->
+      <div
+        id="slider"
+        class="flex w-full h-full transition-transform duration-700 ease-out"
+      >
+        <!-- 1. Hero Section -->
+        <section
+          class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto"
+          aria-label="Hero Section"
+        >
+          <div class="max-w-5xl mx-auto text-center space-y-8">
+            <h1
+              class="text-4xl md:text-6xl font-bold text-white tracking-tight leading-tight"
+            >
+              Chúng tôi tạo Web App doanh nghiệp cho bạn
+              <span class="text-brand-accent block mt-4">HOÀN TOÀN MIỄN PHÍ</span>
+            </h1>
+            <h2 class="text-2xl md:text-4xl font-semibold text-slate-400">
+              Trả phí khi thực sự hài lòng!
+            </h2>
+            <p class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto font-light">
+              Với công nghệ tiên tiến, chúng tôi xây dựng ý tưởng của bạn thành demo đầy
+              đủ chỉ trong dưới 1 tuần. Không rủi ro – Không chi phí ban đầu. Hàng trăm
+              doanh nghiệp đã tăng tốc độ phát triển nhờ POD.
+            </p>
+            <div class="flex flex-col items-center gap-4 pt-4">
+              <p class="text-brand-accent font-medium">
+                Bắt đầu ngay hôm nay để trải nghiệm sự khác biệt.
+              </p>
+              <button
+                onclick="goToSlide(6)"
+                class="px-8 py-4 bg-brand-accent text-brand-light text-base font-bold rounded-lg hover:shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-all hover:scale-105"
+                aria-label="Yêu Cầu Demo Miễn Phí"
+              >
+                Yêu Cầu Demo Miễn Phí Ngay!
+              </button>
             </div>
           </div>
-        </div>
-        <div class="glass-panel p-8 rounded-2xl">
-          <form id="demoRequestForm" class="space-y-4">
-            <div>
-              <label for="fullName" class="block text-xs font-medium text-slate-500 uppercase mb-1">
-                Họ tên <span class="text-red-500">*</span>
-              </label>
-              <input type="text"
-                     id="fullName"
-                     name="fullName"
-                     required
-                     class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
-                     placeholder="Nhập họ tên...">
+        </section>
+
+        <!-- 2. Model (Process) -->
+        <section
+          class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto"
+          aria-label="Pay On Delight Model"
+        >
+          <article class="max-w-6xl mx-auto w-full">
+            <header class="text-center mb-12">
+              <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">
+                Pay On Delight
+              </h2>
+              <p class="text-xl text-brand-accent">
+                Thử miễn phí, chỉ trả khi delight (hài lòng tuyệt đối)
+              </p>
+              <p class="mt-4 text-slate-400 max-w-2xl mx-auto">
+                Nếu thấy giá trị thực sự (tăng năng suất, tiết kiệm chi phí), chúng ta hợp
+                tác. Nếu không – bạn không mất gì!
+              </p>
+            </header>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="glass-panel p-8 rounded-2xl">
+                <iconify-icon
+                  icon="lucide:zap"
+                  width="40"
+                  class="text-brand-accent mb-4"
+                ></iconify-icon>
+                <h3 class="text-xl font-bold text-white mb-2">Thời gian siêu tốc</h3>
+                <p class="text-slate-400">
+                  Chỉ dưới 1 tuần để bạn trải nghiệm demo hoàn chỉnh, test thực tế.
+                </p>
+              </div>
+              <div class="glass-panel p-8 rounded-2xl">
+                <iconify-icon
+                  icon="lucide:cpu"
+                  width="40"
+                  class="text-purple-400 mb-4"
+                ></iconify-icon>
+                <h3 class="text-xl font-bold text-white mb-2">Công nghệ dẫn đầu</h3>
+                <p class="text-slate-400">
+                  Sử dụng Next.js + Nest.js – hiệu suất cao, dễ mở rộng, bảo mật mạnh.
+                </p>
+              </div>
+              <div class="glass-panel p-8 rounded-2xl">
+                <iconify-icon
+                  icon="lucide:lightbulb"
+                  width="40"
+                  class="text-teal-400 mb-4"
+                ></iconify-icon>
+                <h3 class="text-xl font-bold text-white mb-2">Chỉ cần ý tưởng</h3>
+                <p class="text-slate-400">
+                  Bạn mô tả, chúng tôi xử lý từ thiết kế đến test. Không cần code hay đầu
+                  tư trước!
+                </p>
+              </div>
             </div>
-            <div>
-              <label for="email" class="block text-xs font-medium text-slate-500 uppercase mb-1">
-                Email <span class="text-red-500">*</span>
-              </label>
-              <input type="email"
-                     id="email"
-                     name="email"
-                     required
-                     class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
-                     placeholder="Nhập email...">
+            <div class="text-center mt-12">
+              <button
+                onclick="goToSlide(6)"
+                class="inline-flex items-center gap-2 text-brand-accent hover:text-white transition-colors font-medium"
+                aria-label="Yêu cầu demo miễn phí"
+              >
+                Sẵn sàng delight? Yêu cầu demo miễn phí hôm nay!
+                <iconify-icon icon="lucide:arrow-right"></iconify-icon>
+              </button>
             </div>
-            <div>
-              <label for="phone" class="block text-xs font-medium text-slate-500 uppercase mb-1">
-                Số điện thoại <span class="text-red-500">*</span>
-              </label>
-              <input type="tel"
-                     id="phone"
-                     name="phone"
-                     required
-                     class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
-                     placeholder="Nhập số điện thoại...">
+          </article>
+        </section>
+
+        <!-- 3. Why Choose Us -->
+        <section
+          class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto"
+        >
+          <div class="max-w-6xl mx-auto w-full">
+            <div class="text-center mb-12">
+              <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">
+                Dịch vụ nhanh nhất, chi phí hợp lý nhất
+              </h2>
+              <p class="text-lg text-slate-400">
+                Chất lượng dẫn đầu thị trường – Tăng trưởng không rủi ro.
+              </p>
             </div>
-            <div>
-              <label for="idea" class="block text-xs font-medium text-slate-500 uppercase mb-1">
-                Ý tưởng dự án <span class="text-red-500">*</span>
-              </label>
-              <input type="text"
-                     id="idea"
-                     name="idea"
-                     required
-                     class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
-                     placeholder="Mô tả ngắn...">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="flex gap-4 items-start">
+                <div class="p-3 bg-brand-light rounded-lg text-brand-accent">
+                  <iconify-icon icon="lucide:shield-check" width="24"></iconify-icon>
+                </div>
+                <div>
+                  <h4 class="text-white font-bold text-lg">Bảo mật tuyệt đối</h4>
+                  <p class="text-slate-400 text-sm mt-1">
+                    Tuân thủ GDPR/HIPAA. Giảm rủi ro phạt lên đến 100%.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-4 items-start">
+                <div class="p-3 bg-brand-light rounded-lg text-brand-accent">
+                  <iconify-icon icon="lucide:users" width="24"></iconify-icon>
+                </div>
+                <div>
+                  <h4 class="text-white font-bold text-lg">
+                    Đội ngũ dày dạn kinh nghiệm
+                  </h4>
+                  <p class="text-slate-400 text-sm mt-1">
+                    Hơn 10 năm outsourcing IT. Tăng tốc độ thị trường lên 50%.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-4 items-start">
+                <div class="p-3 bg-brand-light rounded-lg text-brand-accent">
+                  <iconify-icon icon="lucide:life-buoy" width="24"></iconify-icon>
+                </div>
+                <div>
+                  <h4 class="text-white font-bold text-lg">Công nghệ vượt trội</h4>
+                  <p class="text-slate-400 text-sm mt-1">
+                    Sử dụng AI, LLM như Claude để tối ưu quy trình.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-4 items-start">
+                <div class="p-3 bg-brand-light rounded-lg text-brand-accent">
+                  <iconify-icon icon="lucide:code-2" width="24"></iconify-icon>
+                </div>
+                <div>
+                  <h4 class="text-white font-bold text-lg">
+                    Codebase sạch sẽ, chuyên nghiệp
+                  </h4>
+                  <p class="text-slate-400 text-sm mt-1">
+                    Thư viện custom mạnh mẽ, không "nợ kỹ thuật". Tiết kiệm chi phí.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div>
-              <label for="details" class="block text-xs font-medium text-slate-500 uppercase mb-1">
-                Mô tả chi tiết
-              </label>
-              <textarea rows="3"
-                        id="details"
-                        name="details"
-                        class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
-                        placeholder="Mô tả chi tiết..."
-              ></textarea>
+          </div>
+        </section>
+
+        <!-- 4. About Us -->
+        <section
+          class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto"
+        >
+          <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-8">
+              Về POD – Pay On Delight
+            </h2>
+            <p class="text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
+              Chúng tôi là đội ngũ IT outsourcing đam mê, với hơn 10 năm kinh nghiệm giúp
+              doanh nghiệp Việt Nam và quốc tế phát triển web app nhanh chóng.
+            </p>
+            <div class="w-24 h-1 bg-brand-accent mx-auto my-8"></div>
+            <p class="text-lg text-slate-400 leading-relaxed">
+              Sứ mệnh:
+              <span class="text-white font-medium"> Loại bỏ rủi ro cho khách hàng </span>
+              bằng mô hình "thử trước, trả sau khi delight" <br />
+              Tập trung: vào tốc độ, chất lượng và giá trị thực sự.
+            </p>
+          </div>
+        </section>
+
+        <!-- 5. Services -->
+        <section
+          class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto"
+        >
+          <div class="max-w-5xl mx-auto w-full">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+              Dịch vụ chính của POD
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="glass-panel p-6 rounded-xl border-l-4 border-brand-accent">
+                <h3 class="text-xl font-bold text-white mb-2">Phát triển giải pháp</h3>
+                <p class="text-slate-400 text-sm">
+                  Website, web app, private system, tools – Demo miễn phí
+                </p>
+              </div>
+              <div class="glass-panel p-6 rounded-xl border-l-4 border-purple-500">
+                <h3 class="text-xl font-bold text-white mb-2">Tích hợp hệ thống</h3>
+                <p class="text-slate-400 text-sm">
+                  Apis, AI, LLM, payment gateway – Kết nối dễ dàng.
+                </p>
+              </div>
+              <div class="glass-panel p-6 rounded-xl border-l-4 border-teal-500">
+                <h3 class="text-xl font-bold text-white mb-2">
+                  Tối ưu hiệu suất &amp; Scalability
+                </h3>
+                <p class="text-slate-400 text-sm">
+                  Cloud-ready, xử lý hàng nghìn user mà không lag.
+                </p>
+              </div>
+              <div class="glass-panel p-6 rounded-xl border-l-4 border-orange-500">
+                <h3 class="text-xl font-bold text-white mb-2">
+                  Bảo trì &amp; Nâng cấp lâu dài
+                </h3>
+                <p class="text-slate-400 text-sm">
+                  Hỗ trợ 24/7, update theo nhu cầu kinh doanh.
+                </p>
+              </div>
             </div>
-            <button type="submit"
-                    id="submitDemoBtn"
-                    class="w-full py-4 bg-brand-accent text-brand-light font-bold rounded-lg hover:bg-sky-400 transition-colors mt-2"
-                    aria-label="Gửi yêu cầu demo miễn phí">
-              Gửi Yêu Cầu Demo
-            </button>
-          </form>
-          <div id="formMessage" class="mt-4 text-center hidden"></div>
-        </div>
+            <div class="text-center mt-12">
+              <button
+                onclick="goToSlide(6)"
+                class="px-6 py-3 border border-white/20 text-white rounded-lg hover:bg-white hover:text-brand transition-all"
+              >
+                Yêu cầu demo tùy chỉnh ngay
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. FAQ -->
+        <section
+          class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto"
+        >
+          <div class="max-w-3xl mx-auto w-full">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+              Câu hỏi thường gặp
+            </h2>
+            <div class="space-y-4">
+              <details
+                class="glass-panel rounded-lg group open:bg-brand-lighter/50 transition-colors"
+              >
+                <summary
+                  class="p-6 cursor-pointer font-medium text-white flex justify-between items-center"
+                >
+                  POD hoạt động như thế nào?
+                  <iconify-icon
+                    icon="lucide:chevron-down"
+                    class="group-open:rotate-180 transition-transform"
+                  ></iconify-icon>
+                </summary>
+                <div class="px-6 pb-6 text-slate-400 text-sm leading-relaxed">
+                  Chúng tôi phát triển demo miễn phí dựa trên ý tưởng bạn. Bạn test 1
+                  tuần; nếu delight (hài lòng với giá trị), trả phí để hoàn thiện. Nếu
+                  không, dừng mà không tốn kém.
+                </div>
+              </details>
+              <details
+                class="glass-panel rounded-lg group open:bg-brand-lighter/50 transition-colors"
+              >
+                <summary
+                  class="p-6 cursor-pointer font-medium text-white flex justify-between items-center"
+                >
+                  Thời gian thực tế là bao lâu?
+                  <iconify-icon
+                    icon="lucide:chevron-down"
+                    class="group-open:rotate-180 transition-transform"
+                  ></iconify-icon>
+                </summary>
+                <div class="px-6 pb-6 text-slate-400 text-sm leading-relaxed">
+                  Dưới 1 tuần cho demo cơ bản – Nhanh hơn 50% so với outsourcing truyền
+                  thống.
+                </div>
+              </details>
+              <details
+                class="glass-panel rounded-lg group open:bg-brand-lighter/50 transition-colors"
+              >
+                <summary
+                  class="p-6 cursor-pointer font-medium text-white flex justify-between items-center"
+                >
+                  Chi phí nếu tiếp tục?
+                  <iconify-icon
+                    icon="lucide:chevron-down"
+                    class="group-open:rotate-180 transition-transform"
+                  ></iconify-icon>
+                </summary>
+                <div class="px-6 pb-6 text-slate-400 text-sm leading-relaxed">
+                  Linh hoạt, dựa trên scope – Thấp hơn thị trường nhờ công nghệ hiện đại.
+                </div>
+              </details>
+              <details
+                class="glass-panel rounded-lg group open:bg-brand-lighter/50 transition-colors"
+              >
+                <summary
+                  class="p-6 cursor-pointer font-medium text-white flex justify-between items-center"
+                >
+                  Dữ liệu của tôi có an toàn?
+                  <iconify-icon
+                    icon="lucide:chevron-down"
+                    class="group-open:rotate-180 transition-transform"
+                  ></iconify-icon>
+                </summary>
+                <div class="px-6 pb-6 text-slate-400 text-sm leading-relaxed">
+                  Tuyệt đối, với mã hóa và tuân thủ chuẩn quốc tế.
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Contact -->
+        <section
+          class="min-w-full w-full h-full flex flex-col justify-center items-center px-6 pt-16 relative overflow-y-auto"
+        >
+          <div class="max-w-4xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">
+                Liên hệ ngay để nhận Demo Miễn Phí
+              </h2>
+              <p class="text-slate-400 mb-8">
+                Chúng tôi phản hồi trong 24h – Bắt đầu hành trình delight ngay hôm nay!
+              </p>
+              <div class="space-y-4 text-sm text-slate-300">
+                <div class="flex items-center gap-3">
+                  <iconify-icon
+                    icon="lucide:mail"
+                    class="text-brand-accent"
+                  ></iconify-icon>
+                  tulathecoder@gmail.com
+                </div>
+                <div class="flex items-center gap-3">
+                  <iconify-icon
+                    icon="lucide:phone"
+                    class="text-brand-accent"
+                  ></iconify-icon>
+                  033 640 7556
+                </div>
+              </div>
+            </div>
+            <div class="glass-panel p-8 rounded-2xl">
+              <form id="demoRequestForm" class="space-y-4">
+                <div>
+                  <label
+                    for="fullName"
+                    class="block text-xs font-medium text-slate-500 uppercase mb-1"
+                  >
+                    Họ tên <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    required
+                    class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
+                    placeholder="Nhập họ tên..."
+                  />
+                </div>
+                <div>
+                  <label
+                    for="email"
+                    class="block text-xs font-medium text-slate-500 uppercase mb-1"
+                  >
+                    Email <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
+                    placeholder="Nhập email..."
+                  />
+                </div>
+                <div>
+                  <label
+                    for="phone"
+                    class="block text-xs font-medium text-slate-500 uppercase mb-1"
+                  >
+                    Số điện thoại <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    required
+                    class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
+                    placeholder="Nhập số điện thoại..."
+                  />
+                </div>
+                <div>
+                  <label
+                    for="idea"
+                    class="block text-xs font-medium text-slate-500 uppercase mb-1"
+                  >
+                    Ý tưởng dự án <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="idea"
+                    name="idea"
+                    required
+                    class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
+                    placeholder="Mô tả ngắn..."
+                  />
+                </div>
+                <div>
+                  <label
+                    for="details"
+                    class="block text-xs font-medium text-slate-500 uppercase mb-1"
+                  >
+                    Mô tả chi tiết
+                  </label>
+                  <textarea
+                    rows="3"
+                    id="details"
+                    name="details"
+                    class="w-full bg-brand-light/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-accent focus:outline-none transition-colors"
+                    placeholder="Mô tả chi tiết..."
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  id="submitDemoBtn"
+                  class="w-full py-4 bg-brand-accent text-brand-light font-bold rounded-lg hover:bg-sky-400 transition-colors mt-2"
+                  aria-label="Gửi yêu cầu demo miễn phí"
+                >
+                  Gửi Yêu Cầu Demo
+                </button>
+              </form>
+              <div id="formMessage" class="mt-4 text-center hidden"></div>
+            </div>
+          </div>
+        </section>
       </div>
-    </section>
-  </div>
-</main>
+    </main>
 
-<!-- Nav Controls -->
-<div id="prevBtn" class="fixed top-1/2 left-4 z-50 -translate-y-1/2 transition-opacity duration-300">
-  <button onclick="prevSlide()"
-          class="w-12 h-12 flex items-center justify-center rounded-full bg-brand-lighter/50 border border-white/10 hover:bg-brand-accent hover:text-brand-light hover:border-transparent transition-all text-white backdrop-blur-md">
-    <iconify-icon icon="lucide:chevron-left" width="24"></iconify-icon>
-  </button>
-</div>
-<div id="nextBtn" class="fixed top-1/2 right-4 z-50 -translate-y-1/2 transition-opacity duration-300">
-  <button onclick="nextSlide()"
-          class="w-12 h-12 flex items-center justify-center rounded-full bg-brand-lighter/50 border border-white/10 hover:bg-brand-accent hover:text-brand-light hover:border-transparent transition-all text-white backdrop-blur-md">
-    <iconify-icon icon="lucide:chevron-right" width="24"></iconify-icon>
-  </button>
-</div>
+    <!-- Nav Controls -->
+    <div
+      id="prevBtn"
+      class="fixed top-1/2 left-4 z-50 -translate-y-1/2 transition-opacity duration-300"
+    >
+      <button
+        onclick="prevSlide()"
+        class="w-12 h-12 flex items-center justify-center rounded-full bg-brand-lighter/50 border border-white/10 hover:bg-brand-accent hover:text-brand-light hover:border-transparent transition-all text-white backdrop-blur-md"
+      >
+        <iconify-icon icon="lucide:chevron-left" width="24"></iconify-icon>
+      </button>
+    </div>
+    <div
+      id="nextBtn"
+      class="fixed top-1/2 right-4 z-50 -translate-y-1/2 transition-opacity duration-300"
+    >
+      <button
+        onclick="nextSlide()"
+        class="w-12 h-12 flex items-center justify-center rounded-full bg-brand-lighter/50 border border-white/10 hover:bg-brand-accent hover:text-brand-light hover:border-transparent transition-all text-white backdrop-blur-md"
+      >
+        <iconify-icon icon="lucide:chevron-right" width="24"></iconify-icon>
+      </button>
+    </div>
 
-<script>
-    let currentSlide = 0;
-    const slider = document.getElementById('slider');
-    const totalSlides = 7;
-    const prevBtnContainer = document.getElementById('prevBtn');
-    const nextBtnContainer = document.getElementById('nextBtn');
+    <script>
+      let currentSlide = 0;
+      const slider = document.getElementById('slider');
+      const totalSlides = 7;
+      const prevBtnContainer = document.getElementById('prevBtn');
+      const nextBtnContainer = document.getElementById('nextBtn');
 
-    function updateNavButtons() {
+      function updateNavButtons() {
         // Hide prev button on first slide
         if (currentSlide === 0) {
-            prevBtnContainer.style.opacity = '0';
-            prevBtnContainer.style.pointerEvents = 'none';
+          prevBtnContainer.style.opacity = '0';
+          prevBtnContainer.style.pointerEvents = 'none';
         } else {
-            prevBtnContainer.style.opacity = '1';
-            prevBtnContainer.style.pointerEvents = 'auto';
+          prevBtnContainer.style.opacity = '1';
+          prevBtnContainer.style.pointerEvents = 'auto';
         }
 
         // Hide next button on last slide
         if (currentSlide === totalSlides - 1) {
-            nextBtnContainer.style.opacity = '0';
-            nextBtnContainer.style.pointerEvents = 'none';
+          nextBtnContainer.style.opacity = '0';
+          nextBtnContainer.style.pointerEvents = 'none';
         } else {
-            nextBtnContainer.style.opacity = '1';
-            nextBtnContainer.style.pointerEvents = 'auto';
+          nextBtnContainer.style.opacity = '1';
+          nextBtnContainer.style.pointerEvents = 'auto';
         }
-    }
+      }
 
-    function updateSlider() {
+      function updateSlider() {
         slider.style.transform = `translateX(-${currentSlide * 100}%)`;
         updateNavButtons();
         updateActiveNav();
-    }
+      }
 
-    function updateActiveNav() {
+      function updateActiveNav() {
         const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach(item => {
-            const slideIndex = parseInt(item.getAttribute('data-slide'));
-            if (slideIndex === currentSlide) {
-                item.classList.add('active');
-            } else {
-                item.classList.remove('active');
-            }
+        navItems.forEach((item) => {
+          const slideIndex = parseInt(item.getAttribute('data-slide'));
+          if (slideIndex === currentSlide) {
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
         });
-    }
+      }
 
-    // Initialize nav buttons visibility
-    updateNavButtons();
-    updateActiveNav();
+      // Initialize nav buttons visibility
+      updateNavButtons();
+      updateActiveNav();
 
-    function nextSlide() {
+      function nextSlide() {
         if (currentSlide < totalSlides - 1) {
-            currentSlide++;
-            updateSlider();
+          currentSlide++;
+          updateSlider();
         }
-    }
+      }
 
-    function prevSlide() {
+      function prevSlide() {
         if (currentSlide > 0) {
-            currentSlide--;
-            updateSlider();
+          currentSlide--;
+          updateSlider();
         }
-    }
+      }
 
-    function goToSlide(index) {
+      function goToSlide(index) {
         if (index >= 0 && index < totalSlides) {
-            currentSlide = index;
-            updateSlider();
+          currentSlide = index;
+          updateSlider();
         }
-    }
+      }
 
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowRight') nextSlide();
         if (e.key === 'ArrowLeft') prevSlide();
-    });
+      });
 
-    // Scroll/wheel navigation
-    let isScrolling = false;
-    document.addEventListener('wheel', (e) => {
+      // Scroll/wheel navigation
+      let isScrolling = false;
+      document.addEventListener('wheel', (e) => {
         if (isScrolling) return;
 
         if (e.deltaY > 0) {
-            // Scroll down -> next slide
-            nextSlide();
+          // Scroll down -> next slide
+          nextSlide();
         } else if (e.deltaY < 0) {
-            // Scroll up -> previous slide
-            prevSlide();
+          // Scroll up -> previous slide
+          prevSlide();
         }
 
         isScrolling = true;
         setTimeout(() => {
-            isScrolling = false;
+          isScrolling = false;
         }, 700); // Debounce to match transition duration
-    });
+      });
 
-    // Touch swipe navigation for mobile
-    let touchStartY = 0;
-    let touchEndY = 0;
+      // Touch swipe navigation for mobile
+      let touchStartY = 0;
+      let touchEndY = 0;
 
-    document.addEventListener('touchstart', (e) => {
+      document.addEventListener('touchstart', (e) => {
         touchStartY = e.changedTouches[0].screenY;
-    });
+      });
 
-    document.addEventListener('touchend', (e) => {
+      document.addEventListener('touchend', (e) => {
         touchEndY = e.changedTouches[0].screenY;
         handleSwipe();
-    });
+      });
 
-    function handleSwipe() {
+      function handleSwipe() {
         const swipeThreshold = 50;
         const diff = touchStartY - touchEndY;
 
         if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                // Swipe up -> next slide
-                nextSlide();
-            } else {
-                // Swipe down -> previous slide
-                prevSlide();
-            }
+          if (diff > 0) {
+            // Swipe up -> next slide
+            nextSlide();
+          } else {
+            // Swipe down -> previous slide
+            prevSlide();
+          }
         }
-    }
+      }
 
-    // Demo Request Form Submission
-    const demoRequestForm = document.getElementById('demoRequestForm');
-    const submitDemoBtn = document.getElementById('submitDemoBtn');
-    const formMessage = document.getElementById('formMessage');
+      // Demo Request Form Submission
+      const demoRequestForm = document.getElementById('demoRequestForm');
+      const submitDemoBtn = document.getElementById('submitDemoBtn');
+      const formMessage = document.getElementById('formMessage');
 
-    // Validation utility functions
-    const validators = {
+      // Validation utility functions
+      const validators = {
         fullName: (value) => {
-            if (!value || value.trim().length < 2) {
-                return 'Họ tên phải có ít nhất 2 ký tự';
-            }
-            if (value.length > 100) {
-                return 'Họ tên không được vượt quá 100 ký tự';
-            }
-            return null;
+          if (!value || value.trim().length < 2) {
+            return 'Họ tên phải có ít nhất 2 ký tự';
+          }
+          if (value.length > 100) {
+            return 'Họ tên không được vượt quá 100 ký tự';
+          }
+          return null;
         },
         email: (value) => {
-            if (!value || value.trim().length === 0) {
-                return 'Email không được để trống';
-            }
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(value)) {
-                return 'Email không hợp lệ';
-            }
-            return null;
+          if (!value || value.trim().length === 0) {
+            return 'Email không được để trống';
+          }
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(value)) {
+            return 'Email không hợp lệ';
+          }
+          return null;
         },
         phone: (value) => {
-            if (!value || value.trim().length === 0) {
-                return 'Số điện thoại không được để trống';
-            }
-            // Vietnamese phone number validation
-            const phoneRegex = /^(\+84|84|0)[3-9]\d{8}$/;
-            const cleanPhone = value.replace(/\s+/g, '');
-            if (!phoneRegex.test(cleanPhone)) {
-                return 'Số điện thoại không hợp lệ (vd: 0912345678 hoặc +84912345678)';
-            }
-            return null;
+          if (!value || value.trim().length === 0) {
+            return 'Số điện thoại không được để trống';
+          }
+          // Vietnamese phone number validation
+          const phoneRegex = /^(\+84|84|0)[3-9]\d{8}$/;
+          const cleanPhone = value.replace(/\s+/g, '');
+          if (!phoneRegex.test(cleanPhone)) {
+            return 'Số điện thoại không hợp lệ (vd: 0912345678 hoặc +84912345678)';
+          }
+          return null;
         },
         idea: (value) => {
-            if (!value || value.trim().length < 10) {
-                return 'Ý tưởng dự án phải có ít nhất 10 ký tự';
-            }
-            if (value.length > 255) {
-                return 'Ý tưởng dự án không được vượt quá 255 ký tự';
-            }
-            return null;
+          if (!value || value.trim().length < 10) {
+            return 'Ý tưởng dự án phải có ít nhất 10 ký tự';
+          }
+          if (value.length > 255) {
+            return 'Ý tưởng dự án không được vượt quá 255 ký tự';
+          }
+          return null;
         },
         details: (value) => {
-            if (value && value.length > 5000) {
-                return 'Mô tả chi tiết không được vượt quá 5000 ký tự';
-            }
-            return null;
-        }
-    };
+          if (value && value.length > 5000) {
+            return 'Mô tả chi tiết không được vượt quá 5000 ký tự';
+          }
+          return null;
+        },
+      };
 
-    // Show validation error for a field
-    const showFieldError = (fieldId, errorMessage) => {
+      // Show validation error for a field
+      const showFieldError = (fieldId, errorMessage) => {
         const field = document.getElementById(fieldId);
         const existingError = field.parentElement.querySelector('.field-error');
 
         if (existingError) {
-            existingError.remove();
+          existingError.remove();
         }
 
         if (errorMessage) {
-            field.classList.add('border-red-500');
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'field-error text-red-400 text-sm mt-1';
-            errorDiv.textContent = errorMessage;
-            field.parentElement.appendChild(errorDiv);
-            return false;
+          field.classList.add('border-red-500');
+          const errorDiv = document.createElement('div');
+          errorDiv.className = 'field-error text-red-400 text-sm mt-1';
+          errorDiv.textContent = errorMessage;
+          field.parentElement.appendChild(errorDiv);
+          return false;
         } else {
-            field.classList.remove('border-red-500');
-            return true;
+          field.classList.remove('border-red-500');
+          return true;
         }
-    };
+      };
 
-    // Clear all field errors
-    const clearAllErrors = () => {
-        document.querySelectorAll('.field-error').forEach(el => el.remove());
-        document.querySelectorAll('input, textarea').forEach(el => {
-            el.classList.remove('border-red-500');
+      // Clear all field errors
+      const clearAllErrors = () => {
+        document.querySelectorAll('.field-error').forEach((el) => el.remove());
+        document.querySelectorAll('input, textarea').forEach((el) => {
+          el.classList.remove('border-red-500');
         });
-    };
+      };
 
-    // Validate single field
-    const validateField = (fieldId) => {
+      // Validate single field
+      const validateField = (fieldId) => {
         const field = document.getElementById(fieldId);
         const error = validators[fieldId]?.(field.value);
         return showFieldError(fieldId, error);
-    };
+      };
 
-    // Validate entire form
-    const validateForm = () => {
+      // Validate entire form
+      const validateForm = () => {
         clearAllErrors();
         let isValid = true;
 
-        ['fullName', 'email', 'phone', 'idea', 'details'].forEach(fieldId => {
-            if (!validateField(fieldId)) {
-                isValid = false;
-            }
+        ['fullName', 'email', 'phone', 'idea', 'details'].forEach((fieldId) => {
+          if (!validateField(fieldId)) {
+            isValid = false;
+          }
         });
 
         return isValid;
-    };
+      };
 
-    // Add real-time validation on blur
-    ['fullName', 'email', 'phone', 'idea', 'details'].forEach(fieldId => {
+      // Add real-time validation on blur
+      ['fullName', 'email', 'phone', 'idea', 'details'].forEach((fieldId) => {
         const field = document.getElementById(fieldId);
         if (field) {
-            field.addEventListener('blur', () => validateField(fieldId));
-            // Clear error on input
-            field.addEventListener('input', () => {
-                const existingError = field.parentElement.querySelector('.field-error');
-                if (existingError) {
-                    field.classList.remove('border-red-500');
-                    existingError.remove();
-                }
-            });
+          field.addEventListener('blur', () => validateField(fieldId));
+          // Clear error on input
+          field.addEventListener('input', () => {
+            const existingError = field.parentElement.querySelector('.field-error');
+            if (existingError) {
+              field.classList.remove('border-red-500');
+              existingError.remove();
+            }
+          });
         }
-    });
+      });
 
-    // Show form message
-    const showFormMessage = (message, isSuccess = false) => {
+      // Show form message
+      const showFormMessage = (message, isSuccess = false) => {
         formMessage.textContent = message;
         formMessage.className = `mt-4 text-center ${isSuccess ? 'text-green-400' : 'text-red-400'}`;
         formMessage.classList.remove('hidden');
-    };
+      };
 
-    // Hide form message
-    const hideFormMessage = () => {
+      // Hide form message
+      const hideFormMessage = () => {
         formMessage.classList.add('hidden');
-    };
+      };
 
-    demoRequestForm.addEventListener('submit', async (e) => {
+      demoRequestForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         // Validate form before submission
         if (!validateForm()) {
-            showFormMessage('Vui lòng kiểm tra lại thông tin', false);
-            return;
+          showFormMessage('Vui lòng kiểm tra lại thông tin', false);
+          return;
         }
 
         // Disable button and show loading state
@@ -1002,48 +1144,49 @@
         hideFormMessage();
 
         const formData = {
-            fullName: document.getElementById('fullName').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            phone: document.getElementById('phone').value.trim(),
-            idea: document.getElementById('idea').value.trim(),
-            details: document.getElementById('details').value.trim(),
+          fullName: document.getElementById('fullName').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          phone: document.getElementById('phone').value.trim(),
+          idea: document.getElementById('idea').value.trim(),
+          details: document.getElementById('details').value.trim(),
         };
 
         try {
-            const response = await fetch('/api/v1/pod-registration', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+          const response = await fetch('/api/v1/pod-registration', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
 
-            if (response.ok) {
-                await response.json();
-                showFormMessage('Gửi yêu cầu thành công! Chúng tôi sẽ liên hệ bạn ngay.', true);
-                demoRequestForm.reset();
-                clearAllErrors();
-            } else {
-                const error = await response.json();
-                const errorMessage = error.message || 'Có lỗi xảy ra, vui lòng thử lại.';
-                showFormMessage(errorMessage, false);
+          if (response.ok) {
+            await response.json();
+            showFormMessage(
+              'Gửi yêu cầu thành công! Chúng tôi sẽ liên hệ bạn ngay.',
+              true,
+            );
+            demoRequestForm.reset();
+            clearAllErrors();
+          } else {
+            const error = await response.json();
+            const errorMessage = error.message || 'Có lỗi xảy ra, vui lòng thử lại.';
+            showFormMessage(errorMessage, false);
 
-                // Show field-specific errors if available
-                if (error.details) {
-                    Object.keys(error.details).forEach(fieldName => {
-                        showFieldError(fieldName, error.details[fieldName]);
-                    });
-                }
+            // Show field-specific errors if available
+            if (error.details) {
+              Object.keys(error.details).forEach((fieldName) => {
+                showFieldError(fieldName, error.details[fieldName]);
+              });
             }
+          }
         } catch (error) {
-            showFormMessage('Không thể kết nối đến server, vui lòng thử lại.', false);
+          showFormMessage('Không thể kết nối đến server, vui lòng thử lại.', false);
         } finally {
-            submitDemoBtn.disabled = false;
-            submitDemoBtn.textContent = 'Gửi Yêu Cầu Demo';
+          submitDemoBtn.disabled = false;
+          submitDemoBtn.textContent = 'Gửi Yêu Cầu Demo';
         }
-    });
-</script>
-
-</body>
+      });
+    </script>
+  </body>
 </html>
-
