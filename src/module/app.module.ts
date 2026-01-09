@@ -3,9 +3,11 @@ import { BullBoardModule } from '@bull-board/nestjs';
 import { DiscoveryModule } from '@golevelup/nestjs-discovery';
 import { BullModule } from '@nestjs/bullmq';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TerminusModule } from '@nestjs/terminus';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { ServerConfig } from '@server/config';
 import basicAuth from 'express-basic-auth';
 import path from 'path';
@@ -54,6 +56,15 @@ import { UserModule } from 'src/module/user';
         }),
       }),
     }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: ServerConfig.get().THROTTLER_TTL,
+          limit: ServerConfig.get().THROTTLER_LIMIT,
+        },
+      ],
+    }),
+
     // Common modules
     BaseModule,
     AuthModule,
@@ -64,6 +75,15 @@ import { UserModule } from 'src/module/user';
     PhraseModule,
     RedemptionModule,
     PodRegistrationModule,
+  ],
+  providers: [
+    // no need to rate-limit in local env
+    ...(!ServerConfig.isLocalEnv() && [
+      {
+        provide: APP_GUARD,
+        useClass: ThrottlerGuard,
+      },
+    ]),
   ],
 })
 export class AppModule implements NestModule {
@@ -86,8 +106,5 @@ export class AppModule implements NestModule {
       .apply(HttpLoggerMiddleware)
       .exclude('(v[0-9]+)/auth/(.*)', '(v[0-9]+)/storage/(.*)')
       .forRoutes('*');
-
-    // error-able middleware
-    // consumer.apply(RateLimitMiddleware).forRoutes('*');
   }
 }

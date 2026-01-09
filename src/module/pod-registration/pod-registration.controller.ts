@@ -12,6 +12,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 import { PaginationResponseDto } from '@server/platform/dtos';
 import { AccessRole } from 'src/common/enums';
 import { RoleBaseAccessControl, SwaggerApiDocument } from 'src/decorator';
@@ -37,6 +38,7 @@ export class PodRegistrationController {
 
   @Post()
   @RoleBaseAccessControl([AccessRole.Public])
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
   @SwaggerApiDocument({
     response: { type: CreatePodRegistrationResponseDto },
     body: { type: CreatePodRegistrationBodyDto, required: true },
@@ -45,7 +47,6 @@ export class PodRegistrationController {
       summary: `Api createPodRegistration`,
     },
   })
-  // todo important: rate limit this endpoint
   async createPodRegistration(
     @Body() body: CreatePodRegistrationBodyDto,
   ): Promise<CreatePodRegistrationResponseDto> {
