@@ -1,33 +1,8 @@
 <html lang="vi" class="scroll-smooth h-full overflow-hidden">
   <head>
-    <!-- Google Tag Manager -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({
-          'gtm.start': new Date().getTime(),
-          event: 'gtm.js',
-        });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', 'GTM-PSB5LN23');
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TS4BKGY1H4"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-TS4BKGY1H4');
-    </script>
+    <script src="/js/analytics.js"></script>
     <!-- End Google Analytics -->
 
     <meta charset="UTF-8" />
@@ -96,98 +71,13 @@
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind-config.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap"
       rel="stylesheet"
     />
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              brand: {
-                DEFAULT: '#19272B',
-                light: '#23343A',
-                lighter: '#2E4249',
-                accent: '#38bdf8', // Light Cyan/Blue for pop
-                accentGlow: 'rgba(56, 189, 248, 0.15)',
-              },
-            },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-            },
-            animation: {
-              float: 'float 6s ease-in-out infinite',
-            },
-            keyframes: {
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-20px)' },
-              },
-            },
-          },
-        },
-      };
-    </script>
-    <style>
-      /* Custom scrollbar to match the dark theme */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      ::-webkit-scrollbar-track {
-        background: #19272b;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background: #2e4249;
-        border-radius: 4px;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        background: #38bdf8;
-      }
-
-      /* Subtle grid background pattern */
-      .bg-grid {
-        background-size: 40px 40px;
-        background-image:
-          linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      }
-
-      .glass-panel {
-        background: rgba(35, 52, 58, 0.4);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-      }
-
-      .nav-item {
-        position: relative;
-        padding-bottom: 4px;
-      }
-
-      .nav-item::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background-color: #38bdf8;
-        transition: width 0.3s ease;
-      }
-
-      .nav-item.active {
-        color: #38bdf8;
-      }
-
-      .nav-item.active::after {
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" href="/styles.css" />
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -315,7 +205,6 @@
         <a
           href="#"
           class="flex items-center gap-2 group"
-          onclick="goToSlide(0); return false;"
         >
           <div
             class="relative w-8 h-8 flex items-center justify-center bg-brand-lighter rounded-lg border border-white/10 group-hover:border-brand-accent/50 transition-colors"
@@ -344,35 +233,30 @@
           class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400"
         >
           <button
-            onclick="goToSlide(1)"
             data-slide="1"
             class="nav-item hover:text-white transition-colors"
           >
             Mô hình
           </button>
           <button
-            onclick="goToSlide(2)"
             data-slide="2"
             class="nav-item hover:text-white transition-colors"
           >
             Tại sao
           </button>
           <button
-            onclick="goToSlide(3)"
             data-slide="3"
             class="nav-item hover:text-white transition-colors"
           >
             Về chúng tôi
           </button>
           <button
-            onclick="goToSlide(4)"
             data-slide="4"
             class="nav-item hover:text-white transition-colors"
           >
             Dịch vụ
           </button>
           <button
-            onclick="goToSlide(5)"
             data-slide="5"
             class="nav-item hover:text-white transition-colors"
           >
@@ -384,7 +268,6 @@
         <a
           href="#"
           class="hidden md:flex items-center gap-2 px-4 py-2 bg-white text-brand font-medium text-xs rounded-full hover:bg-slate-200 transition-colors"
-          onclick="goToSlide(6); return false;"
         >
           <span>Book Demo</span>
           <iconify-icon icon="lucide:arrow-right" width="14"></iconify-icon>
@@ -428,7 +311,6 @@
                 Bắt đầu ngay hôm nay để trải nghiệm sự khác biệt.
               </p>
               <button
-                onclick="goToSlide(6)"
                 class="px-8 py-4 bg-brand-accent text-brand-light text-base font-bold rounded-lg hover:shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-all hover:scale-105"
                 aria-label="Yêu Cầu Demo Miễn Phí"
               >
@@ -494,7 +376,6 @@
             </div>
             <div class="text-center mt-12">
               <button
-                onclick="goToSlide(6)"
                 class="inline-flex items-center gap-2 text-brand-accent hover:text-white transition-colors font-medium"
                 aria-label="Yêu cầu demo miễn phí"
               >
@@ -633,7 +514,6 @@
             </div>
             <div class="text-center mt-12">
               <button
-                onclick="goToSlide(6)"
                 class="px-6 py-3 border border-white/20 text-white rounded-lg hover:bg-white hover:text-brand transition-all"
               >
                 Yêu cầu demo tùy chỉnh ngay
@@ -854,7 +734,6 @@
       class="fixed top-1/2 left-4 z-50 -translate-y-1/2 transition-opacity duration-300"
     >
       <button
-        onclick="prevSlide()"
         class="w-12 h-12 flex items-center justify-center rounded-full bg-brand-lighter/50 border border-white/10 hover:bg-brand-accent hover:text-brand-light hover:border-transparent transition-all text-white backdrop-blur-md"
       >
         <iconify-icon icon="lucide:chevron-left" width="24"></iconify-icon>
@@ -865,328 +744,14 @@
       class="fixed top-1/2 right-4 z-50 -translate-y-1/2 transition-opacity duration-300"
     >
       <button
-        onclick="nextSlide()"
         class="w-12 h-12 flex items-center justify-center rounded-full bg-brand-lighter/50 border border-white/10 hover:bg-brand-accent hover:text-brand-light hover:border-transparent transition-all text-white backdrop-blur-md"
       >
         <iconify-icon icon="lucide:chevron-right" width="24"></iconify-icon>
       </button>
     </div>
 
-    <script>
-      let currentSlide = 0;
-      const slider = document.getElementById('slider');
-      const totalSlides = 7;
-      const prevBtnContainer = document.getElementById('prevBtn');
-      const nextBtnContainer = document.getElementById('nextBtn');
-
-      function updateNavButtons() {
-        // Hide prev button on first slide
-        if (currentSlide === 0) {
-          prevBtnContainer.style.opacity = '0';
-          prevBtnContainer.style.pointerEvents = 'none';
-        } else {
-          prevBtnContainer.style.opacity = '1';
-          prevBtnContainer.style.pointerEvents = 'auto';
-        }
-
-        // Hide next button on last slide
-        if (currentSlide === totalSlides - 1) {
-          nextBtnContainer.style.opacity = '0';
-          nextBtnContainer.style.pointerEvents = 'none';
-        } else {
-          nextBtnContainer.style.opacity = '1';
-          nextBtnContainer.style.pointerEvents = 'auto';
-        }
-      }
-
-      function updateSlider() {
-        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-        updateNavButtons();
-        updateActiveNav();
-      }
-
-      function updateActiveNav() {
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach((item) => {
-          const slideIndex = parseInt(item.getAttribute('data-slide'));
-          if (slideIndex === currentSlide) {
-            item.classList.add('active');
-          } else {
-            item.classList.remove('active');
-          }
-        });
-      }
-
-      // Initialize nav buttons visibility
-      updateNavButtons();
-      updateActiveNav();
-
-      function nextSlide() {
-        if (currentSlide < totalSlides - 1) {
-          currentSlide++;
-          updateSlider();
-        }
-      }
-
-      function prevSlide() {
-        if (currentSlide > 0) {
-          currentSlide--;
-          updateSlider();
-        }
-      }
-
-      function goToSlide(index) {
-        if (index >= 0 && index < totalSlides) {
-          currentSlide = index;
-          updateSlider();
-        }
-      }
-
-      // Keyboard navigation
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') nextSlide();
-        if (e.key === 'ArrowLeft') prevSlide();
-      });
-
-      // Scroll/wheel navigation
-      let isScrolling = false;
-      document.addEventListener('wheel', (e) => {
-        if (isScrolling) return;
-
-        if (e.deltaY > 0) {
-          // Scroll down -> next slide
-          nextSlide();
-        } else if (e.deltaY < 0) {
-          // Scroll up -> previous slide
-          prevSlide();
-        }
-
-        isScrolling = true;
-        setTimeout(() => {
-          isScrolling = false;
-        }, 700); // Debounce to match transition duration
-      });
-
-      // Touch swipe navigation for mobile
-      let touchStartY = 0;
-      let touchEndY = 0;
-
-      document.addEventListener('touchstart', (e) => {
-        touchStartY = e.changedTouches[0].screenY;
-      });
-
-      document.addEventListener('touchend', (e) => {
-        touchEndY = e.changedTouches[0].screenY;
-        handleSwipe();
-      });
-
-      function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = touchStartY - touchEndY;
-
-        if (Math.abs(diff) > swipeThreshold) {
-          if (diff > 0) {
-            // Swipe up -> next slide
-            nextSlide();
-          } else {
-            // Swipe down -> previous slide
-            prevSlide();
-          }
-        }
-      }
-
-      // Demo Request Form Submission
-      const demoRequestForm = document.getElementById('demoRequestForm');
-      const submitDemoBtn = document.getElementById('submitDemoBtn');
-      const formMessage = document.getElementById('formMessage');
-
-      // Validation utility functions
-      const validators = {
-        fullName: (value) => {
-          if (!value || value.trim().length < 2) {
-            return 'Họ tên phải có ít nhất 2 ký tự';
-          }
-          if (value.length > 100) {
-            return 'Họ tên không được vượt quá 100 ký tự';
-          }
-          return null;
-        },
-        email: (value) => {
-          if (!value || value.trim().length === 0) {
-            return 'Email không được để trống';
-          }
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(value)) {
-            return 'Email không hợp lệ';
-          }
-          return null;
-        },
-        phone: (value) => {
-          if (!value || value.trim().length === 0) {
-            return 'Số điện thoại không được để trống';
-          }
-          // Vietnamese phone number validation
-          const phoneRegex = /^(\+84|84|0)[3-9]\d{8}$/;
-          const cleanPhone = value.replace(/\s+/g, '');
-          if (!phoneRegex.test(cleanPhone)) {
-            return 'Số điện thoại không hợp lệ (vd: 0912345678 hoặc +84912345678)';
-          }
-          return null;
-        },
-        idea: (value) => {
-          if (!value || value.trim().length < 10) {
-            return 'Ý tưởng dự án phải có ít nhất 10 ký tự';
-          }
-          if (value.length > 255) {
-            return 'Ý tưởng dự án không được vượt quá 255 ký tự';
-          }
-          return null;
-        },
-        details: (value) => {
-          if (value && value.length > 5000) {
-            return 'Mô tả chi tiết không được vượt quá 5000 ký tự';
-          }
-          return null;
-        },
-      };
-
-      // Show validation error for a field
-      const showFieldError = (fieldId, errorMessage) => {
-        const field = document.getElementById(fieldId);
-        const existingError = field.parentElement.querySelector('.field-error');
-
-        if (existingError) {
-          existingError.remove();
-        }
-
-        if (errorMessage) {
-          field.classList.add('border-red-500');
-          const errorDiv = document.createElement('div');
-          errorDiv.className = 'field-error text-red-400 text-sm mt-1';
-          errorDiv.textContent = errorMessage;
-          field.parentElement.appendChild(errorDiv);
-          return false;
-        } else {
-          field.classList.remove('border-red-500');
-          return true;
-        }
-      };
-
-      // Clear all field errors
-      const clearAllErrors = () => {
-        document.querySelectorAll('.field-error').forEach((el) => el.remove());
-        document.querySelectorAll('input, textarea').forEach((el) => {
-          el.classList.remove('border-red-500');
-        });
-      };
-
-      // Validate single field
-      const validateField = (fieldId) => {
-        const field = document.getElementById(fieldId);
-        const error = validators[fieldId]?.(field.value);
-        return showFieldError(fieldId, error);
-      };
-
-      // Validate entire form
-      const validateForm = () => {
-        clearAllErrors();
-        let isValid = true;
-
-        ['fullName', 'email', 'phone', 'idea', 'details'].forEach((fieldId) => {
-          if (!validateField(fieldId)) {
-            isValid = false;
-          }
-        });
-
-        return isValid;
-      };
-
-      // Add real-time validation on blur
-      ['fullName', 'email', 'phone', 'idea', 'details'].forEach((fieldId) => {
-        const field = document.getElementById(fieldId);
-        if (field) {
-          field.addEventListener('blur', () => validateField(fieldId));
-          // Clear error on input
-          field.addEventListener('input', () => {
-            const existingError = field.parentElement.querySelector('.field-error');
-            if (existingError) {
-              field.classList.remove('border-red-500');
-              existingError.remove();
-            }
-          });
-        }
-      });
-
-      // Show form message
-      const showFormMessage = (message, isSuccess = false) => {
-        formMessage.textContent = message;
-        formMessage.className = `mt-4 text-center ${isSuccess ? 'text-green-400' : 'text-red-400'}`;
-        formMessage.classList.remove('hidden');
-      };
-
-      // Hide form message
-      const hideFormMessage = () => {
-        formMessage.classList.add('hidden');
-      };
-
-      demoRequestForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        // Validate form before submission
-        if (!validateForm()) {
-          showFormMessage('Vui lòng kiểm tra lại thông tin', false);
-          return;
-        }
-
-        // Disable button and show loading state
-        submitDemoBtn.disabled = true;
-        submitDemoBtn.textContent = 'Đang gửi...';
-        hideFormMessage();
-
-        const formData = {
-          fullName: document.getElementById('fullName').value.trim(),
-          email: document.getElementById('email').value.trim(),
-          phone: document.getElementById('phone').value.trim(),
-          idea: document.getElementById('idea').value.trim(),
-          details: document.getElementById('details').value.trim(),
-        };
-
-        try {
-          const response = await fetch('/api/v1/pod-registration', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
-
-          if (response.ok) {
-            await response.json();
-            showFormMessage(
-              'Gửi yêu cầu thành công! Chúng tôi sẽ liên hệ bạn ngay.',
-              true,
-            );
-            demoRequestForm.reset();
-            clearAllErrors();
-          } else {
-            const error = await response.json();
-            const errorMessage = error.message || 'Có lỗi xảy ra, vui lòng thử lại.';
-            showFormMessage(errorMessage, false);
-
-            // Show field-specific errors if available
-            if (error.details) {
-              Object.keys(error.details).forEach((fieldName) => {
-                showFieldError(fieldName, error.details[fieldName]);
-              });
-            }
-          }
-        } catch (error) {
-          showFormMessage('Không thể kết nối đến server, vui lòng thử lại.', false);
-        } finally {
-          submitDemoBtn.disabled = false;
-          submitDemoBtn.textContent = 'Gửi Yêu Cầu Demo';
-        }
-      });
-    </script>
+    <!-- External JavaScript Modules -->
+    <script src="/js/slider.js"></script>
+    <script src="/js/form-validation.js"></script>
   </body>
 </html>
