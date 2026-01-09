@@ -6,28 +6,12 @@ services:
       context: .
       dockerfile: Dockerfile
     env_file:
-      - .env.development
+      - .env
     ports:
-      - "3000:3000"
+      - "8888:3000"
     volumes:
       - ./logs:/api/logs
-      - ./database-backups:/api/prisma/backups
       - ./uploads:/api/uploads
-    # DNS servers for external SMTP access
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
-      - 1.1.1.1
-    # Add extra hosts to help with SMTP resolution
-    extra_hosts:
-      - "smtp.gmail.com:142.250.185.109"
-    networks:
-      - hackimore-network
-    # Ensure container has proper network access
-    sysctls:
-      - net.ipv4.tcp_keepalive_time=200
-      - net.ipv4.tcp_keepalive_intvl=200
-      - net.ipv4.tcp_keepalive_probes=5
 
   database:
     image: postgres:16
@@ -66,11 +50,3 @@ volumes:
 networks:
   hackimore-network:
     driver: bridge
-    driver_opts:
-      com.docker.network.bridge.name: hackimore_br
-      com.docker.network.bridge.enable_ip_masquerade: "true"
-      com.docker.network.driver.mtu: 1500
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.25.0.0/16

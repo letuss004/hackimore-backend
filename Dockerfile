@@ -10,7 +10,7 @@ FROM base AS builder
 COPY package.json yarn.lock ./
 RUN yarn install
 # copy prisma and cache it
-COPY prisma ./
+COPY prisma ./prisma
 RUN npx prisma generate
 # Copy the rest of the application code
 COPY . .
@@ -27,12 +27,8 @@ RUN npx prisma generate
 # Create the final image (most optimized size) (prod)
 FROM base AS server
 COPY --from=preprod /api/node_modules ./node_modules
-COPY prisma ./
-COPY public ./dist/public
-COPY template ./template
 COPY package.json yarn.lock ./
-COPY /tool ./tools
-COPY --from=builder /api/dist ./dist
+COPY --from=builder /api/dist ./
 COPY entry.sh ./
 # Run server
 EXPOSE 3000
