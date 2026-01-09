@@ -17,6 +17,14 @@ class SliderManager {
     this.init();
   }
 
+  isMobileDevice() {
+    return (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+      ) || window.innerWidth <= 768
+    );
+  }
+
   init() {
     this.updateNavButtons();
     this.updateActiveNav();
@@ -123,24 +131,21 @@ class SliderManager {
   }
 
   attachEventListeners() {
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => this.handleKeyboardNavigation(e));
-
-    // Wheel navigation
-    document.addEventListener('wheel', (e) => this.handleWheelNavigation(e));
-
-    // Touch swipe navigation
     let touchStartY = 0;
     let touchEndY = 0;
 
-    document.addEventListener('touchstart', (e) => {
-      touchStartY = e.changedTouches[0].screenY;
-    });
-
-    document.addEventListener('touchend', (e) => {
-      touchEndY = e.changedTouches[0].screenY;
-      this.handleSwipe(touchStartY, touchEndY);
-    });
+    // Utility navigation - only on desktop
+    if (!this.isMobileDevice()) {
+      document.addEventListener('wheel', (e) => this.handleWheelNavigation(e));
+      document.addEventListener('keydown', (e) => this.handleKeyboardNavigation(e));
+      document.addEventListener('touchstart', (e) => {
+        touchStartY = e.changedTouches[0].screenY;
+      });
+      document.addEventListener('touchend', (e) => {
+        touchEndY = e.changedTouches[0].screenY;
+        this.handleSwipe(touchStartY, touchEndY);
+      });
+    }
 
     // Navigation button clicks
     const prevBtn = this.prevBtnContainer.querySelector('button');
@@ -183,7 +188,7 @@ class SliderManager {
 
     // All demo request buttons (by aria-label or content)
     const allButtons = document.querySelectorAll('button');
-    allButtons.forEach(btn => {
+    allButtons.forEach((btn) => {
       const ariaLabel = btn.getAttribute('aria-label');
       const buttonText = btn.textContent.trim();
 
@@ -221,4 +226,3 @@ if (document.readyState === 'loading') {
 
 // Export for global access (for backward compatibility)
 window.sliderManager = sliderManager;
-
