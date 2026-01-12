@@ -21,6 +21,7 @@ const SERVER_CONFIG_DEFAULT = {
   REDIS_HOST: `localhost`,
   REDIS_PORT: 6379,
   REDIS_PASSWORD: undefined,
+  REDIS_DATABASE_NUMBER: 1,
   TZ: 'UTC',
   DISK_STORAGE_PATH: 'uploads',
   EXECUTIVE_STORAGE_PATH: 'uploads/executive',
@@ -37,6 +38,7 @@ const SERVER_CONFIG_DEFAULT = {
   // bull board
   BULL_BOARD_USERNAME: 'admin',
   BULL_BOARD_PASSWORD: 'Admin@001',
+
 };
 
 Object.seal(SERVER_CONFIG_DEFAULT);

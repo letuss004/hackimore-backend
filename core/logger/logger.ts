@@ -148,7 +148,7 @@ export class ServerLogger {
     if (Object.values(rest).length || error) {
       let metadata = safeStringify({ ...rest, system, error }, null, ' ');
       metadata = metadata.replaceAll('\\n', '\n');
-      data = data.concat(colorize('with data attached:', levelColor), '\n', metadata);
+      data = data.concat('\n', metadata);
     }
 
     // color and format

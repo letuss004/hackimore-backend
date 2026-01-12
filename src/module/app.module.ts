@@ -34,7 +34,6 @@ import { UserModule } from 'src/module/user';
     TerminusModule.forRoot(),
     ScheduleModule.forRoot(),
     DiscoveryModule,
-    IntegrationModule,
     ServeStaticModule.forRoot({
       rootPath: path.join(__dirname, '../..', 'public'),
       serveRoot: '/',
@@ -66,6 +65,7 @@ import { UserModule } from 'src/module/user';
     }),
     // Common modules
     BaseModule,
+    IntegrationModule,
     AuthModule,
     UserModule,
     SystemModule,
@@ -76,7 +76,7 @@ import { UserModule } from 'src/module/user';
     PodRegistrationModule,
   ],
   providers: [
-    // no need to rate-limit in local env
+    // conditional providers
     ...(ServerConfig.isLocalEnv()
       ? []
       : [{ provide: APP_GUARD, useClass: ThrottlerGuard }]),

@@ -308,7 +308,7 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
         repeat: {
           pattern: '0 0 * * *', // Every day at 00:00 (midnight)
         },
-        removeOnComplete: true,
+        removeOnComplete: false,
         removeOnFail: false,
       });
 
