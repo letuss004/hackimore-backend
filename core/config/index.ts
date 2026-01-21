@@ -36,6 +36,7 @@ export class ServerConfig {
       host: ServerConfig.get().REDIS_HOST,
       port: ServerConfig.get().REDIS_PORT,
       password: ServerConfig.get().REDIS_PASSWORD,
+      db: ServerConfig.get().REDIS_DB,
     };
   }
 
