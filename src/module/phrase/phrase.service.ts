@@ -38,9 +38,9 @@ export class PhraseService {
       ...(query.language && { language: { in: query.language } }),
       ...(query.search && {
         OR: [
-          { content: query.search },
-          { context: query.search },
-          { description: query.search },
+          { content: { contains: query.search } },
+          { context: { contains: query.search } },
+          { description: { contains: query.search } },
         ],
       }),
     };
@@ -109,9 +109,9 @@ export class PhraseService {
   ): Promise<GetRandomPhraseResponseDto> {
     const result = await this.databaseService.$queryRaw<GetRandomPhraseResponseDto[]>`
       SELECT *
-      FROM "Phrase"
-      ORDER BY RANDOM()
-      LIMIT 1
+      FROM "Phrase" TABLESAMPLE BERNOULLI(10) -- Adjust percentage to ensure enough rows are sampled
+      ORDER BY RANDOM ()
+      LIMIT 1;
     `;
     return result[0];
   }
