@@ -102,18 +102,18 @@ Các công ty lớn dùng subdirectories:
 <!-- Added xhtml namespace -->
 xmlns:xhtml="http://www.w3.org/1999/xhtml"
 
-<!-- Added hreflang for every URL -->
+<!-- Added hreflang for every URL (Updated structure: EN=/, VI=/vi/) -->
 <url>
   <loc>https://webpod.org/</loc>
-  <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/" />
-  <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/en/" />
+  <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/" />
+  <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/" />
   <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/" />
 </url>
 
 <url>
-  <loc>https://webpod.org/en/</loc>
-  <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/" />
-  <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/en/" />
+  <loc>https://webpod.org/vi/</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/" />
+  <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/" />
   <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/" />
 </url>
 ```
@@ -126,11 +126,11 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml"
 ### 2. index.html ✅
 **Updated:** `/public/index.html`
 
-**Changes:**
+**Changes (Updated: EN is now default at /):**
 ```html
-<!-- Added hreflang tags in <head> -->
-<link rel="alternate" hreflang="vi" href="https://webpod.org/" />
-<link rel="alternate" hreflang="en" href="https://webpod.org/en/" />
+<!-- hreflang tags in <head> - English default -->
+<link rel="alternate" hreflang="en" href="https://webpod.org/" />
+<link rel="alternate" hreflang="vi" href="https://webpod.org/vi/" />
 <link rel="alternate" hreflang="x-default" href="https://webpod.org/" />
 ```
 
@@ -147,13 +147,13 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml"
 "availableLanguage": [
   {
     "@type": "Language",
-    "name": "Vietnamese",
-    "alternateName": "vi"
+    "name": "English",
+    "alternateName": "en"
   },
   {
     "@type": "Language",
-    "name": "English",
-    "alternateName": "en"
+    "name": "Vietnamese",
+    "alternateName": "vi"
   }
 ]
 ```
@@ -165,40 +165,34 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml"
 
 ---
 
-## 📋 CẦN LÀM TIẾP
+## ✅ ĐÃ TRIỂN KHAI HOÀN TẤT (January 22, 2026)
 
-### ⚠️ QUAN TRỌNG: Kiến trúc thực tế
+### Kiến trúc hiện tại:
 
 **LƯU Ý:** Dự án này sử dụng **NestJS Backend + ServeStaticModule**, KHÔNG phải Next.js frontend.
 
-**Kiến trúc thực tế:**
+**Cấu trúc đã triển khai:**
 ```
 hackimore-backend/
 ├── src/module/app.module.ts  ← ServeStaticModule config
 ├── public/
-│   ├── index.html            ← Vietnamese landing page (static)
+│   ├── index.html            ← English landing page (DEFAULT)
+│   ├── vi/
+│   │   └── index.html        ← Vietnamese landing page
 │   ├── css/, js/, image/     ← Shared assets
-│   └── en/index.html         ← English landing page (to create)
+│   └── sitemap.xml           ← Updated với EN=/, VI=/vi/
 ```
+
+**URLs:**
+- `https://webpod.org/` → English (default)
+- `https://webpod.org/vi/` → Vietnamese
 
 **Xem chi tiết triển khai tại:**
 📄 [INTERNATIONAL_SEO_IMPLEMENTATION_PLAN.md](./INTERNATIONAL_SEO_IMPLEMENTATION_PLAN.md)
 
 ---
 
-### Priority 1: Static Files Setup (Week 1-2)
-
-#### 1. Tạo folder `/public/en/`
-```bash
-mkdir -p public/en
-```
-
-#### 2. Tạo `/public/en/index.html`
-Copy từ `index.html` gốc và thay đổi:
-- `<html lang="en">` thay vì `lang="vi"`
-- Title, meta tags, Schema.org bằng tiếng Anh
-- Canonical URL: `https://webpod.org/en/`
-- Nội dung body tiếng Anh
+### ✅ Đã hoàn thành:
 - **QUAN TRỌNG:** Giữ nguyên absolute paths cho CSS/JS
 
 ```html
@@ -207,97 +201,84 @@ Copy từ `index.html` gốc và thay đổi:
 <script src="/js/slider.js"></script>
 ```
 
-#### 3. Thêm Language Switcher (HTML thuần)
-Thêm vào header của cả 2 file `index.html`:
+#### 1. `/public/index.html` - English (DEFAULT) ✅
+- `<html lang="en">`
+- Canonical: `https://webpod.org/`
+- Nội dung tiếng Anh
 
+#### 2. `/public/vi/index.html` - Vietnamese ✅
+- `<html lang="vi">`
+- Canonical: `https://webpod.org/vi/`
+- Nội dung tiếng Việt
+
+#### 3. Language Switcher (đã thêm vào cả 2 file)
 ```html
-<!-- Trong header, cạnh CTA button -->
-<div class="flex items-center gap-2 ml-4">
-  <a href="/" class="text-xs px-2 py-1 rounded hover:bg-white/10 transition-colors
-     ${isVietnamese ? 'text-white bg-white/10' : 'text-slate-400'}">
-    🇻🇳 VI
+<!-- Trong header -->
+<div class="flex items-center gap-1 text-xs">
+  <a href="/" class="px-2 py-1 rounded ${isEnglish ? 'text-white bg-white/10' : 'text-slate-400'}">
+    🇬🇧 EN
   </a>
   <span class="text-slate-600">|</span>
-  <a href="/en/" class="text-xs px-2 py-1 rounded hover:bg-white/10 transition-colors
-     ${isEnglish ? 'text-white bg-white/10' : 'text-slate-400'}">
-    🇬🇧 EN
+  <a href="/vi/" class="px-2 py-1 rounded ${isVietnamese ? 'text-white bg-white/10' : 'text-slate-400'}">
+    🇻🇳 VI
   </a>
 </div>
 ```
 
 #### 4. ServeStaticModule tự động handle
 Không cần config thêm! NestJS `ServeStaticModule` tự động:
-- `GET /` → serve `/public/index.html`
-- `GET /en/` → serve `/public/en/index.html`
+- `GET /` → serve `/public/index.html` (English)
+- `GET /vi/` → serve `/public/vi/index.html` (Vietnamese)
 - `GET /css/styles.css` → serve `/public/css/styles.css`
 
-### Priority 2: Content Translation (Week 2-4)
+### ✅ Content Translation - HOÀN THÀNH
 
-#### English Version Pages:
-- [ ] `/en/` - Homepage translation
-- [ ] `/en/#services` - Services translation
-- [ ] `/en/#about` - About translation
-- [ ] `/en/#contact` - Contact translation
-- [ ] `/en/#faq` - FAQ translation
+#### English Version Pages (DEFAULT `/`):
+- [x] `/` - Homepage (English)
+- [x] `/#services` - Services
+- [x] `/#about` - About
+- [x] `/#contact` - Contact
+- [x] `/#faq` - FAQ
 
-#### Translation Strategy:
-1. **Hire native English speaker** (not Google Translate)
-2. **Localize, don't just translate:**
-   - Adapt examples to international audience
-   - USD pricing (not just convert VND)
-   - Global payment methods (Stripe, PayPal)
-   - International references
-3. **Different keywords:**
-   - Vietnamese: "tạo web", "phát triển web app"
-   - English: "web development", "create website"
+#### Vietnamese Version Pages (`/vi/`):
+- [x] `/vi/` - Trang chủ (Vietnamese)
+- [x] `/vi/#services` - Dịch vụ
+- [x] `/vi/#about` - Về chúng tôi
+- [x] `/vi/#contact` - Liên hệ
+- [x] `/vi/#faq` - FAQ
 
-#### Budget:
-- Native English translator: $50-100 per page
-- Total for 5 pages: $250-500
-- Worth it for quality
+### ✅ SEO Optimization per Language - HOÀN THÀNH
 
-### Priority 3: SEO Optimization per Language (Month 2)
-
-#### Vietnamese SEO (`/`):
-```html
-<title>POD - Pay On Delight | Tạo Website & Web App Miễn Phí</title>
-<meta name="description" content="Demo miễn phí trong 1 tuần..." />
-<meta name="keywords" content="tạo web, phát triển web app, outsourcing IT Việt Nam" />
-```
-
-#### English SEO (`/en/`):
+#### English SEO (`/`) - DEFAULT:
 ```html
 <title>POD - Pay On Delight | Free Website & Web App Development</title>
 <meta name="description" content="Free demo in 1 week, pay only when delighted..." />
 <meta name="keywords" content="web development, create website, IT outsourcing Vietnam" />
 ```
 
-**Different for each:**
-- Title tags
-- Meta descriptions
-- Keywords
-- Schema descriptions
-- Alt texts
+#### Vietnamese SEO (`/vi/`):
+```html
+<title>POD - Pay On Delight | Tạo Website & Web App Miễn Phí</title>
+<meta name="description" content="Demo miễn phí trong 1 tuần..." />
+<meta name="keywords" content="tạo web, phát triển web app, outsourcing IT Việt Nam" />
+```
 
-### Priority 4: Analytics & Tracking (Month 2)
+### ✅ Analytics & Tracking - HOÀN THÀNH
 
-#### Google Analytics:
+#### Google Analytics (analytics.js):
 ```javascript
-// Track language separately
-gtag('config', 'G-TS4BKGY1H4', {
-  'custom_map': {
-    'dimension1': 'language'
-  }
-});
+// Detect language from URL
+const currentLang = window.location.pathname.startsWith('/vi') ? 'vi' : 'en';
 
-gtag('event', 'page_view', {
-  'language': locale // 'vi' or 'en'
+gtag('config', 'G-TS4BKGY1H4', {
+  custom_map: { dimension1: 'language' },
+  language: currentLang,
 });
 ```
 
 #### Search Console:
 - Single property: webpod.org
-- Filter reports by path: `/` vs `/en/`
+- Filter reports by path: `/` (EN) vs `/vi/` (VI)
 - Track both separately
 
 ---
@@ -306,17 +287,18 @@ gtag('event', 'page_view', {
 
 ### Track Separately by Language:
 
-**Vietnamese Version (`/`):**
+**English Version (`/`) - DEFAULT:**
+- Organic traffic from international
+- Rankings for English keywords
+- Conversions from international users
+- Revenue from international market
+
+**Vietnamese Version (`/vi/`):**
 - Organic traffic from Vietnam
 - Rankings for Vietnamese keywords
 - Conversions from Vietnamese users
 - Revenue from Vietnam market
 
-**English Version (`/en/`):**
-- Organic traffic from international
-- Rankings for English keywords
-- Conversions from international users
-- Revenue from international market
 
 **Combined (Domain-wide):**
 - Total domain authority (DA)
@@ -424,12 +406,12 @@ Total:                        ~$5,000
 ### 2. No Mixed Strategies
 ❌ Don't mix subdirectories with subdomains:
 ```
-❌ https://webpod.org/en/ AND https://ja.webpod.org/
+❌ https://webpod.org/vi/ AND https://ja.webpod.org/
 ```
 
 ✅ Be consistent:
 ```
-✅ https://webpod.org/en/ AND https://webpod.org/ja/
+✅ https://webpod.org/vi/ AND https://webpod.org/ja/
 ```
 
 ### 3. x-default is Important
@@ -438,16 +420,16 @@ Always include:
 <link rel="alternate" hreflang="x-default" href="https://webpod.org/" />
 ```
 
-This tells Google: "If no language match, show Vietnamese version"
+This tells Google: "If no language match, show English version (default)"
 
 ### 4. Canonical URLs
 Each language version should have self-referencing canonical:
 ```html
-<!-- On Vietnamese page -->
+<!-- On English page (DEFAULT) -->
 <link rel="canonical" href="https://webpod.org/" />
 
-<!-- On English page -->
-<link rel="canonical" href="https://webpod.org/en/" />
+<!-- On Vietnamese page -->
+<link rel="canonical" href="https://webpod.org/vi/" />
 ```
 
 ### 5. Content Quality > Quantity
@@ -498,8 +480,8 @@ https://webpod.jp/      → Japan (Japanese)
 
 With 301 redirects:
 ```
-webpod.org/     → webpod.vn/
-webpod.org/en/  → webpod.com/
+webpod.org/     → webpod.com/  (English stays default)
+webpod.org/vi/  → webpod.vn/
 webpod.org/ja/  → webpod.jp/
 ```
 

@@ -11,10 +11,10 @@
 
 **🏆 CHIẾN LƯỢC TỐI ưu CHO webpod.org:**
 
-### Giai đoạn 1 (0-6 tháng): Subdirectories
+### Giai đoạn 1 (0-6 tháng): Subdirectories ✅ ĐÃ TRIỂN KHAI
 ```
-https://webpod.org/         → Tiếng Việt (default)
-https://webpod.org/en/      → English
+https://webpod.org/         → English (default, global market)
+https://webpod.org/vi/      → Tiếng Việt
 https://webpod.org/ja/      → Japanese (future)
 ```
 
@@ -24,11 +24,12 @@ https://webpod.org/ja/      → Japanese (future)
 ✅ Dễ quản lý nhất  
 ✅ Phù hợp startups/SME  
 ✅ Google recommends  
+✅ Target international market first
 
 ### Giai đoạn 2 (6-12 tháng): Nếu cần specific branding
 ```
+https://webpod.com/         → English (global default)
 https://webpod.vn/          → Tiếng Việt (ccTLD cho Vietnam)
-https://webpod.org/         → English (global)
 https://webpod.jp/          → Japanese (nếu expand)
 ```
 
@@ -89,12 +90,12 @@ Chỉ dùng khi:
 
 ---
 
-### Strategy 2: Subdirectories (RECOMMENDED ⭐⭐⭐⭐⭐)
+### Strategy 2: Subdirectories (RECOMMENDED ⭐⭐⭐⭐⭐) ✅ ĐÃ TRIỂN KHAI
 ```
-https://webpod.org/         → Vietnamese (default)
-https://webpod.org/en/      → English
-https://webpod.org/ja/      → Japanese
-https://webpod.org/zh/      → Chinese
+https://webpod.org/         → English (default, global market)
+https://webpod.org/vi/      → Vietnamese
+https://webpod.org/ja/      → Japanese (future)
+https://webpod.org/zh/      → Chinese (future)
 ```
 
 #### ✅ Ưu điểm:
