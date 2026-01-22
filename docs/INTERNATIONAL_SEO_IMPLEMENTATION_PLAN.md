@@ -1,10 +1,16 @@
 # 🌍 International SEO Implementation Plan - NestJS Static Serve
-## Kế hoạch triển khai Subdirectories cho English (/en/)
+## Kế hoạch triển khai Subdirectories - English làm ngôn ngữ mặc định
 
 **Ngày tạo:** January 22, 2026  
 **Cập nhật lần cuối:** January 22, 2026  
 **Kiến trúc:** NestJS Backend + ServeStaticModule (KHÔNG phải Next.js)  
-**Chiến lược:** SUBDIRECTORIES (`/en/` cho tiếng Anh)
+**Chiến lược:** SUBDIRECTORIES với English làm default
+
+### ⚠️ CẤU TRÚC HIỆN TẠI (ĐÃ CẬP NHẬT)
+```
+https://webpod.org/      → English (default, global market)
+https://webpod.org/vi/   → Vietnamese (Vietnam market)
+```
 
 ---
 
@@ -349,27 +355,36 @@ gtag('event', 'demo_request', {
 
 ## 📁 FILES CẦN TẠO/UPDATE
 
-### Cần tạo mới:
-| File | Mô tả |
-|------|-------|
-| `/public/en/index.html` | English landing page |
+### Cấu trúc hiện tại (ĐÃ HOÀN THÀNH):
+```
+public/
+├── index.html              ← English (/) ✅ DEFAULT
+├── vi/
+│   └── index.html          ← Vietnamese (/vi/) ✅
+├── css/styles.css          ← Shared
+├── js/
+│   ├── analytics.js        ← Updated với language tracking ✅
+│   ├── form-validation.js  ← Updated với i18n ✅
+│   ├── slider.js           ← Shared
+│   └── tailwind-config.js  ← Shared
+├── sitemap.xml             ← Updated với hreflang mới ✅
+├── image/                  ← Shared
+└── en/                     ← CẦN XÓA (không dùng nữa)
+```
 
-### Cần update:
-| File | Thay đổi |
-|------|----------|
-| `/public/index.html` | Thêm language switcher |
-| `/public/js/analytics.js` | Track language dimension |
-| `/public/js/form-validation.js` | Track language in form events |
+### Đã tạo/cập nhật:
+| File | Mô tả | Status |
+|------|-------|--------|
+| `/public/index.html` | English landing page (DEFAULT) | ✅ Done |
+| `/public/vi/index.html` | Vietnamese landing page | ✅ Done |
+| `/public/sitemap.xml` | Updated với EN=/, VI=/vi/ | ✅ Done |
+| `/public/js/analytics.js` | Track language dimension | ✅ Done |
+| `/public/js/form-validation.js` | i18n support | ✅ Done |
 
-### Không cần thay đổi:
-| File | Lý do |
-|------|-------|
-| `/src/module/app.module.ts` | ServeStaticModule tự handle /en/ |
-| `/public/sitemap.xml` | Đã có hreflang ✅ |
-| `/public/robots.txt` | Không cần thay đổi |
-| `/public/css/styles.css` | Shared between languages |
-| `/public/js/slider.js` | Shared, language-agnostic |
-| `/public/js/tailwind-config.js` | Shared config |
+### Cần xóa:
+| File/Folder | Lý do |
+|-------------|-------|
+| `/public/en/` | Không cần nữa, English là default ở `/` |
 
 ---
 

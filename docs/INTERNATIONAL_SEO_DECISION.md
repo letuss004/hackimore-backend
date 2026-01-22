@@ -8,11 +8,11 @@
 
 ## ✅ QUYẾT ĐỊNH CUỐI CÙNG
 
-### 🏆 Chiến lược được chọn: SUBDIRECTORIES
+### 🏆 Chiến lược được chọn: SUBDIRECTORIES (English default)
 
 ```
-https://webpod.org/         → Tiếng Việt (default, thị trường chính)
-https://webpod.org/en/      → English (international market)
+https://webpod.org/         → English (default, global market)
+https://webpod.org/vi/      → Vietnamese (Vietnam market)
 ```
 
 **KHÔNG dùng subdomains:**
@@ -20,6 +20,11 @@ https://webpod.org/en/      → English (international market)
 ❌ https://vi.webpod.org/   → SEO tệ, chi phí cao
 ❌ https://en.webpod.org/   → Authority phân tán
 ```
+
+**Lý do chọn English làm default:**
+- Target thị trường quốc tế (global market) là ưu tiên
+- Domain authority tập trung cho international traffic
+- Dễ mở rộng thêm ngôn ngữ khác sau (/ja/, /ko/, /zh/)
 
 ---
 

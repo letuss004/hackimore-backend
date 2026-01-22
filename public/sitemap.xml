@@ -9,34 +9,18 @@
   <!--
     MULTI-LANGUAGE SITEMAP with hreflang
     Structure: Subdirectories (SEO Best Practice)
-    - Vietnamese (default): https://webpod.org/
-    - English: https://webpod.org/en/
+    - English (default): https://webpod.org/
+    - Vietnamese: https://webpod.org/vi/
   -->
 
-  <!-- Homepage - Vietnamese -->
+  <!-- Homepage - English (Default) -->
   <url>
     <loc>https://webpod.org/</loc>
-    <lastmod>2026-01-13</lastmod>
+    <lastmod>2026-01-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/" />
-    <image:image>
-      <image:loc>https://webpod.org/image/thumbnail.jpg</image:loc>
-      <image:title>POD - Pay On Delight</image:title>
-      <image:caption>Phát triển Website và Web App miễn phí, chỉ trả phí khi hài lòng</image:caption>
-    </image:image>
-  </url>
-
-  <!-- Homepage - English -->
-  <url>
-    <loc>https://webpod.org/en/</loc>
-    <lastmod>2026-01-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/en/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/" />
     <image:image>
       <image:loc>https://webpod.org/image/thumbnail.jpg</image:loc>
@@ -45,103 +29,109 @@
     </image:image>
   </url>
 
-  <!-- Services - Vietnamese -->
+  <!-- Homepage - Vietnamese -->
   <url>
-    <loc>https://webpod.org/#services</loc>
-    <lastmod>2026-01-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/#services" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/en/#services" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#services" />
+    <loc>https://webpod.org/vi/</loc>
+    <lastmod>2026-01-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/" />
+    <image:image>
+      <image:loc>https://webpod.org/image/thumbnail.jpg</image:loc>
+      <image:title>POD - Pay On Delight</image:title>
+      <image:caption>Phát triển Website và Web App miễn phí, chỉ trả phí khi hài lòng</image:caption>
+    </image:image>
   </url>
 
   <!-- Services - English -->
   <url>
-    <loc>https://webpod.org/en/#services</loc>
-    <lastmod>2026-01-13</lastmod>
+    <loc>https://webpod.org/#services</loc>
+    <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/#services" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/en/#services" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#services" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#services" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#services" />
   </url>
 
-  <!-- Contact - Vietnamese -->
+  <!-- Services - Vietnamese -->
   <url>
-    <loc>https://webpod.org/#contact</loc>
-    <lastmod>2026-01-13</lastmod>
+    <loc>https://webpod.org/vi/#services</loc>
+    <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/#contact" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/en/#contact" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#contact" />
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#services" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#services" />
   </url>
 
   <!-- Contact - English -->
   <url>
-    <loc>https://webpod.org/en/#contact</loc>
-    <lastmod>2026-01-13</lastmod>
+    <loc>https://webpod.org/#contact</loc>
+    <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/#contact" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/en/#contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#contact" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#contact" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#contact" />
   </url>
 
-  <!-- Model Section - Vietnamese -->
+  <!-- Contact - Vietnamese -->
   <url>
-    <loc>https://webpod.org/#model</loc>
-    <lastmod>2026-01-13</lastmod>
+    <loc>https://webpod.org/vi/#contact</loc>
+    <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/#model" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/en/#model" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#model" />
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#contact" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#contact" />
   </url>
 
-  <!-- Why Choose Us - Vietnamese -->
-  <url>
-    <loc>https://webpod.org/#why-choose-us</loc>
-    <lastmod>2026-01-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/#why-choose-us" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/en/#why-choose-us" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#why-choose-us" />
-  </url>
-
-  <!-- About Us - Vietnamese -->
+  <!-- About - English -->
   <url>
     <loc>https://webpod.org/#about</loc>
-    <lastmod>2026-01-13</lastmod>
+    <lastmod>2026-01-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#about" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#about" />
+  </url>
+
+  <!-- About - Vietnamese -->
+  <url>
+    <loc>https://webpod.org/vi/#about</loc>
+    <lastmod>2026-01-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#about" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#about" />
+  </url>
+
+  <!-- FAQ - English -->
+  <url>
+    <loc>https://webpod.org/#faq</loc>
+    <lastmod>2026-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/#about" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/en/#about" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#faq" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#faq" />
   </url>
 
   <!-- FAQ - Vietnamese -->
   <url>
-    <loc>https://webpod.org/#faq</loc>
-    <lastmod>2026-01-13</lastmod>
+    <loc>https://webpod.org/vi/#faq</loc>
+    <lastmod>2026-01-22</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/#faq" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/en/#faq" />
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#faq" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#faq" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#faq" />
   </url>
 
-  <!--
-    Future: Blog posts, location pages, etc. with hreflang
-    Example:
-    <url>
-      <loc>https://webpod.org/blog/tao-website-mien-phi</loc>
-      <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/blog/tao-website-mien-phi" />
-      <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/en/blog/create-free-website" />
-      <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/blog/tao-website-mien-phi" />
-    </url>
-  -->
 </urlset>
 

@@ -43,9 +43,10 @@ const messages = {
 };
 
 // Get current language from analytics.js or detect from URL
+// New structure: / = English (default), /vi/ = Vietnamese
 const getLang = () =>
-  window.currentLang || (window.location.pathname.startsWith('/en') ? 'en' : 'vi');
-const t = (key) => messages[getLang()]?.[key] || messages.vi[key];
+  window.currentLang || (window.location.pathname.startsWith('/vi') ? 'vi' : 'en');
+const t = (key) => messages[getLang()]?.[key] || messages.en[key];
 
 class FormValidator {
   constructor(formId) {
@@ -316,4 +317,3 @@ if (document.readyState === 'loading') {
 
 // Export for global access
 window.formValidator = formValidator;
-

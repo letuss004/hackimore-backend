@@ -26,7 +26,8 @@ function gtag() {
 gtag('js', new Date());
 
 // Detect current language from URL path
-const currentLang = window.location.pathname.startsWith('/en') ? 'en' : 'vi';
+// New structure: / = English (default), /vi/ = Vietnamese
+const currentLang = window.location.pathname.startsWith('/vi') ? 'vi' : 'en';
 
 // Configure GA with language custom dimension
 gtag('config', 'G-TS4BKGY1H4', {
