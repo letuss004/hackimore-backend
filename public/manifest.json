@@ -1,13 +1,13 @@
 {
   "name": "POD - Pay On Delight",
   "short_name": "POD",
-  "description": "Phát triển website và web app miễn phí, chỉ trả phí khi hài lòng",
+  "description": "Free web development services, pay only when delighted",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#19272B",
   "theme_color": "#19272B",
   "orientation": "portrait-primary",
-  "lang": "vi",
+  "lang": "en",
   "dir": "ltr",
   "icons": [
     {

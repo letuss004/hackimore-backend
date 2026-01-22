@@ -24,7 +24,37 @@ function gtag() {
   dataLayer.push(arguments);
 }
 gtag('js', new Date());
-gtag('config', 'G-TS4BKGY1H4');
 
-// Export gtag for global access
+// Detect current language from URL path
+// Structure: / = English (default), /vi/ = Vietnamese, /ja/ = Japanese, /ko/ = Korean
+function getCurrentLanguage() {
+  const path = window.location.pathname;
+  if (path.startsWith('/vi')) return 'vi';
+  if (path.startsWith('/ja')) return 'ja';
+  if (path.startsWith('/ko')) return 'ko';
+  return 'en'; // default
+}
+
+const currentLang = getCurrentLanguage();
+
+// Map language to market for reporting
+const marketMap = {
+  en: 'Global',
+  vi: 'Vietnam',
+  ja: 'Japan',
+  ko: 'Korea',
+};
+
+// Configure GA with language and market custom dimensions
+gtag('config', 'G-TS4BKGY1H4', {
+  custom_map: {
+    dimension1: 'language',
+    dimension2: 'market',
+  },
+  language: currentLang,
+  market: marketMap[currentLang],
+});
+
+// Export gtag and currentLang for global access
 window.gtag = gtag;
+window.currentLang = currentLang;
