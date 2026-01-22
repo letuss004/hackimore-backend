@@ -297,9 +297,9 @@
     <header
       class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-white/5 bg-brand/80 backdrop-blur-md"
     >
-      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <!-- Logo -->
-        <a href="/" class="flex items-center gap-2 group">
+      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between relative">
+        <!-- Logo (Left) -->
+        <a href="/" class="flex items-center gap-2 group z-10">
           <div
             class="relative w-8 h-8 flex items-center justify-center bg-brand-lighter rounded-lg border border-white/10 group-hover:border-brand-accent/50 transition-colors"
           >
@@ -321,10 +321,10 @@
           </div>
         </a>
 
-        <!-- Desktop Nav -->
+        <!-- Desktop Nav (Center) -->
         <nav
           id="desktopNav"
-          class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400"
+          class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400 absolute left-1/2 -translate-x-1/2"
         >
           <button data-slide="1" class="nav-item hover:text-white transition-colors">
             Model
@@ -343,8 +343,17 @@
           </button>
         </nav>
 
-        <!-- Language Switcher + CTA -->
-        <div class="hidden md:flex items-center gap-4">
+        <!-- CTA + Language Switcher (Right) -->
+        <div class="hidden md:flex items-center gap-4 z-10">
+          <!-- CTA -->
+          <a
+            href="#contact"
+            class="flex items-center gap-2 px-4 py-2 bg-white text-brand font-medium text-xs rounded-full hover:bg-slate-200 transition-colors"
+          >
+            <span>Book Demo</span>
+            <iconify-icon icon="lucide:arrow-right" width="14"></iconify-icon>
+          </a>
+
           <!-- Language Switcher -->
           <div class="flex items-center gap-1 text-xs">
             <a href="/" class="px-2 py-1 rounded text-white bg-white/10">
@@ -355,15 +364,6 @@
               🇻🇳 VI
             </a>
           </div>
-
-          <!-- CTA -->
-          <a
-            href="#contact"
-            class="flex items-center gap-2 px-4 py-2 bg-white text-brand font-medium text-xs rounded-full hover:bg-slate-200 transition-colors"
-          >
-            <span>Book Demo</span>
-            <iconify-icon icon="lucide:arrow-right" width="14"></iconify-icon>
-          </a>
         </div>
 
         <!-- Mobile Menu Toggle -->
