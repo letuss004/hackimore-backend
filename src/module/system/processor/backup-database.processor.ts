@@ -27,7 +27,11 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
   }
 
   async process(job: Job<BackupDatabaseDailyJobData>, token?: string): Promise<any> {
-    await Promise.all([this.backupDatabaseDaily(job), this.cleanupOldBackups()]);
+    const { cleanup, message } = await this.backupDatabaseDaily(job);
+    if (cleanup) {
+      await this.cleanupOldBackups();
+    }
+    return message;
   }
 
   private async backupDatabaseDaily(job: Job<BackupDatabaseDailyJobData>) {
@@ -39,6 +43,7 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
 
     if (ServerConfig.isLocalEnv()) {
       return {
+        cleanup: false,
         message: 'Database backup skipped in local environment',
       };
     }
@@ -47,6 +52,7 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
     const backupExist = await this.s3Service.checkExists(backupFolder);
     if (!forceBackup && backupExist) {
       return {
+        cleanup: false,
         message: `Backup already exists at ${backupFolder}`,
       };
     }
@@ -166,6 +172,7 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
       return {
         message: `Database backup created and uploaded to S3 at ${backupFilePath}`,
         sizeBytes: backupBuffer.length,
+        cleanup: true,
       };
     } catch (error) {
       ServerLogger.error({
