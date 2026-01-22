@@ -24,7 +24,18 @@ function gtag() {
   dataLayer.push(arguments);
 }
 gtag('js', new Date());
-gtag('config', 'G-TS4BKGY1H4');
 
-// Export gtag for global access
+// Detect current language from URL path
+const currentLang = window.location.pathname.startsWith('/en') ? 'en' : 'vi';
+
+// Configure GA with language custom dimension
+gtag('config', 'G-TS4BKGY1H4', {
+  custom_map: {
+    dimension1: 'language',
+  },
+  language: currentLang,
+});
+
+// Export gtag and currentLang for global access
 window.gtag = gtag;
+window.currentLang = currentLang;

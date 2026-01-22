@@ -162,103 +162,69 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml"
 
 ## 📋 CẦN LÀM TIẾP
 
-### Priority 1: Next.js i18n Setup (Week 1-2)
+### ⚠️ QUAN TRỌNG: Kiến trúc thực tế
 
-#### 1. Install & Configure i18n
+**LƯU Ý:** Dự án này sử dụng **NestJS Backend + ServeStaticModule**, KHÔNG phải Next.js frontend.
+
+**Kiến trúc thực tế:**
+```
+hackimore-backend/
+├── src/module/app.module.ts  ← ServeStaticModule config
+├── public/
+│   ├── index.html            ← Vietnamese landing page (static)
+│   ├── css/, js/, image/     ← Shared assets
+│   └── en/index.html         ← English landing page (to create)
+```
+
+**Xem chi tiết triển khai tại:**
+📄 [INTERNATIONAL_SEO_IMPLEMENTATION_PLAN.md](./INTERNATIONAL_SEO_IMPLEMENTATION_PLAN.md)
+
+---
+
+### Priority 1: Static Files Setup (Week 1-2)
+
+#### 1. Tạo folder `/public/en/`
 ```bash
-# Next.js has built-in i18n support
-# Just need to configure next.config.js
+mkdir -p public/en
 ```
 
-**File:** `next.config.js`
-```javascript
-module.exports = {
-  i18n: {
-    locales: ['vi', 'en'],
-    defaultLocale: 'vi',
-    localeDetection: true, // Auto-detect browser language
-  },
-}
+#### 2. Tạo `/public/en/index.html`
+Copy từ `index.html` gốc và thay đổi:
+- `<html lang="en">` thay vì `lang="vi"`
+- Title, meta tags, Schema.org bằng tiếng Anh
+- Canonical URL: `https://webpod.org/en/`
+- Nội dung body tiếng Anh
+- **QUAN TRỌNG:** Giữ nguyên absolute paths cho CSS/JS
+
+```html
+<!-- Paths vẫn giữ nguyên, không cần ../css/ -->
+<link rel="stylesheet" href="/css/styles.css" />
+<script src="/js/slider.js"></script>
 ```
 
-**Result:**
-- `/` → Vietnamese (default)
-- `/en/` → English
-- Auto-routing handled by Next.js
+#### 3. Thêm Language Switcher (HTML thuần)
+Thêm vào header của cả 2 file `index.html`:
 
-#### 2. Create Language Switcher Component
-**File:** `components/LanguageSwitcher.tsx`
-```typescript
-import { useRouter } from 'next/router';
-
-export default function LanguageSwitcher() {
-  const router = useRouter();
-  const { locale, pathname, asPath, query } = router;
-
-  const changeLanguage = (newLocale: string) => {
-    router.push({ pathname, query }, asPath, { locale: newLocale });
-  };
-
-  return (
-    <select 
-      value={locale} 
-      onChange={(e) => changeLanguage(e.target.value)}
-      className="language-selector"
-    >
-      <option value="vi">🇻🇳 Tiếng Việt</option>
-      <option value="en">🇬🇧 English</option>
-    </select>
-  );
-}
+```html
+<!-- Trong header, cạnh CTA button -->
+<div class="flex items-center gap-2 ml-4">
+  <a href="/" class="text-xs px-2 py-1 rounded hover:bg-white/10 transition-colors
+     ${isVietnamese ? 'text-white bg-white/10' : 'text-slate-400'}">
+    🇻🇳 VI
+  </a>
+  <span class="text-slate-600">|</span>
+  <a href="/en/" class="text-xs px-2 py-1 rounded hover:bg-white/10 transition-colors
+     ${isEnglish ? 'text-white bg-white/10' : 'text-slate-400'}">
+    🇬🇧 EN
+  </a>
+</div>
 ```
 
-#### 3. Create Translation Files
-**File:** `locales/vi/common.json`
-```json
-{
-  "hero.title": "Chúng tôi tạo Web App doanh nghiệp cho bạn",
-  "hero.subtitle": "HOÀN TOÀN MIỄN PHÍ",
-  "hero.cta": "Yêu Cầu Demo Miễn Phí Ngay!",
-  "nav.model": "Mô hình",
-  "nav.why": "Tại sao",
-  "nav.about": "Về chúng tôi",
-  "nav.services": "Dịch vụ",
-  "nav.faq": "FAQ",
-  "nav.contact": "Liên hệ"
-}
-```
-
-**File:** `locales/en/common.json`
-```json
-{
-  "hero.title": "We build enterprise Web Apps for you",
-  "hero.subtitle": "100% FREE",
-  "hero.cta": "Request Free Demo Now!",
-  "nav.model": "Model",
-  "nav.why": "Why Us",
-  "nav.about": "About",
-  "nav.services": "Services",
-  "nav.faq": "FAQ",
-  "nav.contact": "Contact"
-}
-```
-
-#### 4. Use Translations in Components
-```typescript
-import { useTranslation } from 'next-i18next';
-
-export default function Hero() {
-  const { t } = useTranslation('common');
-
-  return (
-    <section>
-      <h1>{t('hero.title')}</h1>
-      <h2>{t('hero.subtitle')}</h2>
-      <button>{t('hero.cta')}</button>
-    </section>
-  );
-}
-```
+#### 4. ServeStaticModule tự động handle
+Không cần config thêm! NestJS `ServeStaticModule` tự động:
+- `GET /` → serve `/public/index.html`
+- `GET /en/` → serve `/public/en/index.html`
+- `GET /css/styles.css` → serve `/public/css/styles.css`
 
 ### Priority 2: Content Translation (Week 2-4)
 
