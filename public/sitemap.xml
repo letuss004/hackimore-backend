@@ -11,6 +11,7 @@
     Structure: Subdirectories (SEO Best Practice)
     - English (default): https://webpod.org/
     - Vietnamese: https://webpod.org/vi/
+    - Japanese: https://webpod.org/ja/
   -->
 
   <!-- Homepage - English (Default) -->
@@ -21,6 +22,7 @@
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/" />
     <image:image>
       <image:loc>https://webpod.org/image/thumbnail.jpg</image:loc>
@@ -37,11 +39,29 @@
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/" />
     <image:image>
       <image:loc>https://webpod.org/image/thumbnail.jpg</image:loc>
       <image:title>POD - Pay On Delight</image:title>
       <image:caption>Phát triển Website và Web App miễn phí, chỉ trả phí khi hài lòng</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Homepage - Japanese -->
+  <url>
+    <loc>https://webpod.org/ja/</loc>
+    <lastmod>2026-01-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/" />
+    <image:image>
+      <image:loc>https://webpod.org/image/thumbnail.jpg</image:loc>
+      <image:title>POD - Pay On Delight</image:title>
+      <image:caption>無料でWebサイト・Webアプリを開発、ご満足いただけた場合のみお支払い</image:caption>
     </image:image>
   </url>
 
@@ -53,6 +73,7 @@
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#services" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#services" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#services" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#services" />
   </url>
 
@@ -64,6 +85,19 @@
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#services" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#services" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#services" />
+  </url>
+
+  <!-- Services - Japanese -->
+  <url>
+    <loc>https://webpod.org/ja/#services</loc>
+    <lastmod>2026-01-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#services" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#services" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#services" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#services" />
   </url>
 
@@ -75,6 +109,7 @@
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#contact" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#contact" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#contact" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#contact" />
   </url>
 
@@ -86,6 +121,19 @@
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#contact" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#contact" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#contact" />
+  </url>
+
+  <!-- Contact - Japanese -->
+  <url>
+    <loc>https://webpod.org/ja/#contact</loc>
+    <lastmod>2026-01-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#contact" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#contact" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#contact" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#contact" />
   </url>
 
@@ -97,6 +145,7 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#about" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#about" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#about" />
   </url>
 
@@ -108,6 +157,19 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#about" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#about" />
+  </url>
+
+  <!-- About - Japanese -->
+  <url>
+    <loc>https://webpod.org/ja/#about</loc>
+    <lastmod>2026-01-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#about" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#about" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#about" />
   </url>
 
@@ -119,6 +181,7 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#faq" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#faq" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#faq" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#faq" />
   </url>
 
@@ -130,6 +193,19 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#faq" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#faq" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#faq" />
+  </url>
+
+  <!-- FAQ - Japanese -->
+  <url>
+    <loc>https://webpod.org/ja/#faq</loc>
+    <lastmod>2026-01-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#faq" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#faq" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#faq" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#faq" />
   </url>
 
