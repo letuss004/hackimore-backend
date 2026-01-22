@@ -26,11 +26,12 @@ function gtag() {
 gtag('js', new Date());
 
 // Detect current language from URL path
-// Structure: / = English (default), /vi/ = Vietnamese, /ja/ = Japanese
+// Structure: / = English (default), /vi/ = Vietnamese, /ja/ = Japanese, /ko/ = Korean
 function getCurrentLanguage() {
   const path = window.location.pathname;
   if (path.startsWith('/vi')) return 'vi';
   if (path.startsWith('/ja')) return 'ja';
+  if (path.startsWith('/ko')) return 'ko';
   return 'en'; // default
 }
 
@@ -41,6 +42,7 @@ const marketMap = {
   en: 'Global',
   vi: 'Vietnam',
   ja: 'Japan',
+  ko: 'Korea',
 };
 
 // Configure GA with language and market custom dimensions
