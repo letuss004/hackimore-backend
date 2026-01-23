@@ -186,29 +186,13 @@ class SliderManager {
       });
     }
 
-    // All demo request buttons (by aria-label or content)
-    const allButtons = document.querySelectorAll('button');
-    allButtons.forEach((btn) => {
-      const ariaLabel = btn.getAttribute('aria-label');
-      const buttonText = btn.textContent.trim();
-
-      // Check if button is for demo request
-      if (
-        ariaLabel?.includes('Yêu Cầu Demo') ||
-        ariaLabel?.includes('Yêu cầu demo') ||
-        buttonText.includes('Yêu Cầu Demo') ||
-        buttonText.includes('Yêu cầu demo') ||
-        buttonText.includes('demo miễn phí') ||
-        buttonText.includes('demo tùy chỉnh')
-      ) {
-        // Skip if it's already the submit button (has id)
-        if (btn.id !== 'submitDemoBtn') {
-          btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.goToSlide(6);
-          });
-        }
-      }
+    // All demo request buttons (by data-action attribute)
+    const demoButtons = document.querySelectorAll('[data-action="demo-request"]');
+    demoButtons.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.goToSlide(6);
+      });
     });
   }
 }
