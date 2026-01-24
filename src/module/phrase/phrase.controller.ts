@@ -47,9 +47,10 @@ export class PhraseController {
     },
   })
   async createPhrase(
+    @User('id') userId: number,
     @Body() body: CreatePhraseBodyDto,
   ): Promise<CreatePhraseResponseDto> {
-    return this.phraseService.createPhrase(body);
+    return this.phraseService.createPhrase(userId, body);
   }
 
   @Get()
@@ -64,9 +65,10 @@ export class PhraseController {
     },
   })
   async getPhraseList(
+    @User('id') userId: number,
     @Query() query: GetPhraseListQueryDto,
   ): Promise<PaginationResponseDto<GetPhraseListResponseDto>> {
-    return this.phraseService.getPhraseList(query);
+    return this.phraseService.getPhraseList(userId, query);
   }
 
   @Get('random')
@@ -92,8 +94,11 @@ export class PhraseController {
       summary: `Api getPhraseDetail`,
     },
   })
-  async getPhraseDetail(@Param('id') id: number): Promise<GetPhraseDetailResponseDto> {
-    return this.phraseService.getPhraseDetail(id);
+  async getPhraseDetail(
+    @User('id') userId: number,
+    @Param('id') id: number,
+  ): Promise<GetPhraseDetailResponseDto> {
+    return this.phraseService.getPhraseDetail(userId, id);
   }
 
   @Put(':id')
@@ -106,10 +111,11 @@ export class PhraseController {
     },
   })
   async updatePhrase(
+    @User('id') userId: number,
     @Param('id') id: number,
     @Body() body: UpdatePhraseBodyDto,
   ): Promise<UpdatePhraseResponseDto> {
-    return this.phraseService.updatePhrase(id, body);
+    return this.phraseService.updatePhrase(userId, id, body);
   }
 
   @Delete(':id')
@@ -121,7 +127,7 @@ export class PhraseController {
     },
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deletePhrase(@Param('id') id: number): Promise<void> {
-    await this.phraseService.deletePhrase(id);
+  async deletePhrase(@User('id') userId: number, @Param('id') id: number): Promise<void> {
+    await this.phraseService.deletePhrase(userId, id);
   }
 }

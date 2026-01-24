@@ -22,13 +22,17 @@ import {
 export class PhraseService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async createPhrase(body: CreatePhraseBodyDto): Promise<CreatePhraseResponseDto> {
+  async createPhrase(
+    userId: number,
+    body: CreatePhraseBodyDto,
+  ): Promise<CreatePhraseResponseDto> {
     return this.databaseService.phrase.create({
-      data: { ...body },
+      data: { ...body, userId },
     });
   }
 
   async getPhraseList(
+    userId: number,
     query: GetPhraseListQueryDto,
   ): Promise<PaginationResponseDto<GetPhraseListResponseDto>> {
     const { page, pageSize, take, skip } = validatePaginationQueryDto(query);
@@ -43,6 +47,8 @@ export class PhraseService {
           { description: { contains: query.search } },
         ],
       }),
+      //
+      userId,
     };
     if (query.createdAtRangeStart || query.createdAtRangeEnd) {
       where.createdAt = {
@@ -61,6 +67,7 @@ export class PhraseService {
         select: {
           id: true,
           content: true,
+          description: true,
           context: true,
           language: true,
           createdAt: true,
@@ -73,8 +80,8 @@ export class PhraseService {
     return { data, pagination: { page, pageSize, total, totalPages } };
   }
 
-  async getPhraseDetail(id: number): Promise<GetPhraseDetailResponseDto> {
-    const phrase = await this.databaseService.phrase.findFirst({ where: { id } });
+  async getPhraseDetail(userId: number, id: number): Promise<GetPhraseDetailResponseDto> {
+    const phrase = await this.databaseService.phrase.findFirst({ where: { id, userId } });
     if (!phrase) {
       throw new ServerException(ERROR_RESPONSE.RESOURCE_NOT_FOUND);
     }
@@ -82,10 +89,11 @@ export class PhraseService {
   }
 
   async updatePhrase(
+    userId: number,
     id: number,
     body: UpdatePhraseBodyDto,
   ): Promise<UpdatePhraseResponseDto> {
-    const phrase = await this.databaseService.phrase.findFirst({ where: { id } });
+    const phrase = await this.databaseService.phrase.findFirst({ where: { id, userId } });
     if (!phrase) {
       throw new ServerException(ERROR_RESPONSE.RESOURCE_NOT_FOUND);
     }
@@ -95,8 +103,8 @@ export class PhraseService {
     });
   }
 
-  async deletePhrase(id: number) {
-    const phrase = await this.databaseService.phrase.findFirst({ where: { id } });
+  async deletePhrase(userId: number, id: number) {
+    const phrase = await this.databaseService.phrase.findFirst({ where: { id, userId } });
     if (!phrase) {
       throw new ServerException(ERROR_RESPONSE.RESOURCE_NOT_FOUND);
     }
@@ -107,9 +115,13 @@ export class PhraseService {
     userId: number,
     query: GetRandomPhraseQueryDto,
   ): Promise<GetRandomPhraseResponseDto> {
+    const languageCondition = query?.language?.length
+      ? Prisma.sql`AND "language" IN (${Prisma.join(query.language)})`
+      : Prisma.sql``;
     const result = await this.databaseService.$queryRaw<GetRandomPhraseResponseDto[]>`
       SELECT *
       FROM "Phrase" TABLESAMPLE BERNOULLI(10) -- Adjust percentage to ensure enough rows are sampled
+      WHERE "userId" = ${userId} ${languageCondition}
       ORDER BY RANDOM ()
       LIMIT 1;
     `;
