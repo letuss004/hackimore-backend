@@ -116,15 +116,17 @@ export class PhraseService {
     query: GetRandomPhraseQueryDto,
   ): Promise<GetRandomPhraseResponseDto> {
     const languageCondition = query?.language?.length
-      ? Prisma.sql`AND "language" IN (${Prisma.join(query.language)})`
-      : Prisma.sql``;
-    const result = await this.databaseService.$queryRaw<GetRandomPhraseResponseDto[]>`
+      ? `AND "language" IN (${query.language.map((e) => `'${e}'`).join(', ')})`
+      : ``;
+    const result = await this.databaseService.$queryRawUnsafe<
+      GetRandomPhraseResponseDto[]
+    >(`
       SELECT *
-      FROM "Phrase" TABLESAMPLE BERNOULLI(10) -- Adjust percentage to ensure enough rows are sampled
+      FROM "Phrase" TABLESAMPLE BERNOULLI(10)
       WHERE "userId" = ${userId} ${languageCondition}
       ORDER BY RANDOM ()
       LIMIT 1;
-    `;
+    `);
     return result[0];
   }
 }
