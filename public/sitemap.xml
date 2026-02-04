@@ -13,12 +13,15 @@
     - Vietnamese: https://webpod.org/vi/
     - Japanese: https://webpod.org/ja/
     - Korean: https://webpod.org/ko/
+
+    NOTE: Hash fragments (#services, #contact, etc.) are NOT included
+    because Google ignores hash fragments in URLs.
   -->
 
   <!-- Homepage - English (Default) -->
   <url>
     <loc>https://webpod.org/</loc>
-    <lastmod>2026-01-22</lastmod>
+    <lastmod>2026-02-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/" />
@@ -36,7 +39,7 @@
   <!-- Homepage - Vietnamese -->
   <url>
     <loc>https://webpod.org/vi/</loc>
-    <lastmod>2026-01-22</lastmod>
+    <lastmod>2026-02-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/" />
@@ -54,7 +57,7 @@
   <!-- Homepage - Japanese -->
   <url>
     <loc>https://webpod.org/ja/</loc>
-    <lastmod>2026-01-22</lastmod>
+    <lastmod>2026-02-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/" />
@@ -72,7 +75,7 @@
   <!-- Homepage - Korean -->
   <url>
     <loc>https://webpod.org/ko/</loc>
-    <lastmod>2026-01-22</lastmod>
+    <lastmod>2026-02-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/" />
@@ -83,217 +86,8 @@
     <image:image>
       <image:loc>https://webpod.org/image/thumbnail.jpg</image:loc>
       <image:title>POD - Pay On Delight</image:title>
-      <image:caption>Web App muryoro gaebal, manjok si man gyeolje</image:caption>
+      <image:caption>무료로 웹사이트·웹앱 개발, 만족 시에만 결제</image:caption>
     </image:image>
   </url>
 
-  <!-- Services - English -->
-  <url>
-    <loc>https://webpod.org/#services</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#services" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#services" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#services" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#services" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#services" />
-  </url>
-
-  <!-- Services - Vietnamese -->
-  <url>
-    <loc>https://webpod.org/vi/#services</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#services" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#services" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#services" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#services" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#services" />
-  </url>
-
-  <!-- Services - Japanese -->
-  <url>
-    <loc>https://webpod.org/ja/#services</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#services" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#services" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#services" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#services" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#services" />
-  </url>
-
-  <!-- Services - Korean -->
-  <url>
-    <loc>https://webpod.org/ko/#services</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#services" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#services" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#services" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#services" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#services" />
-  </url>
-
-  <!-- Contact - English -->
-  <url>
-    <loc>https://webpod.org/#contact</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#contact" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#contact" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#contact" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#contact" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#contact" />
-  </url>
-
-  <!-- Contact - Vietnamese -->
-  <url>
-    <loc>https://webpod.org/vi/#contact</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#contact" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#contact" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#contact" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#contact" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#contact" />
-  </url>
-
-  <!-- Contact - Japanese -->
-  <url>
-    <loc>https://webpod.org/ja/#contact</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#contact" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#contact" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#contact" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#contact" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#contact" />
-  </url>
-
-  <!-- Contact - Korean -->
-  <url>
-    <loc>https://webpod.org/ko/#contact</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#contact" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#contact" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#contact" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#contact" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#contact" />
-  </url>
-
-  <!-- About - English -->
-  <url>
-    <loc>https://webpod.org/#about</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#about" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#about" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#about" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#about" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#about" />
-  </url>
-
-  <!-- About - Vietnamese -->
-  <url>
-    <loc>https://webpod.org/vi/#about</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#about" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#about" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#about" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#about" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#about" />
-  </url>
-
-  <!-- About - Japanese -->
-  <url>
-    <loc>https://webpod.org/ja/#about</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#about" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#about" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#about" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#about" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#about" />
-  </url>
-
-  <!-- About - Korean -->
-  <url>
-    <loc>https://webpod.org/ko/#about</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#about" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#about" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#about" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#about" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#about" />
-  </url>
-
-  <!-- FAQ - English -->
-  <url>
-    <loc>https://webpod.org/#faq</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#faq" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#faq" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#faq" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#faq" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#faq" />
-  </url>
-
-  <!-- FAQ - Vietnamese -->
-  <url>
-    <loc>https://webpod.org/vi/#faq</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#faq" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#faq" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#faq" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#faq" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#faq" />
-  </url>
-
-  <!-- FAQ - Japanese -->
-  <url>
-    <loc>https://webpod.org/ja/#faq</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#faq" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#faq" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#faq" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#faq" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#faq" />
-  </url>
-
-  <!-- FAQ - Korean -->
-  <url>
-    <loc>https://webpod.org/ko/#faq</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://webpod.org/#faq" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://webpod.org/vi/#faq" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webpod.org/ja/#faq" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webpod.org/ko/#faq" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webpod.org/#faq" />
-  </url>
-
 </urlset>
-
