@@ -1,8 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { AsyncStorage } from '@server/async-storage';
 import { ServerConfig } from '@server/config';
-import { ServerLogger } from '@server/logger';
 import { PaginationResponseDto } from '@server/platform/dtos';
 import { ERROR_RESPONSE } from 'src/common/const';
 import { parseOrderByFromQuery } from 'src/common/helpers/database';
@@ -55,19 +54,9 @@ export class PhraseAudioService {
           details: { message: error.message },
         });
       });
-    ServerLogger.debug({
-      message: `s3Service.getObject success`,
-      context: `PhraseAudioService.createPhraseAudio`,
-      meta: { s3Objet },
-    });
 
     const fileObject = await this.databaseService.s3Object.create({
       data: { ...createS3Object, userId, eTag: s3Objet.ETag, bucket: S3_BUCKET_NAME },
-    });
-    ServerLogger.debug({
-      message: `databaseService.s3Object.create success`,
-      context: `PhraseAudioService.createPhraseAudio`,
-      meta: { s3Objet },
     });
     return this.databaseService.phraseAudio.create({
       data: {
