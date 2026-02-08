@@ -67,7 +67,7 @@ export class PhraseAudioService {
     ServerLogger.debug({
       message: `databaseService.s3Object.create success`,
       context: `PhraseAudioService.createPhraseAudio`,
-      meta: { s3Objet },
+      meta: { fileObject },
     });
     return this.databaseService.phraseAudio.create({
       data: {
