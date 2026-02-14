@@ -47,6 +47,9 @@ export class CodeGenerator {
             this.writeServiceHelperFile(),
             this.writePermissionServiceFile(),
             this.writeSharedModuleFile(),
+            this.writeConstFile(),
+            this.writeEnumFile(),
+            this.writeTypeFile(),
           ]);
         case this.USER_SELECT.EmptyModule:
           return Promise.all([
@@ -289,7 +292,28 @@ export class CodeGenerator {
   private writeModuleIndexFile() {
     return fs.writeFile(
       `${this.options.modulePath}/index.ts`,
-      getModuleIndexFileContent(this.options.nameKebab),
+      getModuleIndexFileContent(this.options.moduleNameKebab),
+    );
+  }
+
+  private writeConstFile() {
+    return fs.writeFile(
+      `${this.options.modulePath}/${this.options.moduleNameKebab}.const.ts`,
+      ``,
+    );
+  }
+
+  private writeEnumFile() {
+    return fs.writeFile(
+      `${this.options.modulePath}/${this.options.moduleNameKebab}.enum.ts`,
+      ``,
+    );
+  }
+
+  private writeTypeFile() {
+    return fs.writeFile(
+      `${this.options.modulePath}/${this.options.moduleNameKebab}.type.ts`,
+      ``,
     );
   }
 
