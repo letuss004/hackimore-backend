@@ -12,7 +12,10 @@ import {
 import { getDtoContent } from './template/index-dto';
 import { getModuleContent } from './template/module';
 import { getModuleIndexFileContent } from './template/module-index';
+import { getSharedModuleContent } from './template/module-shared';
+import { getPermissionServiceContent } from './template/permission';
 import { getCompleteServiceContent, getEmptyServiceContent } from './template/service';
+import { getServiceHelperContent } from './template/service-helper';
 
 export class CodeGenerator {
   private readonly options: Record<string, any> = {};
@@ -41,6 +44,9 @@ export class CodeGenerator {
             this.writeControllerFile(),
             this.writeDtosDirectory(),
             this.writeModuleIndexFile(),
+            this.writeServiceHelperFile(),
+            this.writePermissionServiceFile(),
+            this.writeSharedModuleFile(),
           ]);
         case this.USER_SELECT.EmptyModule:
           return Promise.all([
@@ -147,6 +153,7 @@ export class CodeGenerator {
     });
     modulePath = `src/module/${path}`;
     await ensureDirectoryExists(modulePath);
+    await ensureDirectoryExists(`${modulePath}/shared`);
     Object.assign(this.options, { modulePath });
   }
 
@@ -283,6 +290,27 @@ export class CodeGenerator {
     return fs.writeFile(
       `${this.options.modulePath}/index.ts`,
       getModuleIndexFileContent(this.options.nameKebab),
+    );
+  }
+
+  private writeServiceHelperFile() {
+    return fs.writeFile(
+      `${this.options.modulePath}/shared/${this.options.moduleNameKebab}-helper.service.ts`,
+      getServiceHelperContent(this.options.moduleName),
+    );
+  }
+
+  private writePermissionServiceFile() {
+    return fs.writeFile(
+      `${this.options.modulePath}/shared/${this.options.moduleNameKebab}-permission.service.ts`,
+      getPermissionServiceContent(this.options.moduleName),
+    );
+  }
+
+  private writeSharedModuleFile() {
+    return fs.writeFile(
+      `${this.options.modulePath}/shared/${this.options.moduleNameKebab}-shared.module.ts`,
+      getSharedModuleContent(this.options.moduleName, this.options.moduleNameKebab),
     );
   }
 
