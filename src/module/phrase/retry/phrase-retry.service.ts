@@ -51,6 +51,7 @@ export class PhraseRetryService {
         where,
         take,
         skip,
+        include: { Phrase: true },
         orderBy: parseOrderByFromQuery(query.orderBy),
         ...(query.lastItemId && { cursor: { id: query.lastItemId } }),
       }),
