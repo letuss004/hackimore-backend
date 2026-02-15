@@ -35,7 +35,7 @@ export class RedemptionService {
   async getRedemptionList(
     userId: number,
     query: GetRedemptionListQueryDto,
-  ): Promise<PaginationResponseDto<GetRedemptionListResponseDto>> {
+  ): Promise<GetRedemptionListResponseDto> {
     const { page, pageSize, take, skip } = validatePaginationQueryDto(query);
 
     const where: Prisma.RedemptionWhereInput = {

@@ -13,7 +13,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { PaginationResponseDto } from '@server/platform/dtos';
 import { AccessRole } from 'src/common/enums';
 import { RoleBaseAccessControl, SwaggerApiDocument, User } from 'src/decorator';
 import { AuthGuard } from 'src/guard';
@@ -68,7 +67,7 @@ export class RedemptionController {
   async getRedemptionList(
     @User('id') userId: number,
     @Query() query: GetRedemptionListQueryDto,
-  ): Promise<PaginationResponseDto<GetRedemptionListResponseDto>> {
+  ): Promise<GetRedemptionListResponseDto> {
     return this.redemptionService.getRedemptionList(userId, query);
   }
 

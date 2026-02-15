@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/swagger';
 import { DatabaseModelFields } from '@server/libs/database';
-import { PaginationQueryDto } from '@server/platform/dtos';
+import { PaginationMetadataResponseDto, PaginationQueryDto } from '@server/platform/dtos';
 import { IsEmail, MaxLength, MinLength } from 'class-validator';
 import { IsVietnamesePhoneNumber, MultipleOrderBy, PropertyDto } from 'src/decorator';
 
@@ -36,6 +36,20 @@ export class GetPodRegistrationDetailResponseDto extends BasePodRegistrationResp
 
 export class GetPodRegistrationListResponseDto extends BasePodRegistrationResponseDto {
   // Add more fields if needed such as relations
+}
+
+export class GetPodRegistrationListResponse {
+  @PropertyDto({
+    type: GetPodRegistrationListResponseDto,
+    structure: 'dtoArray',
+  })
+  data: GetPodRegistrationListResponseDto[];
+
+  @PropertyDto({
+    type: PaginationMetadataResponseDto,
+    structure: 'dto',
+  })
+  pagination: PaginationMetadataResponseDto;
 }
 
 export class GetPodRegistrationListQueryDto extends PaginationQueryDto {
