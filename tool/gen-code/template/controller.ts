@@ -87,7 +87,6 @@ export class ${moduleName}Controller {
   @SwaggerApiDocument({
     response: {
       type: Get${moduleName}ListResponseDto,
-      isPagination: true,
     },
     operation: {
       operationId: \`get${moduleName}List\`,

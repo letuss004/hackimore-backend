@@ -57,7 +57,6 @@ export class RedemptionController {
   @SwaggerApiDocument({
     response: {
       type: GetRedemptionListResponseDto,
-      isPagination: true,
     },
     operation: {
       operationId: `getRedemptionList`,
