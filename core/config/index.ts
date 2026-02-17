@@ -36,6 +36,7 @@ export class ServerConfig {
       host: ServerConfig.get().REDIS_HOST,
       port: ServerConfig.get().REDIS_PORT,
       password: ServerConfig.get().REDIS_PASSWORD,
+      db: ServerConfig.get().REDIS_DB,
     };
   }
 
@@ -90,7 +91,6 @@ export class ServerConfig {
         .required()
         .valid(...Object.values(NodeEnv)),
       DATABASE_URL: Joi.string().required(),
-      // PEOPLE_DATA_LAB_API_KEY: Joi.string().required(),
     }).unknown();
     const { error } = configSchema.validate(process.env);
     if (error) {

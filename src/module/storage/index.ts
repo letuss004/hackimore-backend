@@ -1,3 +1,3 @@
 export * from './storage.module';
-export * from './local-storage.controller';
-export * from './local-storage.service';
+export * from './storage.controller';
+export * from './storage.service';

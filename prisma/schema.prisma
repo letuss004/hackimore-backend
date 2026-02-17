@@ -57,20 +57,17 @@ model User {
   isDeleted          Boolean      @default(false)
 }
 
-model Storage {
+model S3Object {
   id           Int      @id @default(autoincrement())
   userId       Int?
-  filename     String   @unique
-  path         String
+  eTag         String?
+  location     String?
+  key          String
+  bucket       String
+  filename     String?
   mimetype     String?
-  size         Int
-  originalname String
-  encoding     String?
-  destination  String?
-  epicId       Int?
-  storyId      Int?
-  taskId       Int?
-  subTaskId    Int?
+  size         Int?
+  originalname String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   isDeleted    Boolean  @default(false)
@@ -99,41 +96,20 @@ model History {
   isDeleted Boolean     @default(false)
 }
 
+model DataJson {
+  id        Int      @id @default(autoincrement())
+  type      String   @unique
+  value     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+}
+
 // -------------------------------- Enums -------------------------------
 enum UserRole {
   Admin
   Leader
   Staff
-}
-
-enum ProjectRole {
-  PM
-  Developer
-  Tester
-}
-
-enum WorkingStatus {
-  Active
-  OnLeave
-  Inactive
-}
-
-// enum TeamRole {
-//   TeamLead
-//   Frontend
-//   Backend
-// }
-
-enum ProjectPrivacy {
-  Public
-  Private
-}
-
-enum ProjectStatus {
-  Planned
-  Active
-  Completed
-  Archived
 }
 
 enum UserStatus {
@@ -142,46 +118,16 @@ enum UserStatus {
   Closed
 }
 
-enum WorkStatus {
-  Todo
-  Development
-  InProgress
-  DoneTesting
-  Review
-  Done
-}
-
-enum LabelType {
-  Design
-  API
-  Dev
-  Bug
-  Planning
-}
-
-enum Priority {
-  Low
-  Medium
-  High
-}
-
-// enum LinkType {
-//   RelatesTo
-//   IsBlockedBy
-//   Blocks
-//   IsCausedBy
-//   Causes
-//   Duplicates
-//   IsDuplicatedBy
-//   Resolves
-//   IsResolvedBy
-//   Clones
-// }
-
 enum Gender {
   Male
   Female
   Other
+}
+
+enum Languages {
+  English
+  Vietnamese
+  Chinese
 }
 
 enum UserLanguage {
@@ -195,4 +141,9 @@ enum AuditTrailType {
 
 enum HistoryType {
   Update
+}
+
+enum StorageService {
+  Local
+  S3
 }

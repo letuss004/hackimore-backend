@@ -27,6 +27,8 @@ const MAIN_CONFIG = {
   REDIS_HOST: process.env.REDIS_HOST,
   REDIS_PORT: +process.env.REDIS_PORT,
   REDIS_PASSWORD: process.env.REDIS_PASSWORD,
+  REDIS_DATABASE_NUMBER: process.env.REDIS_DATABASE_NUMBER,
+  REDIS_DB: +process.env.REDIS_DB,
   // File
   DISK_STORAGE_PATH: process.env.DISK_STORAGE_PATH,
   EXECUTIVE_STORAGE_PATH: process.env.EXECUTIVE_STORAGE_PATH,
@@ -37,6 +39,18 @@ const MAIN_CONFIG = {
   PRISMA_LOG_LEVEL: process.env.PRISMA_LOG_LEVEL?.split(','),
   // integrations
   PEOPLE_DATA_LAB_API_KEY: process.env.PEOPLE_DATA_LAB_API_KEY,
+  // S3 Configuration
+  AWS_REGION: process.env.AWS_REGION,
+  AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+  AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+  S3_BUCKET_NAME: process.env.S3_BUCKET_NAME,
+  S3_PRESIGNED_URL_EXPIRES: +process.env.S3_PRESIGNED_URL_EXPIRES,
+  // swagger
+  SWAGGER_USERNAME: process.env.SWAGGER_USERNAME,
+  SWAGGER_PASSWORD: process.env.SWAGGER_PASSWORD,
+  // bull board
+  BULL_BOARD_USERNAME: process.env.BULL_BOARD_USERNAME,
+  BULL_BOARD_PASSWORD: process.env.BULL_BOARD_PASSWORD,
 };
 
 Object.seal(MAIN_CONFIG);

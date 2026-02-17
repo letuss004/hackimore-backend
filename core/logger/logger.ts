@@ -2,13 +2,7 @@ import * as process from 'process';
 import * as winston from 'winston';
 import * as Transports from 'winston-transport';
 import safeStringify from 'safe-stable-stringify';
-import { ServerConfig } from '../config';
 import { convertErrorToObject } from 'src/common/helpers/error';
-import { AsyncStorage } from '../async-storage';
-import { UnexpectedError } from '../errors/unexpected';
-import { _ } from '../libs/lodash';
-import { Time } from '../libs/time';
-import { SResponse } from '../platform';
 import { format as winstonFormat } from 'winston';
 import {
   ErrorLoggingParams,
@@ -17,6 +11,12 @@ import {
   WebsocketLogParams,
 } from './logger.interfaces';
 import { LogColor, LogLevels } from './logger.types';
+import { AsyncStorage } from '../async-storage';
+import { ServerConfig } from '../config';
+import { UnexpectedError } from '../errors/unexpected';
+import { _ } from '../libs/lodash';
+import { Time } from '../libs/time';
+import { SResponse } from '../platform';
 
 export class ServerLogger {
   private static winstonLogger = ServerLogger.initialize();
@@ -148,7 +148,7 @@ export class ServerLogger {
     if (Object.values(rest).length || error) {
       let metadata = safeStringify({ ...rest, system, error }, null, ' ');
       metadata = metadata.replaceAll('\\n', '\n');
-      data = data.concat(colorize('with data attached:', levelColor), '\n', metadata);
+      data = data.concat('\n', metadata);
     }
 
     // color and format

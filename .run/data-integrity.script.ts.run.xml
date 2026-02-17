@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="data-integrity.script.ts" type="NodeJSConfigurationType" node-parameters=" -r ts-node/register -r tsconfig-paths/register --trace-warnings " path-to-js-file="$PROJECT_DIR$/src/script/data-integrity.script.ts" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>

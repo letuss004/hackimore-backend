@@ -1,7 +1,7 @@
 import * as core from 'express-serve-static-core';
 import { Request, Response } from 'express';
 import { Server, Socket } from 'socket.io';
-import { UserJwtPayload } from 'src/module/auth/auth.interface';
+import { UserJwtPayload } from 'src/module/auth/auth.type';
 
 /**
  * @overview Server request interface which is extended from express's Request

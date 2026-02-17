@@ -1,6 +1,6 @@
 # Define the base image from node
 FROM node:22-alpine AS base
-RUN apk add --no-cache openssl bash
+RUN apk add --no-cache openssl bash postgresql-client
 RUN yarn global add ts-node
 WORKDIR /api
 
@@ -10,7 +10,7 @@ FROM base AS builder
 COPY package.json yarn.lock ./
 RUN yarn install
 # copy prisma and cache it
-COPY prisma ./
+COPY prisma ./prisma
 RUN npx prisma generate
 # Copy the rest of the application code
 COPY . .
@@ -27,10 +27,8 @@ RUN npx prisma generate
 # Create the final image (most optimized size) (prod)
 FROM base AS server
 COPY --from=preprod /api/node_modules ./node_modules
-COPY prisma ./
 COPY package.json yarn.lock ./
-COPY /tool ./tools
-COPY --from=builder /api/dist ./dist
+COPY --from=builder /api/dist ./
 COPY entry.sh ./
 # Run server
 EXPOSE 3000

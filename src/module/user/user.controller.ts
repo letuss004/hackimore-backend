@@ -37,9 +37,7 @@ export class UserController {
 
   @Post()
   @SwaggerApiDocument({
-    response: {
-      type: CreateUserResponseDto,
-    },
+    response: { type: CreateUserResponseDto },
     body: { type: CreateUserBodyDto, required: true },
     operation: {
       operationId: `createUser`,
@@ -52,10 +50,7 @@ export class UserController {
 
   @Get()
   @SwaggerApiDocument({
-    response: {
-      type: GetUserListResponseDto,
-      isPagination: true,
-    },
+    response: { type: GetUserListResponseDto },
     operation: {
       operationId: `getUserList`,
       summary: `Api getUserList`,
@@ -63,15 +58,13 @@ export class UserController {
   })
   async getUserList(
     @Query() query: GetUserListQueryDto,
-  ): Promise<PaginationResponseDto<GetUserListResponseDto>> {
+  ): Promise<GetUserListResponseDto> {
     return this.userService.getUserList(query);
   }
 
   @Get('me')
   @SwaggerApiDocument({
-    response: {
-      type: GetUserDetailResponseDto,
-    },
+    response: { type: GetUserDetailResponseDto },
     operation: {
       operationId: `getMyInformation`,
       summary: `Api getMyInformation`,
@@ -84,9 +77,7 @@ export class UserController {
 
   @Get(':id')
   @SwaggerApiDocument({
-    response: {
-      type: GetUserDetailResponseDto,
-    },
+    response: { type: GetUserDetailResponseDto },
     operation: {
       operationId: `getUserDetail`,
       summary: `Api getUserDetail`,
@@ -98,9 +89,7 @@ export class UserController {
 
   @Put(':id')
   @SwaggerApiDocument({
-    response: {
-      type: UpdateUserResponseDto,
-    },
+    response: { type: UpdateUserResponseDto },
     body: { type: UpdateUserBodyDto, required: true },
     operation: {
       operationId: `updateUser`,
@@ -116,9 +105,7 @@ export class UserController {
 
   @Delete(':id')
   @SwaggerApiDocument({
-    response: {
-      status: HttpStatus.NO_CONTENT,
-    },
+    response: { status: HttpStatus.NO_CONTENT },
     operation: {
       operationId: `deleteUser`,
       summary: `Api deleteUser`,

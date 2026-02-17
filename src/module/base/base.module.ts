@@ -1,38 +1,22 @@
-import * as path from 'node:path';
-import { MailerModule } from '@nestjs-modules/mailer';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { Global, Module } from '@nestjs/common';
-import { ServerConfig } from '@server/config';
-import { EmailService } from 'src/module/base/email.service';
-import { HttpService } from 'src/module/base/http.service';
-import { DatabaseService } from './database';
+import { DatabaseModule } from 'src/module/base/database';
+import { EmailModule } from 'src/module/base/email/email.module';
+import { HttpModule } from 'src/module/base/http/http.module';
+import { RedisModule } from 'src/module/base/redis';
+import { UserUtil } from 'src/module/user/user.util';
 import { PermissionService } from './permission.service';
 
 @Global()
 @Module({
-  imports: [
-    MailerModule.forRoot({
-      transport: {
-        service: 'gmail',
-        host: 'smtp.gmail.com',
-        secure: true,
-        auth: {
-          user: ServerConfig.get().SMTP_GMAIL_USER,
-          pass: ServerConfig.get().SMTP_GMAIL_PASS,
-        },
-      },
-      defaults: {
-        replyTo: '"nest-modules" <modules@nestjs.com>',
-      },
-      template: {
-        dir: path.join('template'),
-        adapter: new HandlebarsAdapter(),
-        options: { strict: true },
-      },
-      preview: false,
-    }),
+  imports: [DatabaseModule, RedisModule, EmailModule, HttpModule],
+  providers: [PermissionService, UserUtil],
+  exports: [
+    DatabaseModule,
+    RedisModule,
+    EmailModule,
+    HttpModule,
+    //
+    UserUtil,
   ],
-  providers: [PermissionService, DatabaseService, EmailService, HttpService],
-  exports: [DatabaseService, EmailService, HttpService],
 })
 export class BaseModule {}

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { ServerConfig } from '@server/config';
 import { bcrypt } from '@server/libs/bcrypt';
-import { PaginationResponseDto } from '@server/platform/dtos';
 import { ERROR_RESPONSE } from 'src/common/const';
 import { validatePaginationQueryDto } from 'src/common/helpers/request';
 import { generateRandomString } from 'src/common/helpers/string';
@@ -48,9 +47,7 @@ export class UserService {
     });
   }
 
-  async getUserList(
-    query: GetUserListQueryDto,
-  ): Promise<PaginationResponseDto<GetUserListResponseDto>> {
+  async getUserList(query: GetUserListQueryDto): Promise<GetUserListResponseDto> {
     const { page, pageSize, take, skip } = validatePaginationQueryDto(query);
 
     const where: Prisma.UserWhereInput = {
@@ -78,7 +75,7 @@ export class UserService {
       };
     }
 
-    const [data, total] = await Promise.all([
+    const [items, total] = await Promise.all([
       this.databaseService.user.findMany({
         where,
         take,
@@ -90,7 +87,7 @@ export class UserService {
     ]);
 
     const totalPages = Math.ceil(total / pageSize);
-    return { data, pagination: { page, pageSize, total, totalPages } };
+    return { items, pagination: { page, pageSize, total, totalPages } };
   }
 
   async getUserDetail(id: number): Promise<GetUserDetailResponseDto> {
@@ -108,7 +105,7 @@ export class UserService {
       where: { id },
       data: { lastActive: getCurrentDate() },
     });
-    return { ...user, isFirstTimeLogin: !user.lastActive };
+    return { ...user };
   }
 
   async updateUser(id: number, body: UpdateUserBodyDto): Promise<UpdateUserResponseDto> {

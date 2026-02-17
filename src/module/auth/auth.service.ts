@@ -9,7 +9,7 @@ import { ServerException } from 'src/exception';
 import { DatabaseService } from 'src/module/base/database';
 import { USER_DEFAULT_SELECT } from 'src/module/user/user.const';
 import { JwtTokenType } from './auth.enum';
-import { JwtPayload, UserJwtPayload } from './auth.interface';
+import { JwtPayload, UserJwtPayload } from './auth.type';
 import {
   ChangePasswordBodyDto,
   ChangePasswordResponseDto,

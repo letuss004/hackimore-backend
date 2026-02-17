@@ -6,10 +6,12 @@ import { ServerConfig } from '@server/config';
 import { corsOptions } from '@server/cors';
 import { ServerLogger } from '@server/logger';
 import { PayloadValidationPipe } from '@server/pipe';
-import { CUSTOM_JS } from 'src/common/const/swagger';
+import basicAuth from 'express-basic-auth';
+import { SWAGGER_CUSTOM_JS } from 'src/common/const/swagger';
 import { HttpExceptionFilter } from 'src/exception/filter';
 import { TimeoutInterceptor } from 'src/interceptor';
-import { AppModule, AppService } from 'src/module/app';
+import { SystemService } from 'src/module/system';
+import { AppModule } from './module/app.module';
 
 /**
  * Note:
@@ -18,8 +20,16 @@ import { AppModule, AppService } from 'src/module/app';
 (async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const httpAdapter = app.get(HttpAdapterHost);
-  const { APP_VERSION, APP_NAME, SERVER_PORT, SWAGGER_ENDPOINT, API_PREFIX, NODE_ENV } =
-    ServerConfig.get();
+  const {
+    APP_VERSION,
+    APP_NAME,
+    SERVER_PORT,
+    SWAGGER_ENDPOINT,
+    API_PREFIX,
+    NODE_ENV,
+    SWAGGER_USERNAME,
+    SWAGGER_PASSWORD,
+  } = ServerConfig.get();
 
   //
   app.set('query parser', 'extended'); // configure Express to use the extended parser (the default in Express v4)
@@ -39,8 +49,19 @@ import { AppModule, AppService } from 'src/module/app';
     defaultVersion: '1',
   });
 
+  // global middlewares
+  if (!ServerConfig.isLocalEnv()) {
+    app.use(
+      ['/docs', '/docs-json'],
+      basicAuth({
+        challenge: true,
+        users: { [SWAGGER_USERNAME]: SWAGGER_PASSWORD },
+      }),
+    );
+  }
+
   // swagger documentation
-  const appService = app.get(AppService);
+  const appService = app.get(SystemService);
   await appService.injectCustomMetadataToSwaggerEndpoints();
   const config = new DocumentBuilder()
     .setTitle(`${APP_NAME} Apis Documentation`)
@@ -55,7 +76,7 @@ import { AppModule, AppService } from 'src/module/app';
     explorer: true,
     customSiteTitle: `${APP_NAME} ${NODE_ENV}`,
     swaggerOptions: { initOAuth: { appName: APP_NAME }, persistAuthorization: true },
-    customJsStr: CUSTOM_JS,
+    customJsStr: SWAGGER_CUSTOM_JS,
   });
 
   // start server
