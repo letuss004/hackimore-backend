@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'geo-backend',
+      name: 'him-backend',
       script: 'dist/src/main.js',
     },
   ],
