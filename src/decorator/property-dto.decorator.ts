@@ -37,6 +37,7 @@ interface PropertyDtoOptions {
   defaultValue?: any;
   description?: string;
   validateGroup?: string[];
+  override?: ApiPropertyOptions;
 }
 
 class PropertyDtoBuilder {
@@ -94,7 +95,7 @@ class PropertyDtoBuilder {
   }
 
   private setSwagger() {
-    const apiProperty = ApiProperty({
+    const apiPropertyOptions: ApiPropertyOptions = {
       ...this.propertyOptions,
       type: this.type,
       ...(this.isFile && { format: 'binary' }),
@@ -102,8 +103,14 @@ class PropertyDtoBuilder {
       isArray: this.isArray,
       example: this.example,
       required: this.propertyOptions.required,
-    });
-    this.decorators.push(apiProperty);
+      ...this.options?.override,
+    };
+    if (this.isEnum) {
+      apiPropertyOptions.description =
+        `Accepted values: ${Object.values(this.type)}` +
+        _.get(this.options, 'override', this.propertyOptions.description || '');
+    }
+    this.decorators.push(ApiProperty(apiPropertyOptions));
   }
 
   /**

@@ -18,7 +18,8 @@ export function IsDateFormat(format: string, validationOptions?: ValidationOptio
           if (typeof value !== 'string') {
             return false;
           }
-          return Time(value, args.constraints[0], true).isValid();
+          const date = Time(value, args.constraints[0], true);
+          return date.isValid();
         },
         defaultMessage(args: ValidationArguments) {
           return `${args.property} must be in the format ${args.constraints[0]}`;

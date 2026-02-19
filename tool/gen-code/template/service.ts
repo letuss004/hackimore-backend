@@ -53,7 +53,7 @@ ${normalFilter}
     };
 ${dateFilter};
 
-    const [data, total] = await Promise.all([
+    const [items, total] = await Promise.all([
       this.databaseService.${modelCamel}.findMany({
         where,
         take,
@@ -65,7 +65,7 @@ ${dateFilter};
     ]);
 
     const totalPages = Math.ceil(total / pageSize);
-    return { data, pagination: { page, pageSize, total, totalPages } };
+    return { items, pagination: { page, pageSize, total, totalPages } };
   }
 
   async get${moduleName}Detail(id: number): Promise<Get${moduleName}DetailResponseDto> {

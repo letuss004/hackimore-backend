@@ -13,7 +13,7 @@ export function getDtoContent(args: {
     importContent,
   } = args;
 
-  return `import { PartialType } from '@nestjs/swagger';
+  return `import { OmitType, PartialType } from '@nestjs/swagger';
 ${importContent}
 import { PaginationMetadataResponseDto, PaginationQueryDto } from '@server/platform/dtos';
 import { DatabaseModelFields } from '@server/libs/database';
@@ -40,7 +40,7 @@ export class Get${moduleName}ListResponseDto {
     type: Get${moduleName}ItemDto,
     structure: 'dtoArray',
   })
-  data: Get${moduleName}ItemDto[];
+  items: Get${moduleName}ItemDto[];
 
   @PropertyDto({
     type: PaginationMetadataResponseDto,
@@ -63,7 +63,9 @@ export class Create${moduleName}ResponseDto extends Base${moduleName}ResponseDto
 
 // ****************************** update${moduleName} ******************************
 // todo: delete this line if you have corrected the dto
-export class Update${moduleName}BodyDto extends PartialType(Create${moduleName}BodyDto) {
+export class Update${moduleName}BodyDto extends PartialType(
+  OmitType(Create${moduleName}BodyDto, [])
+) {
   // User OmitType if needed
 }
 

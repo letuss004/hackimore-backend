@@ -21,6 +21,7 @@ export class CodeGenerator {
   private readonly options: Record<string, any> = {};
   private readonly USER_SELECT = {
     CompleteModule: 'GenerateCompleteModule',
+    SubModule: 'GenerateSubModule',
     EmptyModule: 'EmptyModule',
     Dto: 'Dto',
   };
@@ -50,6 +51,12 @@ export class CodeGenerator {
             this.writeConstFile(),
             this.writeEnumFile(),
             this.writeTypeFile(),
+          ]);
+        case this.USER_SELECT.SubModule:
+          return Promise.all([
+            this.writeServiceFile(),
+            this.writeControllerFile(),
+            this.writeDtosDirectory(),
           ]);
         case this.USER_SELECT.EmptyModule:
           return Promise.all([
@@ -91,6 +98,11 @@ export class CodeGenerator {
           description: `Generate module, service, controller with CRUD operations`,
         },
         {
+          name: 'Sub module',
+          value: this.USER_SELECT.SubModule,
+          description: `Generate service, controller inside a parent module`,
+        },
+        {
           name: 'Empty module',
           value: this.USER_SELECT.EmptyModule,
           description: `Generate module, service, controller with empty content`,
@@ -107,6 +119,12 @@ export class CodeGenerator {
     switch (userSelect) {
       case this.USER_SELECT.CompleteModule:
         await this.parseModuleName();
+        await this.parseModulePath();
+        await this.parseModelName();
+        break;
+      case this.USER_SELECT.SubModule:
+        await this.parseModuleName();
+        await this.parseParentModuleName();
         await this.parseModulePath();
         await this.parseModelName();
         break;
@@ -134,18 +152,41 @@ export class CodeGenerator {
     });
   }
 
+  private async parseParentModuleName() {
+    // list all modules in src/module
+    const modules = await fs.readdir('src/module');
+    const parentModulePath = await select({
+      message: 'Select parent module',
+      choices: modules.map((module) => {
+        return {
+          name: _.upperFirst(_.camelCase(module)),
+          value: `src/module/${module}`,
+        };
+      }),
+      loop: false,
+    });
+    Object.assign(this.options, { parentModulePath });
+  }
+
   private async parseModulePath(useNameAsPath: boolean = true) {
     let modulePath: string;
 
     if (useNameAsPath) {
       const nameKebab = this.options.moduleNameKebab;
-      modulePath = `src/module/${nameKebab}`;
+      if (this.options.parentModulePath) {
+        modulePath = `${this.options.parentModulePath}/${nameKebab}`;
+      } else {
+        modulePath = `src/module/${nameKebab}`;
+      }
       const isUseDefaultPath = await confirm({
         message: `Do you want to use default module path ${modulePath}`,
         default: true,
       });
       if (isUseDefaultPath) {
         await ensureDirectoryExists(modulePath);
+        if (this.options.userSelect === this.USER_SELECT.CompleteModule) {
+          await ensureDirectoryExists(`${modulePath}/shared`);
+        }
         Object.assign(this.options, { modulePath });
         return;
       }
@@ -156,7 +197,9 @@ export class CodeGenerator {
     });
     modulePath = `src/module/${path}`;
     await ensureDirectoryExists(modulePath);
-    await ensureDirectoryExists(`${modulePath}/shared`);
+    if (this.options.userSelect === this.USER_SELECT.CompleteModule) {
+      await ensureDirectoryExists(`${modulePath}/shared`);
+    }
     Object.assign(this.options, { modulePath });
   }
 
