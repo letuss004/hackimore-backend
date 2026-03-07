@@ -1,3 +1,3 @@
 export interface BackupDatabaseDailyJobData {
-  forceBackup: boolean;
+  forceBackup?: boolean;
 }
