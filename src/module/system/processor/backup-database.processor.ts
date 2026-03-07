@@ -35,7 +35,6 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
   }
 
   private async backupDatabaseDaily(job: Job<BackupDatabaseDailyJobData>) {
-    const { forceBackup } = job.data;
     const time = Time().format('DD-MM-YYYY');
     const backupFolder = `database-backups/${time}/`;
     const backupFileName = `backup-${Time().toISOString()}.sql.gz`;
@@ -50,7 +49,7 @@ export class BackupDatabaseProcessor extends WorkerHost implements OnModuleInit 
 
     // Check if backup already exists
     const backupExist = await this.s3Service.checkExists(backupFolder);
-    if (!forceBackup && backupExist) {
+    if (!job.data?.forceBackup && backupExist) {
       return {
         cleanup: false,
         message: `Backup already exists at ${backupFolder}`,
