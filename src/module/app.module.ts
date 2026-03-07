@@ -5,7 +5,6 @@ import { BullModule } from '@nestjs/bullmq';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { TerminusModule } from '@nestjs/terminus';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { ServerConfig } from '@server/config';
@@ -34,10 +33,6 @@ import { UserModule } from 'src/module/user';
     TerminusModule.forRoot(),
     ScheduleModule.forRoot(),
     DiscoveryModule,
-    ServeStaticModule.forRoot({
-      rootPath: path.join(__dirname, '../..', 'public'),
-      serveRoot: '/',
-    }),
     BullModule.forRoot({
       connection: { ...ServerConfig.getRedisCredentials() },
       defaultJobOptions: JOB_DEFAULT_OPTIONS,

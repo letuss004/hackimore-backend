@@ -1,4 +1,6 @@
 #!/bin/sh
 set -e
+git pull
 npx prisma migrate deploy
-node src/main.js
+pm2 start --attach
+# node src/main.js # for docker
