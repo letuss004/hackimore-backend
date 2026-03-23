@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { AsyncStorage } from '@server/async-storage';
 import { ServerConfig } from '@server/config';
+import { ServerLogger } from '@server/logger';
 import { PaginationResponseDto } from '@server/platform/dtos';
 import { ERROR_RESPONSE } from 'src/common/const';
 import { parseOrderByFromQuery } from 'src/common/helpers/database';
@@ -48,11 +49,12 @@ export class PhraseAudioService {
         Key: createS3Object.key,
       })
       .catch((error) => {
-        throw new ServerException({
-          ...ERROR_RESPONSE.RESOURCE_NOT_FOUND,
-          message: `S3 Object with key ${createS3Object.key} not found`,
-          details: { message: error.message },
+        ServerLogger.error({
+          error,
+          message: `something went wrong with this operation`,
+          context: `PhraseAudioService.createPhraseAudio`,
         });
+        return {} as any;
       });
 
     const fileObject = await this.databaseService.s3Object.create({

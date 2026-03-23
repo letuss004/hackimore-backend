@@ -75,4 +75,6 @@ export class DatabaseService extends PrismaClient implements OnModuleInit {
 
     return next(params);
   }
+
+  createQueryBuilder() {}
 }
