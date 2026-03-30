@@ -1,7 +1,7 @@
 import { RedisModule as NestjsRedisModule } from '@nestjs-modules/ioredis';
-import { Global, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ServerConfig } from '@server/config';
-import { RedisService } from './redis.service';
+import { CacheService } from './cache.service';
 
 @Module({
   imports: [
@@ -10,7 +10,7 @@ import { RedisService } from './redis.service';
       options: { ...ServerConfig.getRedisCredentials() },
     }),
   ],
-  providers: [RedisService],
-  exports: [RedisService],
+  providers: [CacheService],
+  exports: [CacheService],
 })
-export class RedisModule {}
+export class CacheModule {}

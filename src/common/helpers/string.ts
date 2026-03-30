@@ -12,3 +12,15 @@ export function generateRandomString(length: number): string {
   }
   return result;
 }
+
+export function isRawJSON(string: string): boolean {
+  if (typeof string !== 'string') {
+    return false; // Ensures the input is a string
+  }
+  try {
+    JSON.parse(string);
+    return true;
+  } catch (e) {
+    return false; // An error was thrown, so the string is not valid JSON
+  }
+}

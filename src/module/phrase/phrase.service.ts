@@ -5,7 +5,9 @@ import { ERROR_RESPONSE } from 'src/common/const';
 import { parseOrderByFromQuery } from 'src/common/helpers/database';
 import { validatePaginationQueryDto } from 'src/common/helpers/request';
 import { ServerException } from 'src/exception';
+import { CacheService } from 'src/module/base/cache';
 import { DatabaseService } from 'src/module/base/database';
+import { PhraseCache } from 'src/module/phrase/phrase.enum';
 import {
   CreatePhraseBodyDto,
   CreatePhraseResponseDto,
@@ -20,7 +22,10 @@ import {
 
 @Injectable()
 export class PhraseService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly redisService: CacheService,
+  ) {}
 
   async createPhrase(
     userId: number,
@@ -115,18 +120,9 @@ export class PhraseService {
     userId: number,
     query: GetRandomPhraseQueryDto,
   ): Promise<GetRandomPhraseResponseDto> {
-    const languageCondition = query?.language?.length
-      ? `AND "language" IN (${query.language.map((e) => `'${e}'`).join(', ')})`
-      : ``;
-    const result = await this.databaseService.$queryRawUnsafe<
-      GetRandomPhraseResponseDto[]
-    >(`
-      SELECT *
-      FROM "Phrase" TABLESAMPLE BERNOULLI(10)
-      WHERE "userId" = ${userId} ${languageCondition}
-      ORDER BY RANDOM ()
-      LIMIT 1;
-    `);
-    return result[0];
+    const randomSchedule = await this.redisService.getJsonParsed<number[]>({
+      key: PhraseCache.RandomSchedule,
+    });
+    return;
   }
 }

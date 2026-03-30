@@ -31,3 +31,11 @@ export function getDeepObjectDifferences(oldObj: object, newObj: object) {
 
   return { before: diff(oldObj, newObj), after: diff(newObj, oldObj) };
 }
+
+export function isPrimitive(value: any) {
+  if (value === null) {
+    return true;
+  }
+  const type = typeof value;
+  return type !== 'object' && type !== 'function';
+}
