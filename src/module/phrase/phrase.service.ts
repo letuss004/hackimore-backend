@@ -9,7 +9,7 @@ import { validatePaginationQueryDto } from 'src/common/helpers/request';
 import { ServerException } from 'src/exception';
 import { CacheService } from 'src/module/base/cache';
 import { DatabaseService } from 'src/module/base/database';
-import { PhraseCache } from 'src/module/phrase/phrase.enum';
+import { PhraseCache } from 'src/module/phrase/phrase.const';
 import {
   CreatePhraseBodyDto,
   CreatePhraseResponseDto,
@@ -126,9 +126,10 @@ export class PhraseService {
       userId,
       ...(query?.language && { language: { in: query.language } }),
     };
+    const cacheKey = PhraseCache.RandomSchedule(userId);
 
     let randomSchedule = await this.cacheService.getJsonParsed<number[]>({
-      key: PhraseCache.RandomSchedule,
+      key: cacheKey,
     });
     if (!randomSchedule) {
       const count = await this.databaseService.phrase.count({ where });
@@ -148,12 +149,13 @@ export class PhraseService {
     });
 
     if (randomSchedule?.length > 5) {
-      await this.cacheService.redis.del([PhraseCache.RandomSchedule]);
+      await this.cacheService.redis.del([cacheKey]);
     } else {
       randomSchedule.push(random);
       await this.cacheService.setStringify({
-        key: PhraseCache.RandomSchedule,
+        key: cacheKey,
         value: randomSchedule,
+        expired: 180,
       });
     }
 
