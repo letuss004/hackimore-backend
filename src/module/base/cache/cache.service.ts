@@ -20,13 +20,13 @@ export class CacheService {
 
   public async setValue(args: SetValueArgs) {
     if (args.expired) {
-      return this.redis.setex(args.key, args.expired, args.value, args.callback);
+      return this.redis.setex(args.key, args.expired, args.value);
     }
-    return this.redis.set(args.key, args.value, args.callback);
+    return this.redis.set(args.key, args.value);
   }
 
   public async getValue(args: GetValueArgs) {
-    return this.redis.get(args.key, args.callback);
+    return this.redis.get(args.key);
   }
 
   public async setStringify(args: SetStringifyArgs) {

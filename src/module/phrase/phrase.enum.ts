@@ -1,3 +1,3 @@
 export enum PhraseCache {
-  RandomSchedule = 'RandomSchedule',
+  RandomSchedule = 'Phrase.RandomSchedule',
 }

@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PaginationResponseDto } from '@server/platform/dtos';
+import _ from 'lodash';
 import { ERROR_RESPONSE } from 'src/common/const';
 import { parseOrderByFromQuery } from 'src/common/helpers/database';
+import { getRandomNumber } from 'src/common/helpers/number';
 import { validatePaginationQueryDto } from 'src/common/helpers/request';
 import { ServerException } from 'src/exception';
 import { CacheService } from 'src/module/base/cache';
@@ -24,7 +26,7 @@ import {
 export class PhraseService {
   constructor(
     private readonly databaseService: DatabaseService,
-    private readonly redisService: CacheService,
+    private readonly cacheService: CacheService,
   ) {}
 
   async createPhrase(
@@ -120,9 +122,41 @@ export class PhraseService {
     userId: number,
     query: GetRandomPhraseQueryDto,
   ): Promise<GetRandomPhraseResponseDto> {
-    const randomSchedule = await this.redisService.getJsonParsed<number[]>({
+    const where: Prisma.PhraseWhereInput = {
+      userId,
+      ...(query?.language && { language: { in: query.language } }),
+    };
+
+    let randomSchedule = await this.cacheService.getJsonParsed<number[]>({
       key: PhraseCache.RandomSchedule,
     });
-    return;
+    if (!randomSchedule) {
+      const count = await this.databaseService.phrase.count({ where });
+      randomSchedule = [getRandomNumber({ from: 0, to: count })];
+    }
+    const basePhrasePosition = _.first(randomSchedule);
+    const random = getRandomNumber({
+      from: -15,
+      to: 15,
+      exclude: randomSchedule.slice(1),
+    });
+    const position = basePhrasePosition + random;
+
+    const phrase = await this.databaseService.phrase.findFirst({
+      where,
+      skip: position,
+    });
+
+    if (randomSchedule?.length > 5) {
+      await this.cacheService.redis.del([PhraseCache.RandomSchedule]);
+    } else {
+      randomSchedule.push(random);
+      await this.cacheService.setStringify({
+        key: PhraseCache.RandomSchedule,
+        value: randomSchedule,
+      });
+    }
+
+    return phrase;
   }
 }
