@@ -43,22 +43,9 @@ export class PhraseAudioService {
         message: `Phrase with id ${createAudioData.phraseId} not found`,
       });
     }
-    const s3Objet = await this.s3Service
-      .getObject({
-        Bucket: S3_BUCKET_NAME,
-        Key: createS3Object.key,
-      })
-      .catch((error) => {
-        ServerLogger.error({
-          error,
-          message: `something went wrong with this operation`,
-          context: `PhraseAudioService.createPhraseAudio`,
-        });
-        return {} as any;
-      });
 
     const fileObject = await this.databaseService.s3Object.create({
-      data: { ...createS3Object, userId, eTag: s3Objet.ETag, bucket: S3_BUCKET_NAME },
+      data: { ...createS3Object, userId, bucket: S3_BUCKET_NAME },
     });
     return this.databaseService.phraseAudio.create({
       data: {
