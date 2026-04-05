@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PaginationResponseDto } from '@server/platform/dtos';
-import _ from 'lodash';
 import { ERROR_RESPONSE } from 'src/common/const';
 import { parseOrderByFromQuery } from 'src/common/helpers/database';
 import { getRandomNumber } from 'src/common/helpers/number';
@@ -9,7 +8,8 @@ import { validatePaginationQueryDto } from 'src/common/helpers/request';
 import { ServerException } from 'src/exception';
 import { CacheService } from 'src/module/base/cache';
 import { DatabaseService } from 'src/module/base/database';
-import { PhraseCache } from 'src/module/phrase/phrase.const';
+import { PHRASE_CACHE } from 'src/module/phrase/phrase.const';
+import { RandomSchedule } from 'src/module/phrase/phrase.type';
 import {
   CreatePhraseBodyDto,
   CreatePhraseResponseDto,
@@ -126,36 +126,44 @@ export class PhraseService {
       userId,
       ...(query?.language && { language: { in: query.language } }),
     };
-    const cacheKey = PhraseCache.RandomSchedule(userId);
+    const cacheKey = PHRASE_CACHE.RANDOM_SCHEDULE(userId);
 
-    let randomSchedule = await this.cacheService.getJsonParsed<number[]>({
+    let randomSchedule = await this.cacheService.getJsonParsed<RandomSchedule>({
       key: cacheKey,
     });
     if (!randomSchedule) {
       const count = await this.databaseService.phrase.count({ where });
-      randomSchedule = [getRandomNumber({ from: 0, to: count })];
+      randomSchedule = {
+        count,
+        basePosition: getRandomNumber({ from: 0, to: count }),
+        languages: query.language,
+        scheduled: [],
+      };
     }
-    const basePhrasePosition = _.first(randomSchedule);
-    const random = getRandomNumber({
-      from: -15,
-      to: 15,
-      exclude: randomSchedule.slice(1),
-    });
-    const position = basePhrasePosition + random;
+
+    let position: number = 0;
+    do {
+      const random = getRandomNumber({
+        from: -15,
+        to: 15,
+        exclude: randomSchedule.scheduled,
+      });
+      position = randomSchedule.basePosition + random;
+      randomSchedule.scheduled.push(random);
+    } while (position < 0 || position > randomSchedule.count);
 
     const phrase = await this.databaseService.phrase.findFirst({
       where,
       skip: position,
     });
 
-    if (randomSchedule?.length > 5) {
+    if (randomSchedule.scheduled.length >= 5) {
       await this.cacheService.redis.del([cacheKey]);
     } else {
-      randomSchedule.push(random);
       await this.cacheService.setStringify({
         key: cacheKey,
         value: randomSchedule,
-        expired: 180,
+        expired: 300, // 5 mins
       });
     }
 
