@@ -132,7 +132,7 @@ export class PhraseService {
     let randomSchedule = await this.cacheService.getJsonParsed<RandomSchedule>({
       key: cacheKey,
     });
-    if (!randomSchedule || _.isEqual(query.language, randomSchedule?.languages)) {
+    if (!randomSchedule || !_.isEqual(query.language, randomSchedule?.languages)) {
       const count = await this.databaseService.phrase.count({ where });
       randomSchedule = {
         count,
