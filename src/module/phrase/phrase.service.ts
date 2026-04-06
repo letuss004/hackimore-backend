@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { _ } from '@server/libs/lodash';
 import { PaginationResponseDto } from '@server/platform/dtos';
+import { random } from 'lodash';
 import { ERROR_RESPONSE } from 'src/common/const';
 import { parseOrderByFromQuery } from 'src/common/helpers/database';
 import { getRandomNumber } from 'src/common/helpers/number';
@@ -132,7 +133,11 @@ export class PhraseService {
     let randomSchedule = await this.cacheService.getJsonParsed<RandomSchedule>({
       key: cacheKey,
     });
-    if (!randomSchedule || !_.isEqual(query.language, randomSchedule?.languages)) {
+    if (
+      !randomSchedule ||
+      randomSchedule.count <= 5 ||
+      !_.isEqual(query.language, randomSchedule?.languages)
+    ) {
       const count = await this.databaseService.phrase.count({ where });
       randomSchedule = {
         count,
