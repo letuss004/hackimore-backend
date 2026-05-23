@@ -2,7 +2,7 @@ import { Languages } from '@prisma/client';
 
 export interface RandomSchedule {
   languages: Languages[];
-  scheduled: number[];
+  scheduledIds: number[];
   basePosition: number;
   count: number;
 }
