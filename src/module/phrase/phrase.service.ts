@@ -2,10 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { _ } from '@server/libs/lodash';
 import { PaginationResponseDto } from '@server/platform/dtos';
-import { random } from 'lodash';
 import { ERROR_RESPONSE } from 'src/common/const';
 import { parseOrderByFromQuery } from 'src/common/helpers/database';
-import { getRandomNumber } from 'src/common/helpers/number';
 import { validatePaginationQueryDto } from 'src/common/helpers/request';
 import { ServerException } from 'src/exception';
 import { CacheService } from 'src/module/base/cache';
@@ -124,55 +122,71 @@ export class PhraseService {
     userId: number,
     query: GetRandomPhraseQueryDto,
   ): Promise<GetRandomPhraseResponseDto> {
-    const where: Prisma.PhraseWhereInput = {
-      userId,
-      ...(query?.language && { language: { in: query.language } }),
-    };
     const cacheKey = PHRASE_CACHE.RANDOM_SCHEDULE(userId);
-
-    let randomSchedule = await this.cacheService.getJsonParsed<RandomSchedule>({
+    let cacheValue = await this.cacheService.getJsonParsed<RandomSchedule>({
       key: cacheKey,
     });
+
     if (
-      !randomSchedule ||
-      randomSchedule.count <= 5 ||
-      !_.isEqual(query.language, randomSchedule?.languages)
+      cacheValue?.scheduledIds?.length &&
+      _.isEqual(query.language, cacheValue.languages)
     ) {
-      const count = await this.databaseService.phrase.count({ where });
-      randomSchedule = {
-        count,
-        basePosition: getRandomNumber({ from: 0, to: count }),
-        languages: query.language,
-        scheduled: [],
-      };
-    }
-
-    let position: number = 0;
-    do {
-      const random = getRandomNumber({
-        from: -15,
-        to: 15,
-        exclude: randomSchedule.scheduled,
-      });
-      position = randomSchedule.basePosition + random;
-      randomSchedule.scheduled.push(random);
-    } while (position < 0 || position > randomSchedule.count);
-
-    const phrase = await this.databaseService.phrase.findFirst({
-      where,
-      skip: position,
-    });
-
-    if (randomSchedule.scheduled.length >= 5) {
-      await this.cacheService.redis.del([cacheKey]);
-    } else {
+      const phraseId = cacheValue.scheduledIds.shift();
       await this.cacheService.setStringify({
         key: cacheKey,
-        value: randomSchedule,
-        expired: 300, // 5 mins
+        value: {
+          scheduledIds: cacheValue.scheduledIds,
+          languages: query.language,
+        } as RandomSchedule,
+        expired: 600, // 10 mins
+      });
+
+      return this.databaseService.phrase.update({
+        where: { id: phraseId },
+        data: { pickedCount: { increment: 1 } },
       });
     }
 
-    return phrase;
+    const languages = query.language || [];
+
+    // Gap narrowing logic: Pick phrases where pickedCount <= minCount + 5
+    const candidates: any[] = await this.databaseService.$queryRaw`
+        WITH stats AS (
+          SELECT MIN("pickedCount") as min_count
+          FROM "Phrase"
+          WHERE "userId" = ${userId} AND "isDeleted" = false
+          ${
+            languages.length > 0
+              ? Prisma.sql`AND "language"::text IN (${Prisma.join(languages)})`
+              : Prisma.empty
+          }
+        )
+        SELECT id FROM "Phrase", stats
+        WHERE "userId" = ${userId} AND "isDeleted" = false
+          AND "pickedCount" <= stats.min_count + 5
+          ${
+            languages.length > 0
+              ? Prisma.sql`AND "language"::text IN (${Prisma.join(languages)})`
+              : Prisma.empty
+          }
+        ORDER BY RANDOM()
+        LIMIT 10 
+      `;
+
+    const scheduledIds = candidates.map((c) => c.id);
+    const phraseId = scheduledIds.shift();
+    await this.cacheService.setStringify({
+      key: cacheKey,
+      value: {
+        scheduledIds: cacheValue.scheduledIds,
+        languages: query.language,
+      } as RandomSchedule,
+      expired: 600, // 10 mins
+    });
+
+    return this.databaseService.phrase.update({
+      where: { id: phraseId },
+      data: { pickedCount: { increment: 1 } },
+    });
   }
 }
