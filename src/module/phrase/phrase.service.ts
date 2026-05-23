@@ -178,7 +178,7 @@ export class PhraseService {
     await this.cacheService.setStringify({
       key: cacheKey,
       value: {
-        scheduledIds: cacheValue.scheduledIds,
+        scheduledIds,
         languages: query.language,
       } as RandomSchedule,
       expired: 600, // 10 mins
