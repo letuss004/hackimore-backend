@@ -108,16 +108,17 @@ model DataJson {
 }
 
 model Phrase {
-  id          Int        @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   userId      Int?
   content     String
-  context     String?    @db.Text
-  description String?    @db.Text
+  status      PhraseStatus @default(Active)
+  context     String?      @db.Text
+  description String?      @db.Text
   language    Languages?
-  pickedCount Int        @default(0)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  isDeleted   Boolean    @default(false)
+  pickedCount Int          @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  isDeleted   Boolean      @default(false)
 
   PhraseAudio PhraseAudio[]
   PhraseRetry PhraseRetry[]
@@ -219,4 +220,9 @@ enum RedemptionStatus {
   Pending
   Archived
   Rejected
+}
+
+enum PhraseStatus {
+  Active
+  Master
 }
