@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { PhraseStatus, Prisma } from '@prisma/client';
 import { _ } from '@server/libs/lodash';
 import { PaginationResponseDto } from '@server/platform/dtos';
 import { ERROR_RESPONSE } from 'src/common/const';
@@ -154,7 +154,7 @@ export class PhraseService {
         WITH stats AS (
           SELECT MIN("pickedCount") as min_count
           FROM "Phrase"
-          WHERE "userId" = ${userId} AND "isDeleted" = false
+          WHERE "userId" = ${userId} AND "status" IN (${PhraseStatus.Active})
           ${
             languages.length > 0
               ? Prisma.sql`AND "language"::text IN (${Prisma.join(languages)})`
@@ -162,7 +162,7 @@ export class PhraseService {
           }
         )
         SELECT id FROM "Phrase", stats
-        WHERE "userId" = ${userId} AND "isDeleted" = false
+        WHERE "userId" = ${userId} AND "status" IN (${PhraseStatus.Active})
           AND "pickedCount" <= stats.min_count + 5
           ${
             languages.length > 0
