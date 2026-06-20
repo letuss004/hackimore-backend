@@ -1,5 +1,5 @@
 import { OmitType, PartialType } from '@nestjs/swagger';
-import { Languages } from '@prisma/client';
+import { Languages, PhraseStatus } from '@prisma/client';
 import { DatabaseModelFields } from '@server/libs/database';
 import { PaginationQueryDto } from '@server/platform/dtos';
 import { MultipleOrderBy, PropertyDto } from 'src/decorator';
@@ -104,6 +104,14 @@ export class CreatePhraseBodyDto {
     structure: 'enum',
   })
   language: Languages;
+
+  @PropertyDto({
+    type: PhraseStatus,
+    required: false,
+    validated: true,
+    structure: 'enum',
+  })
+  status: PhraseStatus;
 
   @PropertyDto({
     type: String,
