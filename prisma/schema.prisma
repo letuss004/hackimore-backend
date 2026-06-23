@@ -128,6 +128,7 @@ model PhraseAudio {
   id         Int      @id @default(autoincrement())
   userId     Int?
   phraseId   Int
+  rating     Int? // Rate from 1 to 10
   s3ObjectId Int
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt

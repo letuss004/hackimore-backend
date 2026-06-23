@@ -1,6 +1,7 @@
 import { OmitType, PartialType } from '@nestjs/swagger';
 import { DatabaseModelFields } from '@server/libs/database';
 import { PaginationQueryDto } from '@server/platform/dtos';
+import { Max, Min } from 'class-validator';
 import { MultipleOrderBy, PropertyDto } from 'src/decorator';
 import { BaseS3ObjectResponseDto, CreateS3ObjectBodyDto } from 'src/module/storage/dtos';
 
@@ -15,6 +16,9 @@ export class BasePhraseAudioResponseDto {
 
   @PropertyDto()
   s3ObjectId: number;
+
+  @PropertyDto()
+  rating?: number;
 
   @PropertyDto()
   createdAt: Date;
@@ -85,6 +89,16 @@ export class CreatePhraseAudioBodyDto {
     validated: true,
   })
   phraseId: number;
+
+  @PropertyDto({
+    type: Number,
+    required: false,
+    validated: true,
+    description: ``,
+  })
+  @Min(1)
+  @Max(10)
+  rating?: number;
 
   @PropertyDto({
     type: CreateS3ObjectBodyDto,

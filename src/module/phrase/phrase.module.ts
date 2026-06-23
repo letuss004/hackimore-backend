@@ -10,6 +10,6 @@ import { PhraseService } from './phrase.service';
   imports: [],
   controllers: [PhraseController, PhraseAudioController, PhraseRetryController],
   providers: [PhraseService, PhraseAudioService, PhraseRetryService],
-  exports: [PhraseService, PhraseAudioService],
+  exports: [],
 })
 export class PhraseModule {}
