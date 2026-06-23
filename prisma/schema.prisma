@@ -128,26 +128,14 @@ model PhraseAudio {
   id         Int      @id @default(autoincrement())
   userId     Int?
   phraseId   Int
+  rating     Int? // Rate from 1 to 10
   s3ObjectId Int
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   isDeleted  Boolean  @default(false)
 
-  Pharse            Phrase              @relation(fields: [phraseId], references: [id])
-  S3Object          S3Object            @relation(fields: [s3ObjectId], references: [id])
-  PhraseAudioRating PhraseAudioRating[]
-}
-
-model PhraseAudioRating {
-  id            Int      @id @default(autoincrement())
-  phraseAudioId Int
-  rating        Int // Rate from 1 to 10
-  userId        Int?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  isDeleted     Boolean  @default(false)
-
-  PhraseAudio PhraseAudio @relation(fields: [phraseAudioId], references: [id])
+  Pharse   Phrase   @relation(fields: [phraseId], references: [id])
+  S3Object S3Object @relation(fields: [s3ObjectId], references: [id])
 }
 
 model PhraseRetry {
