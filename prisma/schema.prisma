@@ -226,4 +226,5 @@ enum RedemptionStatus {
 enum PhraseStatus {
   Active
   Master
+  Deferred
 }
