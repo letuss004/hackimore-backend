@@ -177,8 +177,7 @@ model PodRegistration {
 // -------------------------------- Enums -------------------------------
 enum UserRole {
   Admin
-  Leader
-  Staff
+  User
 }
 
 enum UserStatus {
