@@ -163,7 +163,7 @@ export class PhraseService {
         )
         SELECT id FROM "Phrase", stats
         WHERE "userId" = ${userId} AND "status"::text IN (${Prisma.join([PhraseStatus.Active])})
-          AND "pickedCount" < stats.min_count + 5
+          AND "pickedCount" < stats.min_count + 3
           ${
             languages.length > 0
               ? Prisma.sql`AND "language"::text IN (${Prisma.join(languages)})`
