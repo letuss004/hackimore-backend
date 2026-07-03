@@ -1,9 +1,4 @@
-import {
-  Controller,
-  Get,
-  Query,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { RoleBaseAccessControl, SwaggerApiDocument, User } from 'src/decorator';
 import { AuthGuard } from 'src/guard';
@@ -12,18 +7,18 @@ import {
   GetAudioCoverageResponseDto,
   GetAudioRatingQueryDto,
   GetAudioRatingResponseDto,
-  GetPhraseSummaryQueryDto,
-  GetPhraseSummaryResponseDto,
-  GetPickDistributionQueryDto,
-  GetPickDistributionResponseDto,
-  GetPickLevelQueryDto,
-  GetPickLevelResponseDto,
   GetPhraseByLanguageQueryDto,
   GetPhraseByLanguageResponseDto,
   GetPhraseByStatusQueryDto,
   GetPhraseByStatusResponseDto,
+  GetPhraseSummaryQueryDto,
+  GetPhraseSummaryResponseDto,
   GetPhraseTimelineQueryDto,
   GetPhraseTimelineResponseDto,
+  GetPickDistributionQueryDto,
+  GetPickDistributionResponseDto,
+  GetPickLevelQueryDto,
+  GetPickLevelResponseDto,
 } from './dtos';
 import { PhraseStatsService } from './phrase-stats.service';
 
@@ -33,7 +28,7 @@ import { PhraseStatsService } from './phrase-stats.service';
 @RoleBaseAccessControl(true)
 @ApiBearerAuth()
 export class PhraseStatsController {
-  constructor(private readonly phraseStatsService: PhraseStatsService) { }
+  constructor(private readonly phraseStatsService: PhraseStatsService) {}
 
   @Get('summary')
   @SwaggerApiDocument({

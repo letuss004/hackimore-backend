@@ -6,25 +6,28 @@ import {
   GetAudioCoverageResponseDto,
   GetAudioRatingQueryDto,
   GetAudioRatingResponseDto,
-  GetPhraseSummaryQueryDto,
-  GetPhraseSummaryResponseDto,
-  GetPickDistributionQueryDto,
-  GetPickDistributionResponseDto,
-  GetPickLevelQueryDto,
-  GetPickLevelResponseDto,
   GetPhraseByLanguageQueryDto,
   GetPhraseByLanguageResponseDto,
   GetPhraseByStatusQueryDto,
   GetPhraseByStatusResponseDto,
+  GetPhraseSummaryQueryDto,
+  GetPhraseSummaryResponseDto,
   GetPhraseTimelineQueryDto,
   GetPhraseTimelineResponseDto,
+  GetPickDistributionQueryDto,
+  GetPickDistributionResponseDto,
+  GetPickLevelQueryDto,
+  GetPickLevelResponseDto,
 } from './dtos';
 
 @Injectable()
 export class PhraseStatsService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async getSummary(userId: number, query: GetPhraseSummaryQueryDto): Promise<GetPhraseSummaryResponseDto> {
+  async getSummary(
+    userId: number,
+    query: GetPhraseSummaryQueryDto,
+  ): Promise<GetPhraseSummaryResponseDto> {
     const phraseWhere: Prisma.PhraseWhereInput = { userId };
     if (query.createdAtRangeStart || query.createdAtRangeEnd) {
       phraseWhere.createdAt = {
@@ -113,13 +116,25 @@ export class PhraseStatsService {
           where: { ...where, pickedCount: { gt: 0 } },
           orderBy: { pickedCount: 'desc' },
           take: 10,
-          select: { id: true, content: true, language: true, status: true, pickedCount: true },
+          select: {
+            id: true,
+            content: true,
+            language: true,
+            status: true,
+            pickedCount: true,
+          },
         }),
         this.databaseService.phrase.findMany({
           where: { ...where, pickedCount: { gt: 0 } },
           orderBy: { pickedCount: 'asc' },
           take: 10,
-          select: { id: true, content: true, language: true, status: true, pickedCount: true },
+          select: {
+            id: true,
+            content: true,
+            language: true,
+            status: true,
+            pickedCount: true,
+          },
         }),
       ]);
 
@@ -133,7 +148,8 @@ export class PhraseStatsService {
 
     const buckets = bucketRanges.map(({ range, min, max }) => ({
       range,
-      count: allPhrases.filter((p) => p.pickedCount >= min && p.pickedCount <= max).length,
+      count: allPhrases.filter((p) => p.pickedCount >= min && p.pickedCount <= max)
+        .length,
     }));
 
     return {
@@ -247,7 +263,10 @@ export class PhraseStatsService {
     return { data };
   }
 
-  async getAudioRating(userId: number, query: GetAudioRatingQueryDto): Promise<GetAudioRatingResponseDto> {
+  async getAudioRating(
+    userId: number,
+    query: GetAudioRatingQueryDto,
+  ): Promise<GetAudioRatingResponseDto> {
     const audioWhere: Prisma.PhraseAudioWhereInput = {
       userId,
       ...(query.phraseId && { phraseId: query.phraseId }),
@@ -274,8 +293,8 @@ export class PhraseStatsService {
       }),
     ]);
 
-    const distributionRaw: Array<{ rating: number; count: bigint }> =
-      await this.databaseService.$queryRaw`
+    const distributionRaw: Array<{ rating: number; count: bigint }> = await this
+      .databaseService.$queryRaw`
         SELECT rating, COUNT(*) as count
         FROM "PhraseAudio"
         WHERE rating IS NOT NULL
@@ -296,8 +315,11 @@ export class PhraseStatsService {
       };
     });
 
-    const byLanguageRaw: Array<{ language: string | null; avg_rating: number; count: bigint }> =
-      await this.databaseService.$queryRaw`
+    const byLanguageRaw: Array<{
+      language: string | null;
+      avg_rating: number;
+      count: bigint;
+    }> = await this.databaseService.$queryRaw`
         SELECT p."language", AVG(pa.rating) as avg_rating, COUNT(pa.id) as count
         FROM "PhraseAudio" pa
         JOIN "Phrase" p ON p.id = pa."phraseId"
@@ -364,7 +386,10 @@ export class PhraseStatsService {
     };
   }
 
-  async getTimeline(userId: number, query: GetPhraseTimelineQueryDto): Promise<GetPhraseTimelineResponseDto> {
+  async getTimeline(
+    userId: number,
+    query: GetPhraseTimelineQueryDto,
+  ): Promise<GetPhraseTimelineResponseDto> {
     const granularity = query.granularity ?? 'day';
     const dateTrunc =
       granularity === 'month'
@@ -373,8 +398,8 @@ export class PhraseStatsService {
           ? Prisma.sql`'week'`
           : Prisma.sql`'day'`;
 
-    const phraseRaw: Array<{ period: Date; count: bigint }> =
-      await this.databaseService.$queryRaw`
+    const phraseRaw: Array<{ period: Date; count: bigint }> = await this.databaseService
+      .$queryRaw`
         SELECT DATE_TRUNC(${dateTrunc}, "createdAt") as period, COUNT(*) as count
         FROM "Phrase"
         WHERE TRUE
@@ -385,8 +410,8 @@ export class PhraseStatsService {
         ORDER BY period ASC
       `;
 
-    const audioRaw: Array<{ period: Date; count: bigint }> =
-      await this.databaseService.$queryRaw`
+    const audioRaw: Array<{ period: Date; count: bigint }> = await this.databaseService
+      .$queryRaw`
         SELECT DATE_TRUNC(${dateTrunc}, "createdAt") as period, COUNT(*) as count
         FROM "PhraseAudio"
         WHERE TRUE
@@ -427,18 +452,24 @@ export class PhraseStatsService {
       };
     }
 
-    const [totalPhrases, withAudioCount, totalAudiosForCovered, topPhrasesRaw, byLanguageRaw, byStatusRaw] =
-      await Promise.all([
-        this.databaseService.phrase.count({ where: phraseWhere }),
-        this.databaseService.phrase.count({
-          where: { ...phraseWhere, PhraseAudio: { some: {} } },
-        }),
-        this.databaseService.phraseAudio.count({
-          where: { Pharse: { ...phraseWhere } },
-        }),
-        this.databaseService.$queryRaw<
-          Array<{ phraseId: number; content: string; audio_count: bigint }>
-        >`
+    const [
+      totalPhrases,
+      withAudioCount,
+      totalAudiosForCovered,
+      topPhrasesRaw,
+      byLanguageRaw,
+      byStatusRaw,
+    ] = await Promise.all([
+      this.databaseService.phrase.count({ where: phraseWhere }),
+      this.databaseService.phrase.count({
+        where: { ...phraseWhere, PhraseAudio: { some: {} } },
+      }),
+      this.databaseService.phraseAudio.count({
+        where: { Pharse: { ...phraseWhere } },
+      }),
+      this.databaseService.$queryRaw<
+        Array<{ phraseId: number; content: string; audio_count: bigint }>
+      >`
           SELECT p.id as "phraseId", p.content, COUNT(pa.id) as audio_count
           FROM "Phrase" p
           LEFT JOIN "PhraseAudio" pa ON pa."phraseId" = p.id
@@ -448,9 +479,9 @@ export class PhraseStatsService {
           ORDER BY audio_count DESC
           LIMIT 10
         `,
-        this.databaseService.$queryRaw<
-          Array<{ language: string | null; total: bigint; with_audio: bigint }>
-        >`
+      this.databaseService.$queryRaw<
+        Array<{ language: string | null; total: bigint; with_audio: bigint }>
+      >`
           SELECT p."language",
                  COUNT(DISTINCT p.id) as total,
                  COUNT(DISTINCT pa."phraseId") as with_audio
@@ -460,9 +491,9 @@ export class PhraseStatsService {
             ${Prisma.sql`AND p."userId" = ${userId}`}
           GROUP BY p."language"
         `,
-        this.databaseService.$queryRaw<
-          Array<{ status: string | null; total: bigint; with_audio: bigint }>
-        >`
+      this.databaseService.$queryRaw<
+        Array<{ status: string | null; total: bigint; with_audio: bigint }>
+      >`
           SELECT p."status",
                  COUNT(DISTINCT p.id) as total,
                  COUNT(DISTINCT pa."phraseId") as with_audio
@@ -472,7 +503,7 @@ export class PhraseStatsService {
             ${Prisma.sql`AND p."userId" = ${userId}`}
           GROUP BY p."status"
         `,
-      ]);
+    ]);
 
     const withoutAudio = totalPhrases - withAudioCount;
     const coverageRate = totalPhrases > 0 ? (withAudioCount / totalPhrases) * 100 : 0;
@@ -496,7 +527,9 @@ export class PhraseStatsService {
       withoutAudio,
       coverageRate,
       avgAudioPerCoveredPhrase,
-      byLanguage: byLanguageRaw.map((r) => mapGroupItem(r.language, r.total, r.with_audio)),
+      byLanguage: byLanguageRaw.map((r) =>
+        mapGroupItem(r.language, r.total, r.with_audio),
+      ),
       byStatus: byStatusRaw.map((r) => mapGroupItem(r.status, r.total, r.with_audio)),
       phrasesWithMostAudio: topPhrasesRaw.map((r) => ({
         phraseId: r.phraseId,
@@ -506,7 +539,10 @@ export class PhraseStatsService {
     };
   }
 
-  async getPickLevel(userId: number, query: GetPickLevelQueryDto): Promise<GetPickLevelResponseDto> {
+  async getPickLevel(
+    userId: number,
+    query: GetPickLevelQueryDto,
+  ): Promise<GetPickLevelResponseDto> {
     const from = query.from ?? 1;
     const to = query.to ?? 5;
 

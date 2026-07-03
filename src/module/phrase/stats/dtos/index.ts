@@ -44,7 +44,12 @@ export class GetPickDistributionQueryDto {
   @PropertyDto({ type: Languages, required: false, validated: true, structure: 'enum' })
   language: Languages;
 
-  @PropertyDto({ type: PhraseStatus, required: false, validated: true, structure: 'enum' })
+  @PropertyDto({
+    type: PhraseStatus,
+    required: false,
+    validated: true,
+    structure: 'enum',
+  })
   status: PhraseStatus;
 
   @PropertyDto({ type: Date, required: false, validated: true })
@@ -110,7 +115,12 @@ export class GetPhraseByStatusResponseDto {
 // ****************************** By Language ******************************
 
 export class GetPhraseByLanguageQueryDto {
-  @PropertyDto({ type: PhraseStatus, required: false, validated: true, structure: 'enum' })
+  @PropertyDto({
+    type: PhraseStatus,
+    required: false,
+    validated: true,
+    structure: 'enum',
+  })
   status: PhraseStatus;
 
   @PropertyDto({ type: Date, required: false, validated: true })
