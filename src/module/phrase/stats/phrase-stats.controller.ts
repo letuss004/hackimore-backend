@@ -270,7 +270,7 @@ export class PhraseStatsController {
           </li>
           <li>
             Coverage breakdown by
-            <b>language</b> and <b>status</b>
+            <b>language</b>, <b>status</b>, and <b>pickedCount (<=3, <=5, <=10)</b>
           </li>
           <li>
             Top 10 phrases with the most audios

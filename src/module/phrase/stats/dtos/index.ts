@@ -269,6 +269,9 @@ export class GetAudioCoverageResponseDto {
   @PropertyDto({ type: AudioCoverageByGroupItemDto, structure: 'dtoArray' })
   byStatus: AudioCoverageByGroupItemDto[];
 
+  @PropertyDto({ type: AudioCoverageByGroupItemDto, structure: 'dtoArray' })
+  byPickLevel: AudioCoverageByGroupItemDto[];
+
   @PropertyDto({ type: CoverageTopPhraseDto, structure: 'dtoArray' })
   phrasesWithMostAudio: CoverageTopPhraseDto[];
 }

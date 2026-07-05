@@ -461,6 +461,7 @@ export class PhraseStatsService {
       topPhrasesRaw,
       byLanguageRaw,
       byStatusRaw,
+      pickLevelRaw,
     ] = await Promise.all([
       this.databaseService.phrase.count({ where: phraseWhere }),
       this.databaseService.phrase.count({
@@ -508,6 +509,29 @@ export class PhraseStatsService {
             ${Prisma.sql`AND p."userId" = ${userId}`}
           GROUP BY p."status"
         `,
+      this.databaseService.$queryRaw<
+        Array<{
+          total_3: bigint;
+          with_audio_3: bigint;
+          total_5: bigint;
+          with_audio_5: bigint;
+          total_10: bigint;
+          with_audio_10: bigint;
+        }>
+      >`
+          SELECT 
+            COUNT(DISTINCT CASE WHEN p."pickedCount" <= 3 THEN p.id END) as total_3,
+            COUNT(DISTINCT CASE WHEN p."pickedCount" <= 3 THEN pa."phraseId" END) as with_audio_3,
+            COUNT(DISTINCT CASE WHEN p."pickedCount" <= 5 THEN p.id END) as total_5,
+            COUNT(DISTINCT CASE WHEN p."pickedCount" <= 5 THEN pa."phraseId" END) as with_audio_5,
+            COUNT(DISTINCT CASE WHEN p."pickedCount" <= 10 THEN p.id END) as total_10,
+            COUNT(DISTINCT CASE WHEN p."pickedCount" <= 10 THEN pa."phraseId" END) as with_audio_10
+          FROM "Phrase" p
+          LEFT JOIN "PhraseAudio" pa ON pa."phraseId" = p.id
+          WHERE TRUE
+            ${Prisma.sql`AND p."status" = ${PhraseStatus.Active}::"PhraseStatus"`}
+            ${Prisma.sql`AND p."userId" = ${userId}`}
+        `,
     ]);
 
     const withoutAudio = totalPhrases - withAudioCount;
@@ -536,6 +560,23 @@ export class PhraseStatsService {
         mapGroupItem(r.language, r.total, r.with_audio),
       ),
       byStatus: byStatusRaw.map((r) => mapGroupItem(r.status, r.total, r.with_audio)),
+      byPickLevel: [
+        mapGroupItem(
+          '<= 3',
+          pickLevelRaw[0]?.total_3 ?? 0n,
+          pickLevelRaw[0]?.with_audio_3 ?? 0n,
+        ),
+        mapGroupItem(
+          '<= 5',
+          pickLevelRaw[0]?.total_5 ?? 0n,
+          pickLevelRaw[0]?.with_audio_5 ?? 0n,
+        ),
+        mapGroupItem(
+          '<= 10',
+          pickLevelRaw[0]?.total_10 ?? 0n,
+          pickLevelRaw[0]?.with_audio_10 ?? 0n,
+        ),
+      ],
       phrasesWithMostAudio: topPhrasesRaw.map((r) => ({
         phraseId: r.phraseId,
         content: r.content,
