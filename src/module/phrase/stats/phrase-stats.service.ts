@@ -36,7 +36,7 @@ export class PhraseStatsService {
       };
     }
 
-    const audioWhere: Prisma.PhraseAudioWhereInput = { userId };
+    const audioWhere: Prisma.PhraseAudioWhereInput = { Pharse: { userId } };
     if (query.createdAtRangeStart || query.createdAtRangeEnd) {
       audioWhere.createdAt = {
         gte: query.createdAtRangeStart,
@@ -268,7 +268,7 @@ export class PhraseStatsService {
     query: GetAudioRatingQueryDto,
   ): Promise<GetAudioRatingResponseDto> {
     const audioWhere: Prisma.PhraseAudioWhereInput = {
-      userId,
+      Pharse: { userId },
       ...(query.phraseId && { phraseId: query.phraseId }),
     };
     if (query.createdAtRangeStart || query.createdAtRangeEnd) {
@@ -295,13 +295,14 @@ export class PhraseStatsService {
 
     const distributionRaw: Array<{ rating: number; count: bigint }> = await this
       .databaseService.$queryRaw`
-        SELECT rating, COUNT(*) as count
-        FROM "PhraseAudio"
-        WHERE rating IS NOT NULL
-          ${Prisma.sql`AND "userId" = ${userId}`}
-          ${query.phraseId ? Prisma.sql`AND "phraseId" = ${query.phraseId}` : Prisma.empty}
-        GROUP BY rating
-        ORDER BY rating ASC
+        SELECT pa.rating, COUNT(*) as count
+        FROM "PhraseAudio" pa
+        JOIN "Phrase" p ON p.id = pa."phraseId"
+        WHERE pa.rating IS NOT NULL
+          ${Prisma.sql`AND p."userId" = ${userId}`}
+          ${query.phraseId ? Prisma.sql`AND pa."phraseId" = ${query.phraseId}` : Prisma.empty}
+        GROUP BY pa.rating
+        ORDER BY pa.rating ASC
       `;
 
     const ratingDistribution = Array.from({ length: 10 }, (_, i) => {
@@ -324,7 +325,7 @@ export class PhraseStatsService {
         FROM "PhraseAudio" pa
         JOIN "Phrase" p ON p.id = pa."phraseId"
         WHERE pa.rating IS NOT NULL
-          ${Prisma.sql`AND pa."userId" = ${userId}`}
+          ${Prisma.sql`AND p."userId" = ${userId}`}
         GROUP BY p."language"
       `;
 
@@ -338,7 +339,7 @@ export class PhraseStatsService {
         FROM "PhraseAudio" pa
         JOIN "Phrase" p ON p.id = pa."phraseId"
         WHERE pa.rating IS NOT NULL
-          ${Prisma.sql`AND pa."userId" = ${userId}`}
+          ${Prisma.sql`AND p."userId" = ${userId}`}
         GROUP BY pa."phraseId", p.content
         ORDER BY avg_rating DESC
         LIMIT 10
@@ -354,7 +355,7 @@ export class PhraseStatsService {
         FROM "PhraseAudio" pa
         JOIN "Phrase" p ON p.id = pa."phraseId"
         WHERE pa.rating IS NOT NULL
-          ${Prisma.sql`AND pa."userId" = ${userId}`}
+          ${Prisma.sql`AND p."userId" = ${userId}`}
         GROUP BY pa."phraseId", p.content
         ORDER BY avg_rating ASC
         LIMIT 10
@@ -412,12 +413,13 @@ export class PhraseStatsService {
 
     const audioRaw: Array<{ period: Date; count: bigint }> = await this.databaseService
       .$queryRaw`
-        SELECT DATE_TRUNC(${dateTrunc}, "createdAt") as period, COUNT(*) as count
-        FROM "PhraseAudio"
+        SELECT DATE_TRUNC(${dateTrunc}, pa."createdAt") as period, COUNT(*) as count
+        FROM "PhraseAudio" pa
+        JOIN "Phrase" p ON p.id = pa."phraseId"
         WHERE TRUE
-          ${Prisma.sql`AND "userId" = ${userId}`}
-          ${query.createdAtRangeStart ? Prisma.sql`AND "createdAt" >= ${query.createdAtRangeStart}` : Prisma.empty}
-          ${query.createdAtRangeEnd ? Prisma.sql`AND "createdAt" <= ${query.createdAtRangeEnd}` : Prisma.empty}
+          ${Prisma.sql`AND p."userId" = ${userId}`}
+          ${query.createdAtRangeStart ? Prisma.sql`AND pa."createdAt" >= ${query.createdAtRangeStart}` : Prisma.empty}
+          ${query.createdAtRangeEnd ? Prisma.sql`AND pa."createdAt" <= ${query.createdAtRangeEnd}` : Prisma.empty}
         GROUP BY period
         ORDER BY period ASC
       `;

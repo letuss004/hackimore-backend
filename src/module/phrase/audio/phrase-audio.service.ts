@@ -51,6 +51,7 @@ export class PhraseAudioService {
       data: {
         ...createAudioData,
         s3ObjectId: fileObject.id,
+        userId,
       },
       include: { S3Object: true },
     });
