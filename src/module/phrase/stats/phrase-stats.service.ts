@@ -446,7 +446,7 @@ export class PhraseStatsService {
     userId: number,
     query: GetAudioCoverageQueryDto,
   ): Promise<GetAudioCoverageResponseDto> {
-    const phraseWhere: Prisma.PhraseWhereInput = { userId };
+    const phraseWhere: Prisma.PhraseWhereInput = { userId, status: 'Active' };
     if (query.createdAtRangeStart || query.createdAtRangeEnd) {
       phraseWhere.createdAt = {
         gte: query.createdAtRangeStart,
@@ -476,6 +476,7 @@ export class PhraseStatsService {
           FROM "Phrase" p
           LEFT JOIN "PhraseAudio" pa ON pa."phraseId" = p.id
           WHERE TRUE
+            ${Prisma.sql`AND p."status" = 'Active'`}
             ${Prisma.sql`AND p."userId" = ${userId}`}
           GROUP BY p.id, p.content
           ORDER BY audio_count DESC
@@ -490,6 +491,7 @@ export class PhraseStatsService {
           FROM "Phrase" p
           LEFT JOIN "PhraseAudio" pa ON pa."phraseId" = p.id
           WHERE TRUE
+            ${Prisma.sql`AND p."status" = 'Active'`}
             ${Prisma.sql`AND p."userId" = ${userId}`}
           GROUP BY p."language"
         `,
@@ -502,6 +504,7 @@ export class PhraseStatsService {
           FROM "Phrase" p
           LEFT JOIN "PhraseAudio" pa ON pa."phraseId" = p.id
           WHERE TRUE
+            ${Prisma.sql`AND p."status" = 'Active'`}
             ${Prisma.sql`AND p."userId" = ${userId}`}
           GROUP BY p."status"
         `,
