@@ -60,7 +60,7 @@ export class PhraseStatsController {
     @User('id') userId: number,
     @Query() query: GetPhraseSummaryQueryDto,
   ): Promise<GetPhraseSummaryResponseDto> {
-    return this.phraseStatsService.getSummary(userId, query);
+    return this.phraseStatsService.getPhraseSummary(userId, query);
   }
 
   @Get('pick-distribution')
@@ -246,7 +246,7 @@ export class PhraseStatsController {
     @User('id') userId: number,
     @Query() query: GetPhraseTimelineQueryDto,
   ): Promise<GetPhraseTimelineResponseDto> {
-    return this.phraseStatsService.getTimeline(userId, query);
+    return this.phraseStatsService.getPhraseTimeline(userId, query);
   }
 
   @Get('audio-coverage')

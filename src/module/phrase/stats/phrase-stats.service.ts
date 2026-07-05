@@ -24,7 +24,7 @@ import {
 export class PhraseStatsService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async getSummary(
+  async getPhraseSummary(
     userId: number,
     query: GetPhraseSummaryQueryDto,
   ): Promise<GetPhraseSummaryResponseDto> {
@@ -387,7 +387,7 @@ export class PhraseStatsService {
     };
   }
 
-  async getTimeline(
+  async getPhraseTimeline(
     userId: number,
     query: GetPhraseTimelineQueryDto,
   ): Promise<GetPhraseTimelineResponseDto> {
