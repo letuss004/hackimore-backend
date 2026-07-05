@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Languages, PhraseStatus, Prisma } from '@prisma/client';
 import { DatabaseService } from 'src/module/base/database';
 import {
   GetAudioCoverageQueryDto,
@@ -73,14 +73,14 @@ export class PhraseStatsService {
     return {
       totalPhrases,
       totalByStatus: {
-        Active: getStatusCount('Active'),
-        Master: getStatusCount('Master'),
-        Deferred: getStatusCount('Deferred'),
+        Active: getStatusCount(PhraseStatus.Active),
+        Master: getStatusCount(PhraseStatus.Master),
+        Deferred: getStatusCount(PhraseStatus.Deferred),
       },
       totalByLanguage: {
-        English: getLangCount('English'),
-        Vietnamese: getLangCount('Vietnamese'),
-        Chinese: getLangCount('Chinese'),
+        English: getLangCount(Languages.English),
+        Vietnamese: getLangCount(Languages.Vietnamese),
+        Chinese: getLangCount(Languages.Chinese),
         unknown: getLangCount(null),
       },
       totalAudios,
@@ -446,7 +446,7 @@ export class PhraseStatsService {
     userId: number,
     query: GetAudioCoverageQueryDto,
   ): Promise<GetAudioCoverageResponseDto> {
-    const phraseWhere: Prisma.PhraseWhereInput = { userId, status: 'Active' };
+    const phraseWhere: Prisma.PhraseWhereInput = { userId, status: PhraseStatus.Active };
     if (query.createdAtRangeStart || query.createdAtRangeEnd) {
       phraseWhere.createdAt = {
         gte: query.createdAtRangeStart,
@@ -476,7 +476,7 @@ export class PhraseStatsService {
           FROM "Phrase" p
           LEFT JOIN "PhraseAudio" pa ON pa."phraseId" = p.id
           WHERE TRUE
-            ${Prisma.sql`AND p."status" = 'Active'`}
+            ${Prisma.sql`AND p."status" = ${PhraseStatus.Active}::"PhraseStatus"`}
             ${Prisma.sql`AND p."userId" = ${userId}`}
           GROUP BY p.id, p.content
           ORDER BY audio_count DESC
@@ -491,7 +491,7 @@ export class PhraseStatsService {
           FROM "Phrase" p
           LEFT JOIN "PhraseAudio" pa ON pa."phraseId" = p.id
           WHERE TRUE
-            ${Prisma.sql`AND p."status" = 'Active'`}
+            ${Prisma.sql`AND p."status" = ${PhraseStatus.Active}::"PhraseStatus"`}
             ${Prisma.sql`AND p."userId" = ${userId}`}
           GROUP BY p."language"
         `,
@@ -504,7 +504,7 @@ export class PhraseStatsService {
           FROM "Phrase" p
           LEFT JOIN "PhraseAudio" pa ON pa."phraseId" = p.id
           WHERE TRUE
-            ${Prisma.sql`AND p."status" = 'Active'`}
+            ${Prisma.sql`AND p."status" = ${PhraseStatus.Active}::"PhraseStatus"`}
             ${Prisma.sql`AND p."userId" = ${userId}`}
           GROUP BY p."status"
         `,
