@@ -4,6 +4,9 @@ import { PropertyDto } from 'src/decorator';
 // ****************************** Summary ******************************
 
 export class GetPhraseSummaryQueryDto {
+  @PropertyDto({ type: String, required: false, validated: true })
+  timezone?: string;
+
   @PropertyDto({ type: Date, required: false, validated: true })
   createdAtRangeStart: Date;
 
@@ -34,6 +37,7 @@ export class GetPhraseSummaryResponseDto {
   totalByLanguage: PhraseSummaryLanguageBreakdownDto;
 
   @PropertyDto() totalAudios: number;
+  @PropertyDto() totalAudiosToday: number;
   @PropertyDto() avgAudioPerPhrase: number;
   @PropertyDto() avgRating: number;
 }

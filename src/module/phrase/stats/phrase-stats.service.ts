@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { Languages, PhraseStatus, Prisma } from '@prisma/client';
 import { DatabaseService } from 'src/module/base/database';
+import * as moment from 'moment-timezone';
 import {
   GetAudioCoverageQueryDto,
   GetAudioCoverageResponseDto,
@@ -44,7 +45,13 @@ export class PhraseStatsService {
       };
     }
 
-    const [totalPhrases, statusGroups, languageGroups, totalAudios, audioAggregates] =
+    const timezone = query.timezone || 'UTC';
+    if (!moment.tz.zone(timezone)) {
+      throw new BadRequestException('Invalid timezone');
+    }
+    const startOfToday = moment.tz(timezone).startOf('day').toDate();
+
+    const [totalPhrases, statusGroups, languageGroups, totalAudios, totalAudiosToday, audioAggregates] =
       await Promise.all([
         this.databaseService.phrase.count({ where: phraseWhere }),
         this.databaseService.phrase.groupBy({
@@ -58,6 +65,12 @@ export class PhraseStatsService {
           _count: { id: true },
         }),
         this.databaseService.phraseAudio.count({ where: audioWhere }),
+        this.databaseService.phraseAudio.count({
+          where: {
+            Pharse: { userId },
+            createdAt: { gte: startOfToday },
+          },
+        }),
         this.databaseService.phraseAudio.aggregate({
           where: { ...audioWhere, rating: { not: null } },
           _avg: { rating: true },
@@ -84,6 +97,7 @@ export class PhraseStatsService {
         unknown: getLangCount(null),
       },
       totalAudios,
+      totalAudiosToday,
       avgAudioPerPhrase: totalPhrases > 0 ? totalAudios / totalPhrases : 0,
       avgRating: audioAggregates._avg.rating ?? 0,
     };
